@@ -1,0 +1,10 @@
+{
+  "dataset": "cd",
+  "installed_at_utc": "2026-08-29T13:06:13.663217+00:00",
+  "source": "baselines/models/pgpr/tmp/Amazon_CDs/paper_transe_e30_seed_123/transe_model_sd_epoch_30.ckpt",
+  "destination": "data/CDs_Vinyl/embedding_des_epoch_30.ckpt",
+  "source_seed": 123,
+  "source_epoch": 30,
+  "size_bytes": 237178382,
+  "note": "PGPR TransE state dictionary reused as CAFE KG initialization."
+}

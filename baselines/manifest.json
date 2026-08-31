@@ -1,0 +1,99 @@
+{
+  "paper": {
+    "title": "Cafe: Coarse-to-Fine Neural Symbolic Reasoning for Explainable Recommendation",
+    "arxiv": "2010.15620v1",
+    "dataset": "Amazon Beauty",
+    "split": "the public PGPR 70/30 split",
+    "evaluation": "full-ranking top-10 over all non-training items",
+    "metrics_percent": ["NDCG", "Recall", "HR", "Precision"],
+    "repetitions": 5
+  },
+  "baselines": [
+    {
+      "paper_name": "BPR",
+      "family": "MF-based",
+      "runner": "RecBole:BPR",
+      "implementation": "baselines/models/bpr.py",
+      "status": "runnable modern implementation"
+    },
+    {
+      "paper_name": "BPR-HFT",
+      "family": "MF-based/review",
+      "runner": "scripts/run_review_baselines.py:BPR-HFT",
+      "implementation": "baselines/models/bpr_hft_deepconn.py",
+      "status": "runnable declared common-protocol reimplementation",
+      "note": "Pairwise BPR plus an HFT-style item-topic review objective. The CAFE paper does not publish its exact code or hyperparameters."
+    },
+    {
+      "paper_name": "DeepCoNN",
+      "family": "MF-based/review",
+      "runner": "scripts/run_review_baselines.py:DeepCoNN",
+      "implementation": "baselines/models/bpr_hft_deepconn.py",
+      "status": "runnable declared common-protocol reimplementation",
+      "note": "Two review CNN encoders with a pairwise top-N objective. The CAFE paper does not publish its exact adaptation or hyperparameters."
+    },
+    {
+      "paper_name": "CKE",
+      "family": "KG embedding",
+      "runner": "RecBole:CKE",
+      "implementation": "baselines/models/cke.py",
+      "status": "runnable modern implementation"
+    },
+    {
+      "paper_name": "RippleNet",
+      "family": "KG embedding",
+      "runner": "RecBole:RippleNet",
+      "implementation": "baselines/models/ripplenet.py",
+      "status": "runnable modern implementation"
+    },
+    {
+      "paper_name": "KGAT",
+      "family": "KG embedding",
+      "runner": "RecBole:KGAT",
+      "implementation": "baselines/models/kgat.py",
+      "status": "runnable modern implementation"
+    },
+    {
+      "paper_name": "HeteroEmbed",
+      "family": "Path reasoning/Rec-First",
+      "runner": "scripts/run_paper_heteroembed.py",
+      "implementation": "baselines/models/heteroembed.py",
+      "status": "runnable PyTorch port of authors released code",
+      "note": "CAFE calls the authors CFKG/KBE4ER method HeteroEmbed; no RecBole proxy is reported."
+    },
+    {
+      "paper_name": "PGPR",
+      "family": "Path reasoning/Path-Guided",
+      "runner": "scripts/run_paper_pgpr.py",
+      "implementation": "baselines/models/pgpr",
+      "status": "included official implementation with documented compatibility patches",
+      "note": "Runs TransE, RL policy and top-10 evaluation sequentially per seed."
+    }
+  ],
+  "vendored_sources": {
+    "HeteroEmbed": {
+      "url": "https://github.com/evison/KBE4ExplainableRecommendation",
+      "commit": "6b460fe5436def931800ed291453c431b0fb427f"
+    },
+    "PGPR": {
+      "url": "https://github.com/orcax/PGPR",
+      "commit": "df6aac19c3adfb056f42abb9e5af44fc3fdaa0d5"
+    },
+    "KGAT": {
+      "url": "https://github.com/xiangwang1223/knowledge_graph_attention_network",
+      "commit": "c03737be46ac26a0b5431efe149828e982ffbbfb"
+    },
+    "RippleNet": {
+      "url": "https://github.com/hwwang55/RippleNet",
+      "commit": "46a364d6aa4e346111043924a4741a21d2ff09b6"
+    },
+    "RecBole": {
+      "url": "https://github.com/RUCAIBox/RecBole",
+      "tag": "v1.2.1",
+      "commit": "9a6f63d8d4a5b989fe27955a833f813a6d86041e",
+      "models_path": "baselines/models",
+      "framework_path": "baselines/recbole_core",
+      "local_patch": "KGAT DGL 2.x compatibility; registry trimmed to the four included models"
+    }
+  }
+}

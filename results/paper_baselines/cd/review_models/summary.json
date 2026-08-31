@@ -1,0 +1,29 @@
+{
+  "protocol": "review common-protocol",
+  "results": [
+    {
+      "model": "BPR-HFT",
+      "seeds": 5,
+      "ndcg_mean": 0.6974094622585414,
+      "ndcg_std": 0.012212152196140776,
+      "recall_mean": 0.8639491392883984,
+      "recall_std": 0.033611622165878596,
+      "hr_mean": 3.1013314199154904,
+      "hr_std": 0.08007929614562885,
+      "precision_mean": 0.38651040420951926,
+      "precision_std": 0.00924106239830848
+    },
+    {
+      "model": "DeepCoNN",
+      "seeds": 5,
+      "ndcg_mean": 1.4817883842012258,
+      "ndcg_std": 0.03225074885248996,
+      "recall_mean": 2.0051181954173094,
+      "recall_std": 0.03745581531717696,
+      "hr_mean": 5.746631587339552,
+      "hr_std": 0.08963681782910146,
+      "precision_mean": 0.685588243110367,
+      "precision_std": 0.013726700756432342
+    }
+  ]
+}

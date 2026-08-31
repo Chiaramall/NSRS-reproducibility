@@ -1,0 +1,12 @@
+{
+  "seeds": 5,
+  "standard_deviation": "sample standard deviation across seeds",
+  "ndcg_mean": 4.864,
+  "ndcg_std": 0.051768716422179166,
+  "recall_mean": 7.256,
+  "recall_std": 0.10014988766843434,
+  "hr_mean": 12.532,
+  "hr_std": 0.16452963258939132,
+  "precision_mean": 1.672,
+  "precision_std": 0.031144823004794854
+}

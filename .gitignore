@@ -1,0 +1,68 @@
+# Environments and editor state
+.venv*/
+venv/
+env/
+.idea/
+.vscode/
+*.swp
+
+# Python/build caches
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.coverage*
+build/
+dist/
+*.egg-info/
+
+# Runtime state
+tmp/
+log/
+log_tensorboard/
+*.log
+*.out
+*.pid
+*.lock
+*.tmp
+
+# Local orchestration
+systemd/
+
+# External and derived baseline assets
+baselines/vendor/*
+baselines/source/
+baselines/cache/
+baselines/work/
+baselines/data/*/*
+!baselines/data/*/metadata.json
+
+# Generated non-Beauty datasets: retain metadata/provenance only
+data/Cellphones_Accessories/*
+!data/Cellphones_Accessories/preprocessing_metadata.json
+!data/Cellphones_Accessories/*.provenance.json
+data/Clothing/*
+!data/Clothing/preprocessing_metadata.json
+!data/Clothing/*.provenance.json
+data/CDs_Vinyl/*
+!data/CDs_Vinyl/preprocessing_metadata.json
+!data/CDs_Vinyl/*.provenance.json
+
+# Large training artifacts. Keep the original Beauty initialization.
+*.ckpt
+*.pth
+*.pt
+*.pkl
+!data/Beauty/kg_embedding.ckpt
+
+# Papers are referenced bibliographically rather than redistributed.
+*.pdf
+
+# Result telemetry and model state
+results/**/checkpoints/
+results/**/artifacts/
+results/**/trials/
+results/**/logs/
+results/**/status.json
+results/**/complete.json

@@ -1,0 +1,20 @@
+{
+  "dataset": "beauty",
+  "dataset_token": "beauty_paper_tune",
+  "purpose": "inner validation for hyperparameter selection",
+  "outer_training_token": "beauty_paper",
+  "split_seed": 2020,
+  "validation_fraction_requested": 0.1,
+  "train_rows": 125646,
+  "valid_rows": 24198,
+  "test_rows": 24198,
+  "test_alias_of_validation": true,
+  "outer_test_never_used_for_selection": true,
+  "items": 12100,
+  "linked_items": 12100,
+  "inner_link_sha256": "915656c04d41f2dcd548fa2bc28a369a11a4c31760594cd124fb551c7d3751c0",
+  "inner_train_sha256": "589e01dbc16306937b3ba804393dc93331b301f2a42b4e348dd78a82ef6ae02d",
+  "inner_valid_sha256": "9276cda898bc6072ba3d1200c2e926b0ece8a24b21015ff1753f696a175a88d4",
+  "outer_train_sha256": "1051cf1c7411f26766358c93030f3f25d084023accfa7919acb7f9380c57229d",
+  "outer_test_sha256_recorded_only": "0f0758d38aaa1a1acb1a1be28da3c19b89d5507d40931e43ef79b65a336a3deb"
+}

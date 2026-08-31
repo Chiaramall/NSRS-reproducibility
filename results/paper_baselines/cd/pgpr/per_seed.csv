@@ -1,0 +1,6 @@
+dataset,model,seed,transe_epochs,agent_epochs,add_products,ndcg,recall,hr,precision,invalid_users
+cd,PGPR,123,30,50,True,3.125,3.765,9.756,1.154,0
+cd,PGPR,124,30,50,True,3.219,3.909,10.033,1.184,0
+cd,PGPR,125,30,50,True,3.171,3.893,9.999,1.187,0
+cd,PGPR,126,30,50,True,3.203,3.902,10.097,1.194,0
+cd,PGPR,127,30,50,True,3.241,3.961,10.145,1.207,0

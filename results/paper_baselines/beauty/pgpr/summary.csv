@@ -1,0 +1,2 @@
+model,seeds,ndcg_mean,ndcg_std,recall_mean,recall_std,hr_mean,hr_std,precision_mean,precision_std,invalid_users_mean
+PGPR,5,5.0048,0.6905231350215575,7.4866,1.19450190456106,13.1314,1.9108842979102632,1.5306000000000002,0.2585880894395563,0.0

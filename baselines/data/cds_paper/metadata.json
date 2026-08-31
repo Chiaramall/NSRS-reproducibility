@@ -1,0 +1,42 @@
+{
+  "dataset": "cd",
+  "dataset_token": "cds_paper",
+  "source_directory": "baselines/models/pgpr/data/Amazon_CDs",
+  "source_archive_sha256": "2269d25338843b355115d0a131c415795e658ef5c0d6abd001198617e401a5b2",
+  "split": {
+    "train_pairs": 804090,
+    "test_pairs": 293501,
+    "train_sha256": "4a1d2d01065b6b0c3ccb77a1a18304b5f03e8b96d78e34f54e00df4886f8c072",
+    "test_sha256": "1f34e793b61a480afbc4d9600db8cd57b9545f9e33c184c5b9bea3df5719e470"
+  },
+  "entity_counts": {
+    "user": 75258,
+    "product": 64443,
+    "word": 202959,
+    "related_product": 236255,
+    "brand": 1414,
+    "category": 770
+  },
+  "train_rows": 804090,
+  "valid_rows": 0,
+  "test_rows": 293501,
+  "items": 64443,
+  "kg_rows_without_users_or_purchase": 18963534,
+  "kg_relation_rows_including_inverse": {
+    "described_by": 10496678,
+    "produced_by": 26762,
+    "belongs_to": 933902,
+    "also_bought": 7383192,
+    "also_viewed": 34848,
+    "bought_together": 88152
+  },
+  "kg_reverse_r": false,
+  "review_scope": "training reviews only",
+  "review_filter": {
+    "tfidf_min": 0.1,
+    "global_word_frequency_max": 5000,
+    "documents": 804090,
+    "retained_reviews": 783216,
+    "retained_word_links_before_dedup": 6939506
+  }
+}

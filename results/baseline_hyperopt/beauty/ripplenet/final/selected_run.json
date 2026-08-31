@@ -1,0 +1,27 @@
+{
+  "final_fingerprint": "61384a32e4e7c20e",
+  "directory": "results/baseline_hyperopt/beauty/ripplenet/final/61384a32e4e7c20e",
+  "protocol_version": 2,
+  "dataset": "beauty",
+  "model": "RippleNet",
+  "params": {
+    "embedding_size": 64,
+    "learning_rate": 0.003,
+    "model_config": {
+      "n_hop": 3,
+      "n_memory": 16,
+      "kg_weight": 0.1,
+      "reg_weight": 1e-08
+    }
+  },
+  "selection_fingerprint": "1b2a9f9da479219b",
+  "final_recbole_epochs": 100,
+  "final_review_epochs": 20,
+  "final_seeds": [
+    123,
+    124,
+    125,
+    126,
+    127
+  ]
+}

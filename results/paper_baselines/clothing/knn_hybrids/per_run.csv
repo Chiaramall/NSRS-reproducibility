@@ -1,0 +1,4 @@
+dataset,model,split,deterministic,config_digest,neighbors,shrink,normalize,interaction_weighting,content_weighting,content_weight,ndcg,recall,hr,precision,seconds_evaluation
+clothing,ItemKNN-CF,outer,True,5671fb64b02a9a45,400,500.0,True,none,tfidf,,3.3842476551124863,5.178850247389583,7.840150303399598,0.8345393150024121,3.5137316950131208
+clothing,ItemKNN-CBF,outer,True,7f9b26bd454cdaa2,400,500.0,True,none,tfidf,,2.6237093840512538,4.382954926206731,6.372661030289181,0.6662096630868054,5.420587897999212
+clothing,ItemKNN-CFCBF,outer,True,a325589547a12e7f,200,100.0,True,bm25,bm25,1.0,3.2973918718671835,5.470037659465643,8.002640465128088,0.845202731865844,4.188246847013943

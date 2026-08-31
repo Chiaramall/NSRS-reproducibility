@@ -1,0 +1,6 @@
+dataset,model,seed,transe_epochs,agent_epochs,add_products,ndcg,recall,hr,precision,invalid_users
+clothing,PGPR,123,30,50,True,2.958,5.003,7.271,0.755,0
+clothing,PGPR,124,30,50,True,2.86,4.77,6.959,0.722,0
+clothing,PGPR,125,30,50,True,2.932,4.958,7.236,0.756,0
+clothing,PGPR,126,30,50,True,2.898,4.86,7.099,0.736,0
+clothing,PGPR,127,30,50,True,1.976,3.113,4.443,0.453,0

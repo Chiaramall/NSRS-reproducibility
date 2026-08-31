@@ -1,0 +1,35 @@
+{
+  "dataset": "beauty",
+  "model": "CKE",
+  "objective": "maximize inner-validation NDCG@10",
+  "trials_requested": 10,
+  "trials_completed": 8,
+  "best_validation_ndcg": 3.2300000000000004,
+  "params": {
+    "embedding_size": 100,
+    "learning_rate": 0.001,
+    "model_config": {
+      "kg_embedding_size": 100,
+      "reg_weights": [
+        0.001,
+        0.001
+      ]
+    }
+  },
+  "selection_fingerprint": "3764a09840f9f829",
+  "selection_protocol": {
+    "protocol_version": 2,
+    "dataset": "beauty",
+    "model": "CKE",
+    "inner_train_sha256": "589e01dbc16306937b3ba804393dc93331b301f2a42b4e348dd78a82ef6ae02d",
+    "inner_valid_sha256": "9276cda898bc6072ba3d1200c2e926b0ece8a24b21015ff1753f696a175a88d4",
+    "split_seed": 2020,
+    "tuning_seed": 123,
+    "tuning_epochs": 20,
+    "eval_step": 2,
+    "stopping_step": 3,
+    "train_batch_size": 2048,
+    "eval_batch_size": 4096
+  },
+  "outer_test_used_for_selection": false
+}

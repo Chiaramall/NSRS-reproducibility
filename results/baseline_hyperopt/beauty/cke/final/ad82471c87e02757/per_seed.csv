@@ -1,0 +1,6 @@
+dataset,model,seed,evaluation_split,best_valid_score,ndcg,recall,hr,precision,selected_params
+beauty,CKE,123,outer_test,,4.6899999999999995,7.049999999999999,12.1,1.63,"{""embedding_size"":100,""learning_rate"":0.001,""model_config"":{""kg_embedding_size"":100,""reg_weights"":[0.001,0.001]}}"
+beauty,CKE,124,outer_test,,4.72,7.12,12.31,1.6400000000000001,"{""embedding_size"":100,""learning_rate"":0.001,""model_config"":{""kg_embedding_size"":100,""reg_weights"":[0.001,0.001]}}"
+beauty,CKE,125,outer_test,,4.82,7.21,12.35,1.6500000000000001,"{""embedding_size"":100,""learning_rate"":0.001,""model_config"":{""kg_embedding_size"":100,""reg_weights"":[0.001,0.001]}}"
+beauty,CKE,126,outer_test,,4.72,7.140000000000001,12.32,1.63,"{""embedding_size"":100,""learning_rate"":0.001,""model_config"":{""kg_embedding_size"":100,""reg_weights"":[0.001,0.001]}}"
+beauty,CKE,127,outer_test,,4.75,7.140000000000001,12.36,1.63,"{""embedding_size"":100,""learning_rate"":0.001,""model_config"":{""kg_embedding_size"":100,""reg_weights"":[0.001,0.001]}}"

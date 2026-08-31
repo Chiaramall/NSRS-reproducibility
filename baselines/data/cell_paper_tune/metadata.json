@@ -1,0 +1,20 @@
+{
+  "dataset": "cell",
+  "dataset_token": "cell_paper_tune",
+  "purpose": "inner validation for hyperparameter selection",
+  "outer_training_token": "cell_paper",
+  "split_seed": 2020,
+  "validation_fraction_requested": 0.1,
+  "train_rows": 121656,
+  "valid_rows": 28392,
+  "test_rows": 28392,
+  "test_alias_of_validation": true,
+  "outer_test_never_used_for_selection": true,
+  "items": 10428,
+  "linked_items": 10428,
+  "inner_link_sha256": "af9b68a39be4efa0294d4d29d706ab3efbd21fcc0f5e1fe705018a41155c0356",
+  "inner_train_sha256": "72027c86a86b176368830a1b76a54a3b9298977df02d2c1ebc9d1ca4814ad34e",
+  "inner_valid_sha256": "93e413f19533fcb68204587a6d2fa8e75cdfb1f91237f75a95a04375b259c17e",
+  "outer_train_sha256": "2c090f1facfcb1381e98b838ebf9784ef0b2dd739f80a9762c919e2b3854d535",
+  "outer_test_sha256_recorded_only": "17b2c413b74e3492b9da3a60c2c8142e156907b0aa142058569e39f4adfa2de1"
+}

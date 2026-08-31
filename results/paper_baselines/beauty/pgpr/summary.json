@@ -1,0 +1,15 @@
+[
+  {
+    "model": "PGPR",
+    "seeds": 5,
+    "ndcg_mean": 5.0048,
+    "ndcg_std": 0.6905231350215575,
+    "recall_mean": 7.4866,
+    "recall_std": 1.19450190456106,
+    "hr_mean": 13.1314,
+    "hr_std": 1.9108842979102632,
+    "precision_mean": 1.5306000000000002,
+    "precision_std": 0.2585880894395563,
+    "invalid_users_mean": 0.0
+  }
+]

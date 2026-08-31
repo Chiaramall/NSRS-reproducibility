@@ -1,0 +1,13 @@
+{
+  "trial": 4,
+  "neighbors": 400,
+  "shrink": 500,
+  "normalize": true,
+  "interaction_weighting": "none",
+  "content_weighting": "tfidf",
+  "content_weight": 2.0,
+  "ndcg": 2.064237175740432,
+  "recall": 3.4372537556239036,
+  "hr": 3.4849139574489723,
+  "precision": 0.3484913957448972
+}

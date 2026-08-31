@@ -1,0 +1,20 @@
+{
+  "dataset": "clothing",
+  "dataset_token": "clothing_paper_tune",
+  "purpose": "inner validation for hyperparameter selection",
+  "outer_training_token": "clothing_paper",
+  "split_seed": 2020,
+  "validation_fraction_requested": 0.1,
+  "train_rows": 174788,
+  "valid_rows": 39908,
+  "test_rows": 39908,
+  "test_alias_of_validation": true,
+  "outer_test_never_used_for_selection": true,
+  "items": 23030,
+  "linked_items": 23030,
+  "inner_link_sha256": "8644b5fa67c4fb370de99658bec4b3548f7fb5fe05664ab3dc8f6239d9bc7d0d",
+  "inner_train_sha256": "cc103b723daae1f9461173cf883b57e554d82844d0fbc501082719a7d53c5e3c",
+  "inner_valid_sha256": "15e5957afc7b04308f4ad1fec937c100b97ca20e675c02bdbb7f062aa301ab5c",
+  "outer_train_sha256": "ccb4ad8094aef2579062d50c9c0ac85d6e5cc5ea406230fd51e8f33d464582f2",
+  "outer_test_sha256_recorded_only": "e42d11d4fff8144f4bd04dcea4df13106c7f4aebb5c100b942c0e55b8083809c"
+}

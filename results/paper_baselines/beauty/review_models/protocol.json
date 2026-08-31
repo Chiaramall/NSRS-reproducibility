@@ -1,0 +1,29 @@
+{
+  "status": "declared common-protocol reimplementation",
+  "paper_code_or_top_n_hyperparameters_available": false,
+  "split": "public PGPR/CAFE 70/30 train-test split",
+  "review_scope": "training reviews only",
+  "evaluation": "full-ranking top-10 over non-training items",
+  "metrics_percent": [
+    "ndcg",
+    "recall",
+    "hr",
+    "precision"
+  ],
+  "models": {
+    "BPR-HFT": "pairwise BPR plus HFT item-factor-to-topic transform and negative-sampled review likelihood",
+    "DeepCoNN": "separate user/item review CNNs with pairwise BPR top-N adaptation"
+  },
+  "hyperparameters": {
+    "epochs": 20,
+    "learning_rate": 0.001,
+    "weight_decay": 1e-05,
+    "embedding_size": 64,
+    "word_embedding_size": 64,
+    "cnn_filters": 64,
+    "cnn_kernel_size": 3,
+    "max_user_words": 256,
+    "max_item_words": 256,
+    "review_weight": 0.1
+  }
+}

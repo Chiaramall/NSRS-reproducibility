@@ -1,0 +1,4 @@
+dataset,model,split,deterministic,config_digest,neighbors,shrink,normalize,interaction_weighting,content_weighting,content_weight,ndcg,recall,hr,precision,seconds_evaluation
+cell,ItemKNN-CF,outer,True,5ee41b25762fbfa3,400,500.0,True,none,tfidf,,7.290409263617007,11.476042980889483,15.96183507299401,1.7844972918684314,1.7862601469969377
+cell,ItemKNN-CBF,outer,True,35875aafffb93558,400,500.0,True,none,tfidf,,3.0010022512220194,5.276668419842092,7.57918146274974,0.7805158004232577,2.3328683139989153
+cell,ItemKNN-CFCBF,outer,True,769ca96891acdfb8,100,0.0,False,none,none,0.1,6.383229902821305,9.943761360161393,13.741525879694393,1.5269557731625958,1.3702992220059969

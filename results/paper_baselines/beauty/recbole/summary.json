@@ -1,0 +1,62 @@
+[
+  {
+    "model": "BPR",
+    "seeds": 5,
+    "ndcg_mean": 4.35,
+    "ndcg_std": 0.0784219357067908,
+    "recall_mean": 6.595999999999999,
+    "recall_std": 0.09914635646356341,
+    "hr_mean": 11.47,
+    "hr_std": 0.20371548787463384,
+    "precision_mean": 1.532,
+    "precision_std": 0.02588435821108953
+  },
+  {
+    "model": "CKE",
+    "seeds": 5,
+    "ndcg_mean": 4.356,
+    "ndcg_std": 0.07231873892705806,
+    "recall_mean": 6.622,
+    "recall_std": 0.14060583202698237,
+    "hr_mean": 11.474,
+    "hr_std": 0.1320227253165154,
+    "precision_mean": 1.5219999999999998,
+    "precision_std": 0.0327108544675922
+  },
+  {
+    "model": "CFKG",
+    "seeds": 5,
+    "ndcg_mean": 3.3340000000000005,
+    "ndcg_std": 0.07334848328356888,
+    "recall_mean": 5.196,
+    "recall_std": 0.10644247272588128,
+    "hr_mean": 9.712,
+    "hr_std": 0.15238110119040343,
+    "precision_mean": 1.268,
+    "precision_std": 0.017888543819998333
+  },
+  {
+    "model": "KGAT",
+    "seeds": 5,
+    "ndcg_mean": 4.484,
+    "ndcg_std": 0.10737783756436885,
+    "recall_mean": 7.148000000000001,
+    "recall_std": 0.13572030061858867,
+    "hr_mean": 12.462,
+    "hr_std": 0.2747180372673041,
+    "precision_mean": 1.566,
+    "precision_std": 0.040373258476372666
+  },
+  {
+    "model": "RippleNet",
+    "seeds": 5,
+    "ndcg_mean": 2.052,
+    "ndcg_std": 0.08927485648266245,
+    "recall_mean": 3.37,
+    "recall_std": 0.15795568998931303,
+    "hr_mean": 6.4799999999999995,
+    "hr_std": 0.19874606914351786,
+    "precision_mean": 0.844,
+    "precision_std": 0.025099800796022177
+  }
+]

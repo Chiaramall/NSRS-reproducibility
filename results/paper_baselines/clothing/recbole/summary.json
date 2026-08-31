@@ -1,0 +1,50 @@
+[
+  {
+    "model": "BPR",
+    "seeds": 5,
+    "ndcg_mean": 1.116,
+    "ndcg_std": 0.03847076812334268,
+    "recall_mean": 1.8059999999999998,
+    "recall_std": 0.04615192303685733,
+    "hr_mean": 2.7380000000000004,
+    "hr_std": 0.0779102047231297,
+    "precision_mean": 0.292,
+    "precision_std": 0.008366600265340763
+  },
+  {
+    "model": "CKE",
+    "seeds": 5,
+    "ndcg_mean": 1.15,
+    "ndcg_std": 0.025495097567963948,
+    "recall_mean": 1.8780000000000001,
+    "recall_std": 0.051672042731055294,
+    "hr_mean": 2.864,
+    "hr_std": 0.04277849927241475,
+    "precision_mean": 0.306,
+    "precision_std": 0.005477225575051666
+  },
+  {
+    "model": "KGAT",
+    "seeds": 5,
+    "ndcg_mean": 1.584,
+    "ndcg_std": 0.01816590212458496,
+    "recall_mean": 2.844,
+    "recall_std": 0.028809720581775916,
+    "hr_mean": 4.234,
+    "hr_std": 0.03435112807463539,
+    "precision_mean": 0.44399999999999995,
+    "precision_std": 0.005477225575051635
+  },
+  {
+    "model": "RippleNet",
+    "seeds": 5,
+    "ndcg_mean": 0.544,
+    "ndcg_std": 0.028809720581775857,
+    "recall_mean": 1.004,
+    "recall_std": 0.05856620185738524,
+    "hr_mean": 1.5559999999999998,
+    "hr_std": 0.08384509526501836,
+    "precision_mean": 0.16399999999999998,
+    "precision_std": 0.008944271909999153
+  }
+]

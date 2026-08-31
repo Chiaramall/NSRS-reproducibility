@@ -1,0 +1,45 @@
+{
+  "dataset": "cd",
+  "source": "baselines/source/PGPR-datasets/Amazon_CDs",
+  "source_archive": "baselines/source/pgpr_amazon_datasets.download",
+  "source_archive_sha256": "2269d25338843b355115d0a131c415795e658ef5c0d6abd001198617e401a5b2",
+  "split": "official PGPR 70/30",
+  "train_rows": 804090,
+  "test_rows": 293501,
+  "train_ordered_sha256": "d36a0080403fc526500d2a393defbd9e5020b0bd1da4018840fcbd09f6e35818",
+  "test_ordered_sha256": "4c2fb287162f76ee394a10ed8757a650bcc8736b3d2c12e8cdddb396ed60d7d5",
+  "train_test_overlap": 0,
+  "entities_by_type": {
+    "user": 75258,
+    "product": 64443,
+    "word": 202959,
+    "brand": 1414,
+    "category": 770,
+    "related_product": 236255
+  },
+  "entities_total": 581099,
+  "relations": 16,
+  "cafe_triples_after_filter_and_dedup": 32722156,
+  "recbole_item_kg_rows": 18963534,
+  "recbole_kg_reverse_r": false,
+  "review_filter": {
+    "tfidf_min": 0.1,
+    "global_word_frequency_max": 5000,
+    "documents": 804090,
+    "retained_reviews": 783216,
+    "retained_word_links_before_dedup": 6939506,
+    "emitted_triples_before_dedup": 37791312
+  },
+  "paper_table_1": {
+    "users": 75258,
+    "items": 64443,
+    "interactions_reported": "1.10M",
+    "entities": 581105,
+    "triples": 387430000
+  },
+  "atomic_counts_verified": {
+    "train": true,
+    "test": true
+  },
+  "cafe_embedding": "not included in the public PGPR archive; train TransE before running CAFE preprocess.py"
+}

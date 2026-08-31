@@ -1,0 +1,125 @@
+{
+  "protocol": {
+    "dataset": "beauty",
+    "seed": 127,
+    "selection_metric": "mean NDCG over 10 program executions",
+    "lr": [
+      0.05,
+      0.1,
+      0.2
+    ],
+    "rank_weight": [
+      5.0,
+      10.0,
+      20.0
+    ],
+    "fixed": {
+      "epochs": 20,
+      "batch_size": 128,
+      "topk_candidates": 20,
+      "sample_size": 15
+    }
+  },
+  "results": [
+    {
+      "seed": 127,
+      "lr": 0.05,
+      "rank_weight": 5.0,
+      "ndcg": 6.5652,
+      "recall": 10.4417,
+      "hr": 17.4548,
+      "precision": 2.1708,
+      "source": "grid_run"
+    },
+    {
+      "seed": 127,
+      "lr": 0.05,
+      "rank_weight": 10.0,
+      "ndcg": 6.5036000000000005,
+      "recall": 10.2622,
+      "hr": 17.0545,
+      "precision": 2.1345,
+      "source": "grid_run"
+    },
+    {
+      "seed": 127,
+      "lr": 0.05,
+      "rank_weight": 20.0,
+      "ndcg": 5.4658999999999995,
+      "recall": 8.9767,
+      "hr": 15.0816,
+      "precision": 1.8763999999999998,
+      "source": "grid_run"
+    },
+    {
+      "seed": 127,
+      "lr": 0.1,
+      "rank_weight": 5.0,
+      "ndcg": 6.974200000000001,
+      "recall": 10.9495,
+      "hr": 18.1997,
+      "precision": 2.2960000000000003,
+      "source": "grid_run"
+    },
+    {
+      "seed": 127,
+      "lr": 0.1,
+      "rank_weight": 10.0,
+      "ndcg": 6.8299,
+      "recall": 10.7473,
+      "hr": 17.9251,
+      "precision": 2.2378,
+      "source": "reused_baseline"
+    },
+    {
+      "seed": 127,
+      "lr": 0.1,
+      "rank_weight": 20.0,
+      "ndcg": 6.4388000000000005,
+      "recall": 10.182599999999999,
+      "hr": 16.9207,
+      "precision": 2.1176,
+      "source": "grid_run"
+    },
+    {
+      "seed": 127,
+      "lr": 0.2,
+      "rank_weight": 5.0,
+      "ndcg": 7.0714,
+      "recall": 11.078,
+      "hr": 18.4587,
+      "precision": 2.322,
+      "source": "grid_run"
+    },
+    {
+      "seed": 127,
+      "lr": 0.2,
+      "rank_weight": 10.0,
+      "ndcg": 7.106199999999999,
+      "recall": 11.037,
+      "hr": 18.3228,
+      "precision": 2.2918,
+      "source": "grid_run"
+    },
+    {
+      "seed": 127,
+      "lr": 0.2,
+      "rank_weight": 20.0,
+      "ndcg": 6.7448999999999995,
+      "recall": 10.4571,
+      "hr": 17.3524,
+      "precision": 2.2028,
+      "source": "grid_run"
+    }
+  ],
+  "best": {
+    "seed": 127,
+    "lr": 0.2,
+    "rank_weight": 10.0,
+    "ndcg": 7.106199999999999,
+    "recall": 11.037,
+    "hr": 18.3228,
+    "precision": 2.2918,
+    "source": "grid_run"
+  }
+}

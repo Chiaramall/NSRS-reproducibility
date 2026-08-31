@@ -1,0 +1,22 @@
+# KGAT uses DGL. On this CUDA 12.4 environment install its graph stack with:
+# python -m pip install 'torch==2.4.0+cu124' 'torchdata==0.8.0' \
+#   'dgl==2.4.0+cu124' --extra-index-url https://download.pytorch.org/whl/cu124 \
+#   -f https://data.dgl.ai/wheels/torch-2.4/cu124/repo.html
+numpy==1.26.4
+scipy==1.12.0
+pandas==2.2.3
+scikit-learn==1.4.2
+tqdm
+PyYAML
+colorlog
+colorama
+tensorboard
+thop
+tabulate
+plotly
+texttable
+psutil
+easydict==1.13
+matplotlib==3.9.2
+hyperopt==0.2.7
+setuptools<81
