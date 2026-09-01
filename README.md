@@ -32,7 +32,6 @@ CAFE paper did not release their exact top-N code and hyperparameters.
   `baselines/models/`; RecBole support code is under `baselines/recbole_core/`.
 - `results/`: compact CSV/JSON results and selected configurations. Training
   logs, caches and checkpoints are not included.
-- `reports/`: the consolidated experimental report.
 - `tests/`: regression tests for the added baseline implementations.
 
 ## Environment
@@ -118,7 +117,12 @@ Paper reference values remain separate from local results:
 
 - paper values: `baselines/paper_table2_all_datasets.csv`;
 - local final summaries: `results/`;
-- consolidated discussion: `reports/`.
+- consolidated extended-evaluation tables:
+  `results/extended_evaluation/`.
+
+The provenance file stored with the consolidated tables distinguishes results
+verified against repository artifacts from values imported from the supplied
+study summary.
 
 Metrics are reported as percentages for NDCG@10, Recall@10, HR@10 and
 Precision@10.
