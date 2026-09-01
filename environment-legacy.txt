@@ -1,0 +1,9 @@
+Python 3.7.16
+TensorFlow GPU 1.15.0
+CUDA runtime 10.0
+cuDNN 7.6.5
+NumPy 1.18.5
+SciPy 1.4.1
+scikit-learn 0.22.1
+
+Environment path: .envs/kgat-legacy

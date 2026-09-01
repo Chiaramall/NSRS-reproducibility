@@ -1,0 +1,8 @@
+{
+  "model": "bpr",
+  "dataset": "amazon-book",
+  "topk": 20,
+  "recall": 0.1364935037146773,
+  "ndcg": 0.0731154440005367,
+  "epoch": 222
+}

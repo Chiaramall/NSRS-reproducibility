@@ -1,0 +1,8 @@
+Python 3.12.11
+PyTorch 2.7.0+cu126
+torch-geometric 2.6.1
+torch-scatter 2.1.2
+RecBole 1.2.1 (vendored under baselines/external/recbole)
+numpy, scipy, scikit-learn, networkx, prettytable, cppimport, setproctitle
+
+Environment path: .envs/editkg

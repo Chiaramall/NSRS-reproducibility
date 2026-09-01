@@ -1,0 +1,10 @@
+{
+  "generated_at_utc": "2026-09-01T08:15:00Z",
+  "protocol": "fixed validation screening",
+  "completed_configurations": 125,
+  "planned_configurations": 126,
+  "in_progress": "tune_yelp2018_kgcn_neighbor",
+  "metrics_file": "metrics/validation_screening.csv",
+  "final_test_results": false,
+  "note": "Validation metrics are an interim reproducibility artifact and must not be reported as final test results."
+}

@@ -1,0 +1,10 @@
+{
+  "model": "bpr",
+  "dataset": "last-fm",
+  "topk": 20,
+  "selected_epoch": 300,
+  "valid_recall": 0.10973760238133536,
+  "valid_ndcg": 0.06990313021074837,
+  "recall": 0.07292934903718899,
+  "ndcg": 0.04715655703295901
+}

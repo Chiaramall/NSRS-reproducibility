@@ -1,0 +1,10 @@
+{
+  "model": "bpr",
+  "dataset": "yelp2018",
+  "topk": 20,
+  "selected_epoch": 140,
+  "valid_recall": 0.0688555275752015,
+  "valid_ndcg": 0.03282038674144761,
+  "recall": 0.057065402753003584,
+  "ndcg": 0.029980073518126066
+}

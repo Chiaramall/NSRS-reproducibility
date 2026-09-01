@@ -1,0 +1,8 @@
+{
+  "model": "sgl",
+  "dataset": "amazon-book",
+  "topk": 20,
+  "recall": 0.17199766310263268,
+  "ndcg": 0.09413513859329725,
+  "epoch": 49
+}

@@ -1,0 +1,13 @@
+# model	source_basis	extra arguments passed to run_baseline.sh
+bpr	original paper and official defaults	--dim 64 --lr 0.01 --batch_size 1024 --l2 0.0025 --epochs 300 --output results/runs/paper_hparams
+gcmc	original paper	--embedding_size=75 --gcn_output_dim=500 --learning_rate=0.01 --train_batch_size=1024 --dropout_prob=0.3 --epochs=300 --eval_step=10
+lightgcn	original paper	--dim 64 --lr 0.001 --batch_size 1024 --layers 3 --l2 0.0001 --epochs 300 --output results/runs/paper_hparams
+sgl	original paper	--dim 64 --lr 0.001 --batch_size 2048 --layers 3 --l2 0.0001 --dropout 0.1 --temperature 0.2 --ssl_weight 0.1 --epochs 300 --output results/runs/paper_hparams
+cke	original paper and RecBole official defaults	--embedding_size=64 --kg_embedding_size=64 --learning_rate=0.001 --train_batch_size=2048 --reg_weights=[0.01,0.01] --epochs=300 --eval_step=10
+ktup	original paper and RecBole official defaults	--embedding_size=64 --learning_rate=0.001 --train_batch_size=2048 --margin=1.0 --kg_weight=1.0 --align_weight=1.0 --epochs=300 --eval_step=10
+kgcn	original paper and RecBole official defaults	--embedding_size=64 --learning_rate=0.001 --train_batch_size=2048 --n_iter=1 --neighbor_sample_size=4 --aggregator=sum --reg_weight=1e-7 --epochs=300 --eval_step=10
+kgat	official KGAT reproducibility command	--embed_size 64 --lr 0.0001 --epoch 300 --batch_size 1024 --layer_size [64,32,16] --regs [1e-5,1e-5] --node_dropout [0.1] --mess_dropout [0.1,0.1,0.1] --pretrain 0
+kgin	official implementation defaults	--dim 64 --lr 0.0001 --batch_size 1024 --epoch 300 --l2 1e-5 --sim_regularity 1e-4 --context_hops 3 --n_factors 4
+kgcl	official implementation defaults	--dim 64 --lr 0.001 --batch_size 1024 --epoch 300 --l2 1e-5 --mu 0.7 --tau 0.2 --cl_weight 0.1
+kgrec	official implementation dataset configuration	--dim 64 --lr 0.0001 --batch_size 1024 --epoch 300 --l2 1e-5 --mae_coef 0.1 --mae_msize 256 --cl_coef 0.01 --cl_tau 1.0 --cl_drop_ratio 0.5
+krdn	official implementation defaults	--dim 64 --lr 0.0001 --batch_size 4096 --epoch 300 --l2 1e-5 --gamma 0.3 --max_iter 1 --margin 0.8 --context_hops 2

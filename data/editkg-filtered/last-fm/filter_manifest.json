@@ -1,0 +1,16 @@
+{
+  "dataset": "last-fm",
+  "source": "last-fm/kg_final.txt",
+  "n_users": 23566,
+  "n_items": 48123,
+  "retained_triplets": 464567,
+  "paper_triplets": 464567,
+  "triplet_delta": 0,
+  "entities_used": 106389,
+  "source_max_entity_id_plus_one": 106389,
+  "max_entity_id_plus_one": 106389,
+  "entity_ids_compacted": false,
+  "item_ids_preserved": true,
+  "relations_used": 9,
+  "rule": "unchanged public EditKG KG"
+}

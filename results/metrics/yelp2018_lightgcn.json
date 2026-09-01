@@ -1,0 +1,10 @@
+{
+  "model": "lightgcn",
+  "dataset": "yelp2018",
+  "topk": 20,
+  "selected_epoch": 238,
+  "valid_recall": 0.07515482253734825,
+  "valid_ndcg": 0.035828402206539434,
+  "recall": 0.06101590365592408,
+  "ndcg": 0.032400630767536825
+}

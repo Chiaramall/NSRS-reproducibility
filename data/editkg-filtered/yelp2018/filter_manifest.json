@@ -1,0 +1,16 @@
+{
+  "dataset": "yelp2018",
+  "source": "yelp2018/kg_final.txt",
+  "n_users": 45919,
+  "n_items": 45538,
+  "retained_triplets": 869603,
+  "paper_triplets": 869603,
+  "triplet_delta": 0,
+  "entities_used": 47310,
+  "source_max_entity_id_plus_one": 136471,
+  "max_entity_id_plus_one": 47310,
+  "entity_ids_compacted": true,
+  "item_ids_preserved": true,
+  "relations_used": 42,
+  "rule": "head is an item"
+}

@@ -1,0 +1,43 @@
+model	tag	args
+bpr	paper	--dim 64 --lr 0.01 --batch_size 1024 --l2 0.0025
+bpr	common	--dim 128 --lr 0.0005 --batch_size 4096 --l2 0.00001
+bpr	balanced	--dim 64 --lr 0.001 --batch_size 2048 --l2 0.0001
+bpr	wide	--dim 128 --lr 0.001 --batch_size 2048 --l2 0.0001
+lightgcn	paper	--dim 64 --lr 0.001 --batch_size 1024 --layers 3 --l2 0.0001
+lightgcn	common	--dim 128 --lr 0.0005 --batch_size 4096 --layers 2 --l2 0.00001
+lightgcn	deep	--dim 128 --lr 0.001 --batch_size 2048 --layers 3 --l2 0.0001
+lightgcn	compact	--dim 64 --lr 0.0005 --batch_size 2048 --layers 2 --l2 0.00001
+sgl	paper	--dim 64 --lr 0.001 --batch_size 2048 --layers 3 --l2 0.0001 --dropout 0.1 --temperature 0.2 --ssl_weight 0.1
+sgl	common	--dim 128 --lr 0.0005 --batch_size 4096 --layers 2 --l2 0.00001 --dropout 0.1 --temperature 0.2 --ssl_weight 0.1
+sgl	strongssl	--dim 64 --lr 0.001 --batch_size 2048 --layers 3 --l2 0.0001 --dropout 0.2 --temperature 0.2 --ssl_weight 0.2
+sgl	lowdrop	--dim 128 --lr 0.001 --batch_size 2048 --layers 2 --l2 0.0001 --dropout 0.05 --temperature 0.1 --ssl_weight 0.1
+gcmc	paper	--embedding_size=75 --gcn_output_dim=500 --learning_rate=0.01 --train_batch_size=1024 --dropout_prob=0.3
+gcmc	common	--embedding_size=128 --gcn_output_dim=128 --learning_rate=0.0005 --train_batch_size=4096 --dropout_prob=0.1
+gcmc	compact	--embedding_size=64 --gcn_output_dim=256 --learning_rate=0.001 --train_batch_size=2048 --dropout_prob=0.3
+gcmc	regularized	--embedding_size=128 --gcn_output_dim=256 --learning_rate=0.001 --train_batch_size=2048 --dropout_prob=0.5
+cke	paper	--embedding_size=64 --kg_embedding_size=64 --learning_rate=0.001 --train_batch_size=2048 --reg_weights=[0.01,0.01]
+cke	common	--embedding_size=128 --kg_embedding_size=128 --learning_rate=0.0005 --train_batch_size=4096 --reg_weights=[0.00001,0.00001]
+cke	reglow	--embedding_size=64 --kg_embedding_size=64 --learning_rate=0.0005 --train_batch_size=2048 --reg_weights=[0.0001,0.0001]
+cke	wide	--embedding_size=128 --kg_embedding_size=128 --learning_rate=0.001 --train_batch_size=2048 --reg_weights=[0.001,0.001]
+ktup	paper	--embedding_size=64 --learning_rate=0.001 --train_batch_size=2048 --margin=1.0 --kg_weight=1.0 --align_weight=1.0
+ktup	common	--embedding_size=128 --learning_rate=0.0005 --train_batch_size=4096 --margin=1.0 --kg_weight=1.0 --align_weight=1.0
+ktup	lowmargin	--embedding_size=64 --learning_rate=0.0005 --train_batch_size=2048 --margin=0.5 --kg_weight=1.0 --align_weight=1.0
+ktup	lowalign	--embedding_size=128 --learning_rate=0.001 --train_batch_size=2048 --margin=1.0 --kg_weight=0.5 --align_weight=0.5
+kgcn	paper	--embedding_size=64 --learning_rate=0.001 --train_batch_size=2048 --n_iter=1 --neighbor_sample_size=4 --aggregator=sum --reg_weight=1e-7
+kgcn	common	--embedding_size=128 --learning_rate=0.0005 --train_batch_size=4096 --n_iter=1 --neighbor_sample_size=4 --aggregator=sum --reg_weight=1e-7
+kgcn	wider	--embedding_size=128 --learning_rate=0.001 --train_batch_size=2048 --n_iter=1 --neighbor_sample_size=8 --aggregator=sum --reg_weight=1e-7
+kgcn	deeper	--embedding_size=64 --learning_rate=0.0005 --train_batch_size=2048 --n_iter=2 --neighbor_sample_size=4 --aggregator=sum --reg_weight=1e-6
+bpr	regstrong	--dim 128 --lr 0.0005 --batch_size 2048 --l2 0.001
+bpr	fastlr	--dim 64 --lr 0.005 --batch_size 2048 --l2 0.0005
+lightgcn	shallow	--dim 128 --lr 0.001 --batch_size 2048 --layers 1 --l2 0.0001
+lightgcn	layer4	--dim 64 --lr 0.0005 --batch_size 2048 --layers 4 --l2 0.0001
+sgl	hightemp	--dim 64 --lr 0.001 --batch_size 2048 --layers 3 --l2 0.0001 --dropout 0.1 --temperature 0.5 --ssl_weight 0.1
+sgl	weakssl	--dim 128 --lr 0.0005 --batch_size 2048 --layers 2 --l2 0.0001 --dropout 0.1 --temperature 0.2 --ssl_weight 0.05
+gcmc	lowdrop	--embedding_size=64 --gcn_output_dim=500 --learning_rate=0.001 --train_batch_size=2048 --dropout_prob=0.1
+gcmc	wide	--embedding_size=128 --gcn_output_dim=500 --learning_rate=0.0005 --train_batch_size=2048 --dropout_prob=0.3
+cke	asymmetric	--embedding_size=64 --kg_embedding_size=128 --learning_rate=0.001 --train_batch_size=2048 --reg_weights=[0.0001,0.001]
+cke	regstrong	--embedding_size=128 --kg_embedding_size=64 --learning_rate=0.0005 --train_batch_size=2048 --reg_weights=[0.01,0.01]
+ktup	highmargin	--embedding_size=64 --learning_rate=0.001 --train_batch_size=2048 --margin=2.0 --kg_weight=1.0 --align_weight=1.0
+ktup	weakkg	--embedding_size=128 --learning_rate=0.0005 --train_batch_size=2048 --margin=1.0 --kg_weight=0.1 --align_weight=0.5
+kgcn	concat	--embedding_size=64 --learning_rate=0.001 --train_batch_size=2048 --n_iter=1 --neighbor_sample_size=8 --aggregator=concat --reg_weight=1e-7
+kgcn	neighbor	--embedding_size=128 --learning_rate=0.0005 --train_batch_size=2048 --n_iter=2 --neighbor_sample_size=4 --aggregator=neighbor --reg_weight=1e-6

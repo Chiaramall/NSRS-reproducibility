@@ -1,0 +1,10 @@
+{
+  "model": "sgl",
+  "dataset": "last-fm",
+  "topk": 20,
+  "selected_epoch": 125,
+  "valid_recall": 0.12280036229606138,
+  "valid_ndcg": 0.08220930613927863,
+  "recall": 0.07841314272356958,
+  "ndcg": 0.05128002609720355
+}

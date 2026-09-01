@@ -1,0 +1,10 @@
+{
+  "model": "sgl",
+  "dataset": "yelp2018",
+  "topk": 20,
+  "selected_epoch": 41,
+  "valid_recall": 0.0913396543147704,
+  "valid_ndcg": 0.044496598012813256,
+  "recall": 0.075984588030357,
+  "ndcg": 0.040537098961246014
+}

@@ -1,0 +1,11 @@
+{
+  "dataset": "amazon-book",
+  "seed": 2024,
+  "validation_ratio": 0.1,
+  "strategy": "per-user deterministic holdout; at least one training item retained",
+  "train_interactions": 559971,
+  "validation_interactions": 92543,
+  "validation_users": 70679,
+  "source": "../editkg-filtered/amazon-book",
+  "test_used_during_tuning": false
+}

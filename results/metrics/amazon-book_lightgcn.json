@@ -1,0 +1,8 @@
+{
+  "model": "lightgcn",
+  "dataset": "amazon-book",
+  "topk": 20,
+  "recall": 0.14310443449628452,
+  "ndcg": 0.07508400465194191,
+  "epoch": 300
+}
