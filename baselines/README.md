@@ -1,10 +1,8 @@
 # CAFE paper baselines on four Amazon datasets
 
-This directory separates two different artifacts:
-
-`paper_table2_all_datasets.csv` contains the Table 2 reference percentages for
-all four datasets; local runs remain separate under `results/paper_baselines/`
-and use the exact CAFE/PGPR split with full-ranking top-10 evaluation.
+Local runs are stored under `results/paper_baselines/` and use the exact
+CAFE/PGPR split with full-ranking top-10 evaluation. Published comparison
+values are included in `results/extended_evaluation/`.
 
 The paper compares CAFE with eight baselines:
 
@@ -38,8 +36,8 @@ Beauty remains the public CAFE dataset. The converter creates both CAFE-format
 folders (`data/Cellphones_Accessories`, `data/Clothing`, `data/CDs_Vinyl`)
 and RecBole tokens (`cell_paper`, `clothing_paper`, `cds_paper`). It uses only
 training review text, applies the official TF-IDF and frequency filters, writes
-inverse edges explicitly, and records source/split hashes in each metadata file. Reference results for
-all datasets are in `paper_table2_all_datasets.csv`.
+inverse edges explicitly, and records source/split hashes in each metadata
+file.
 
 ## Runnable common-protocol models
 

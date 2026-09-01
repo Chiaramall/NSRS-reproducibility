@@ -16,10 +16,8 @@ paper.
 - Official PGPR launcher.
 - ItemKNN-CF, ItemKNN-CBF and ItemKNN-CFCBF.
 
-The exact provenance of external implementations is recorded in
-[`baselines/manifest.json`](baselines/manifest.json). BPR-HFT and DeepCoNN
-are explicitly reported as common-protocol reimplementations because the
-CAFE paper did not release their exact top-N code and hyperparameters.
+BPR-HFT and DeepCoNN are reported as common-protocol reimplementations
+because the CAFE paper did not release their exact top-N code and hyperparameters.
 
 ## Repository layout
 
@@ -27,9 +25,9 @@ CAFE paper did not release their exact top-N code and hyperparameters.
 - `data/<domain>/preprocessing_metadata.json`: validated metadata for the
   additional domains. Their generated raw files are intentionally excluded.
 - `scripts/`: preprocessing, evaluation and hyperparameter-selection tools.
-- `baselines/`: protocol documentation, dependencies, paper reference values,
-  pinned external-source provenance and every baseline implementation under
-  `baselines/models/`; RecBole support code is under `baselines/recbole_core/`.
+- `baselines/`: protocol documentation, dependencies and every baseline
+  implementation under `baselines/models/`; RecBole support code is under
+  `baselines/recbole_core/`.
 - `results/`: compact CSV/JSON results and selected configurations. Training
   logs, caches and checkpoints are not included.
 - `tests/`: regression tests for the added baseline implementations.
@@ -51,8 +49,8 @@ requires a compatible DGL build; the tested versions are documented in
 
 Every evaluated baseline implementation is centralized in `baselines/models/`,
 including PGPR, HeteroEmbed, the review-aware models and ItemKNN extensions.
-The supporting RecBole engine is kept separately in `baselines/recbole_core/`. Other repositories listed in
-`baselines/manifest.json` are provenance references.
+The supporting RecBole engine and its upstream license are kept separately in
+`baselines/recbole_core/`.
 
 ## Data preparation
 
@@ -113,12 +111,12 @@ beside the result summaries.
 
 ## Results
 
-Paper reference values remain separate from local results:
+Local outputs and published comparison values are stored under `results/`.
+The consolidated tables are:
 
-- paper values: `baselines/paper_table2_all_datasets.csv`;
-- local final summaries: `results/`;
-- consolidated extended-evaluation tables:
-  `results/extended_evaluation/`.
+- `results/extended_evaluation/baseline_comparison.csv`;
+- `results/extended_evaluation/cafe_results.csv`;
+- `results/extended_evaluation/itemknn_comparison.csv`.
 
 The provenance file stored with the consolidated tables distinguishes results
 verified against repository artifacts from values imported from the supplied

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Run common CAFE-paper baselines with one full-ranking evaluator.
 
-This is a modern common-protocol reimplementation. Paper-reported reference
-numbers remain separate in baselines/paper_table2_all_datasets.csv.
+This is a modern common-protocol reimplementation. Published comparison values
+remain separate from runner outputs under results/extended_evaluation/.
 """
 
 from __future__ import annotations
