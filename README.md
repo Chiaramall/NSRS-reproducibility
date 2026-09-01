@@ -129,5 +129,4 @@ Precision@10.
 
 1. Yikun Xian et al. *CAFE: Coarse-to-Fine Neural Symbolic Reasoning for
    Explainable Recommendation*. CIKM 2020.
-2. Qingyao Ai et al. *Learning Heterogeneous Knowledge Base Embeddings for
-   Explainable Recommendation*. Algorithms 2018.
+
