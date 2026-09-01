@@ -12,13 +12,12 @@ This repository contains a reproducible evaluation of EditKG and its recommendat
 ├── baselines/
 │   ├── simple.py           # BPR, LightGCN, and SGL
 │   └── external/           # KG-aware baseline implementations
-├── configs/                # Paper and tuning configurations
+├── configs/                # Paper and runtime configurations
 ├── data/
 │   ├── editkg-filtered/    # Reconstructed paper-compatible datasets
 │   └── editkg-validation/  # Leakage-free validation views
-├── scripts/                # Preparation, training, and tuning commands
-├── results/                # Compact metrics and experiment outputs
-└── docs/                   # Paper reference and reproducibility report
+├── scripts/                # Data preparation and training commands
+└── results/                # Definitive machine-readable comparison
 ```
 
 ## Environment
@@ -55,20 +54,19 @@ GPU_ID=0 scripts/run_baseline.sh kgcn amazon-book
 
 Supported models are BPR, GC-MC, LightGCN, SGL, CKE, KTUP, KGCN, KGAT, KGIN, KGCL, KGRec, KRDN, and EditKG.
 
-## Validation and tuning
+## Validation data
 
 Validation interactions are removed from both the optimization data and the collaborative graph. The held-out test set is not used for hyperparameter selection.
 
 ```bash
 python scripts/prepare_validation_splits.py
-GPU_ID=0 python scripts/run_hybrid_tpe.py
 ```
-
-The hybrid protocol uses six initial configurations and up to four TPE proposals per model and dataset; KGAT uses eight observations overall. Screening is limited to 25 epochs with patience 4. The selected configuration is retrained for at most 150 epochs with patience 10 and evaluated on the test set once.
 
 ## Results
 
-Machine-readable metrics are stored under `results/metrics`. The complete experimental discussion and comparison with the paper are in `docs/reproducibility-report.md`. Large raw logs and checkpoints are intentionally excluded.
+The definitive comparison is stored in `results/paper_comparison.csv`. Each row reports the local mean and standard deviation together with the corresponding value published in the EditKG paper.
+
+EditKG closely reproduces the paper on all three datasets: Recall@20 differs by +2.53% on Last-FM, +0.37% on Amazon-Book, and -4.47% on Yelp2018. The supplied report does not contain final Yelp2018 values for KGAT or KRDN, so those rows are intentionally absent rather than inferred.
 
 ## Citation
 

@@ -8,7 +8,5 @@ torch
 torch-geometric
 torch-scatter
 recbole==1.2.1
-optuna
-hyperopt
 cppimport
 setproctitle
