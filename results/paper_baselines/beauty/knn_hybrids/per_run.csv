@@ -1,4 +1,0 @@
-dataset,model,split,deterministic,config_digest,neighbors,shrink,normalize,interaction_weighting,content_weighting,content_weight,ndcg,recall,hr,precision,seconds_evaluation
-beauty,ItemKNN-CF,outer,True,1bde95af088b8851,400,500.0,True,none,tfidf,,6.7494613891026605,9.7555855128623,16.48705450968117,2.1692080668962124,1.687592915026471
-beauty,ItemKNN-CBF,outer,True,e241ff04a23ea3f5,800,1000.0,True,tfidf,bm25,,5.58463905232556,8.62058776809585,14.881724276707061,1.8159459822027455,2.993682583037298
-beauty,ItemKNN-CFCBF,outer,True,dd9054c734f537c3,200,100.0,True,bm25,bm25,1.0,6.901176498520259,10.342369836575541,16.983410097035282,2.1794929123999465,1.6343867660034448

@@ -28,8 +28,8 @@ because the CAFE paper did not release their exact top-N code and hyperparameter
 - `baselines/`: protocol documentation, dependencies and every baseline
   implementation under `baselines/models/`; RecBole support code is under
   `baselines/recbole_core/`.
-- `results/`: compact CSV/JSON results and selected configurations. Training
-  logs, caches and checkpoints are not included.
+- `results/`: generated locally by the runners and ignored by Git. Numerical
+  results and comparison tables are maintained separately.
 - `tests/`: regression tests for the added baseline implementations.
 
 ## Environment
@@ -47,24 +47,12 @@ Install a PyTorch build appropriate for the local CUDA version. KGAT also
 requires a compatible DGL build; the tested versions are documented in
 `requirements.txt`.
 
-Every evaluated baseline implementation is centralized in `baselines/models/`,
-including PGPR, HeteroEmbed, the review-aware models and ItemKNN extensions.
-The supporting RecBole engine and its upstream license are kept separately in
-`baselines/recbole_core/`.
-
 ## Data preparation
 
-Beauty is distributed with the original CAFE repository. The other three
-domains are reconstructed from the public PGPR Amazon archive:
-
-```bash
-python scripts/prepare_all_amazon_datasets.py \
-  --datasets cell clothing cd --threads 4
-```
-
-The converter preserves the official split, prevents train/test overlap,
-uses training review text only and records hashes and counts in the generated
-metadata. See [`baselines/DATASETS.md`](baselines/DATASETS.md).
+Beauty's CAFE graph and initialization are included. Baselines also require
+the public PGPR review data; the other domains require conversion. Follow
+[Data preparation](baselines/DATASETS.md) first, including archive extraction
+and PGPR data links. The converters do not download the source archive.
 
 ## Running CAFE
 
@@ -85,45 +73,15 @@ python scripts/reproducibility.py all --dataset beauty --python python
 
 ## Baselines and tuning
 
-Examples:
+See [Baseline protocol and commands](baselines/README.md) for all model
+launchers, fixed-parameter runs, validation-based selection and output formats.
+The [implementation index](baselines/models/README.md) maps each model to its
+single implementation.
 
-```bash
-python scripts/run_paper_recbole.py \
-  --dataset beauty --models BPR CKE RippleNet KGAT
-
-python scripts/run_review_baselines.py \
-  --dataset beauty --models BPR-HFT DeepCoNN
-
-python scripts/run_knn_hybrids.py \
-  --datasets beauty cell clothing cd
-
-python scripts/run_paper_pgpr.py \
-  --dataset beauty --seeds 123 124 125 126 127 --gpu 0
-
-python scripts/tune_paper_baselines.py \
-  --datasets beauty cell clothing cd
-```
-
-Hyperparameters are selected using an inner validation split derived only
-from public training interactions. The outer test set is used only after
-selection. The full protocol is described in `baselines/README.md` and stored
-beside the result summaries.
-
-## Results
-
-Local outputs and published comparison values are stored under `results/`.
-The consolidated tables are:
-
-- `results/extended_evaluation/baseline_comparison.csv`;
-- `results/extended_evaluation/cafe_results.csv`;
-- `results/extended_evaluation/itemknn_comparison.csv`.
-
-The provenance file stored with the consolidated tables distinguishes results
-verified against repository artifacts from values imported from the supplied
-study summary.
-
-Metrics are reported as percentages for NDCG@10, Recall@10, HR@10 and
-Precision@10.
+Precomputed scores are not distributed. Runners create `results/` as needed,
+including per-run metrics, selected configurations and protocol records.
+Regenerate selections with the tuning commands before evaluating a selected
+configuration; numerical tables are maintained separately.
 
 ## References
 

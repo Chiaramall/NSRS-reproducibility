@@ -1,6 +1,0 @@
-dataset,model,seed,evaluation_split,best_valid_score,ndcg,recall,hr,precision,selected_params
-beauty,BPR,123,outer_test,,4.92,7.31,12.73,1.7000000000000002,"{""embedding_size"":100,""learning_rate"":0.001}"
-beauty,BPR,124,outer_test,,4.8,7.109999999999999,12.36,1.6400000000000001,"{""embedding_size"":100,""learning_rate"":0.001}"
-beauty,BPR,125,outer_test,,4.9,7.359999999999999,12.68,1.71,"{""embedding_size"":100,""learning_rate"":0.001}"
-beauty,BPR,126,outer_test,,4.82,7.199999999999999,12.41,1.6500000000000001,"{""embedding_size"":100,""learning_rate"":0.001}"
-beauty,BPR,127,outer_test,,4.88,7.3,12.479999999999999,1.66,"{""embedding_size"":100,""learning_rate"":0.001}"

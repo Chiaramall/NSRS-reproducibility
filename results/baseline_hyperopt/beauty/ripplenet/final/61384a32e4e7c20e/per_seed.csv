@@ -1,6 +1,0 @@
-dataset,model,seed,evaluation_split,best_valid_score,ndcg,recall,hr,precision,selected_params
-beauty,RippleNet,123,outer_test,,1.87,2.82,5.54,0.7799999999999999,"{""embedding_size"":64,""learning_rate"":0.003,""model_config"":{""kg_weight"":0.1,""n_hop"":3,""n_memory"":16,""reg_weight"":1e-08}}"
-beauty,RippleNet,124,outer_test,,1.94,2.91,5.81,0.8200000000000001,"{""embedding_size"":64,""learning_rate"":0.003,""model_config"":{""kg_weight"":0.1,""n_hop"":3,""n_memory"":16,""reg_weight"":1e-08}}"
-beauty,RippleNet,125,outer_test,,2.22,3.5000000000000004,6.7,0.89,"{""embedding_size"":64,""learning_rate"":0.003,""model_config"":{""kg_weight"":0.1,""n_hop"":3,""n_memory"":16,""reg_weight"":1e-08}}"
-beauty,RippleNet,126,outer_test,,2.4299999999999997,3.7600000000000002,7.23,0.95,"{""embedding_size"":64,""learning_rate"":0.003,""model_config"":{""kg_weight"":0.1,""n_hop"":3,""n_memory"":16,""reg_weight"":1e-08}}"
-beauty,RippleNet,127,outer_test,,1.77,2.55,5.25,0.74,"{""embedding_size"":64,""learning_rate"":0.003,""model_config"":{""kg_weight"":0.1,""n_hop"":3,""n_memory"":16,""reg_weight"":1e-08}}"

@@ -59,10 +59,6 @@ data/CDs_Vinyl/*
 # Papers are referenced bibliographically rather than redistributed.
 *.pdf
 
-# Result telemetry and model state
-results/**/checkpoints/
-results/**/artifacts/
-results/**/trials/
-results/**/logs/
-results/**/status.json
-results/**/complete.json
+# Generated experiment outputs (tables are maintained separately)
+/results/
+/baselines/models/pgpr/data/

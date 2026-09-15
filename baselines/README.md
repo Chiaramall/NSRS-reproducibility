@@ -1,54 +1,30 @@
 # CAFE paper baselines on four Amazon datasets
 
-Local runs are stored under `results/paper_baselines/` and use the exact
-CAFE/PGPR split with full-ranking top-10 evaluation. Published comparison
-values are included in `results/extended_evaluation/`.
+The paper baselines are BPR, BPR-HFT, DeepCoNN, CKE, RippleNet, KGAT,
+HeteroEmbed and PGPR. ItemKNN variants extend this comparison.
 
-The paper compares CAFE with eight baselines:
+## Evaluation protocol
 
-- MF/review: BPR, BPR-HFT, DeepCoNN.
-- KG embedding: CKE, RippleNet, KGAT.
-- Path reasoning: HeteroEmbed and PGPR.
+First follow [Data preparation](DATASETS.md). All commands below run from the
+repository root with the environment in the main README activated.
 
-## Data protocol
+Fixed-parameter baseline runners use the public training interactions and
+evaluate on the outer test split. The generated outer `valid` file is empty;
+these runs do not perform validation-based hyperparameter selection.
 
-The CAFE labels and the review-bearing PGPR data have exactly the same
-149,844 train pairs and 48,658 test pairs for 22,363 users. The converter
-preserves those pairs and creates RecBole atomic files:
+The tuning commands instead create an inner validation split from the public
+training set, select hyperparameters there, and refit on the full training
+set before final outer-test evaluation. Never select configurations by their
+outer-test scores.
 
-```bash
-.venv/bin/python scripts/prepare_paper_baselines.py
-```
-
-The generated `valid` file is intentionally empty. The runner trains for a
-fixed number of epochs without early stopping and evaluates only once on the
-untouched 30% test split. This avoids using test data for model selection.
-
-The three non-Beauty datasets can be verified and converted from the official
-PGPR files with:
-
-```bash
-.venv-baselines/bin/python scripts/prepare_all_amazon_datasets.py \
-  --datasets cell clothing cd
-```
-
-Beauty remains the public CAFE dataset. The converter creates both CAFE-format
-folders (`data/Cellphones_Accessories`, `data/Clothing`, `data/CDs_Vinyl`)
-and RecBole tokens (`cell_paper`, `clothing_paper`, `cds_paper`). It uses only
-training review text, applies the official TF-IDF and frequency filters, writes
-inverse edges explicitly, and records source/split hashes in each metadata
-file.
+Local baseline evaluation ranks unseen candidate items and reports NDCG@10,
+Recall@10, HR@10 and Precision@10 as percentages. PGPR obtains candidates from
+paths and optionally fills missing positions, as described below.
 
 ## Runnable common-protocol models
 
-The complete implementation index is `baselines/models/README.md`; scripts in
-`scripts/` are launchers and experiment utilities.
-
-
-The RecBole 1.2.1 implementations used for BPR, CKE, RippleNet and KGAT are
-exposed directly under `baselines/models/`. The supporting RecBole engine is
-bundled separately under `baselines/recbole_core/`. Install its runtime
-dependencies, then run:
+See [Model implementations](models/README.md) for the source files. Install the
+RecBole runtime dependencies, then run:
 
 ```bash
 python scripts/run_paper_recbole.py \
@@ -56,15 +32,10 @@ python scripts/run_paper_recbole.py \
   --seeds 123 124 125 126 127
 ```
 
-The runner imports the four files in `baselines/models/` through the supporting
-engine. The only model-source change is a DGL 2.x API compatibility update in
-KGAT; equations and objectives are otherwise those of RecBole 1.2.1. The MIT
-license is retained in `baselines/recbole_core/LICENSE`.
-
-HeteroEmbed uses the authors released objective via the modern PyTorch port:
+Run HeteroEmbed with:
 
 ```bash
-.venv-baselines/bin/python scripts/run_paper_heteroembed.py \
+python scripts/run_paper_heteroembed.py \
   --datasets beauty \
   --seeds 123 124 125 126 127 \
   --epochs 20 \
@@ -80,23 +51,15 @@ explicit common-protocol reimplementations rather than claiming exact
 reproduction of those two paper rows:
 
 ```bash
-.venv-baselines/bin/python scripts/run_review_baselines.py \
+python scripts/run_review_baselines.py \
   --dataset beauty \
   --models BPR-HFT DeepCoNN \
   --seeds 123 124 125 126 127
 ```
 
-Both models consume only the tokenized training reviews in the PGPR files and
-use the same untouched 30% test split and full-ranking evaluator as the other
-local baselines. BPR-HFT combines pairwise BPR with an HFT-style topic loss.
-DeepCoNN uses separate CNN encoders for user and item review documents and a
-pairwise top-N objective. Exact architectural and protocol choices are stored
-beside every result in `protocol.json`; paper reference numbers remain
-separate.
+Both models use training reviews and the shared full-ranking evaluator.
 
-PGPR is included under `baselines/models/pgpr/` and uses the official
-implementation at commit `df6aac19c3adfb056f42abb9e5af44fc3fdaa0d5`
-through the modern launcher:
+Run PGPR with:
 
 ```bash
 python scripts/run_paper_pgpr.py --dataset beauty \
@@ -107,5 +70,31 @@ The launcher runs preprocessing once, then TransE (30 epochs), the RL agent
 (50 epochs), and top-10 evaluation sequentially for each seed. It resumes from
 completed artifacts and writes per-seed values plus mean and sample standard
 deviation under `results/paper_baselines/<dataset>/pgpr/`. `--add-products` is enabled
-so every user receives ten recommendations; use `--no-add-products` only to
+to fill missing positions with scored unseen products; use `--no-add-products` only to
 replicate the legacy evaluator that drops users with fewer than ten paths.
+
+## ItemKNN extensions
+
+```bash
+python scripts/run_knn_hybrids.py --datasets beauty cell clothing cd
+```
+
+See [ItemKNN methodology](ITEMKNN_HYBRIDS.md) for features, similarity and
+validation isolation. [HeteroEmbed commands](HETEROEMBED.md) cover execution and tuning.
+
+## Hyperparameter selection
+
+```bash
+python scripts/tune_paper_baselines.py --datasets beauty cell clothing cd
+python scripts/tune_paper_heteroembed.py --datasets beauty cell clothing cd
+python scripts/tune_knn_hybrids.py --datasets beauty cell clothing cd
+```
+
+Use `--help` to inspect budgets and defaults. The first command covers the
+RecBole and review-aware models; HeteroEmbed and ItemKNN have dedicated tuners.
+PGPR uses the fixed settings documented above.
+
+## Generated outputs
+
+Runners write local metrics and protocol records below `results/`; tuners also
+write selected configurations there.

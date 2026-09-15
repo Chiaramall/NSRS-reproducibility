@@ -9,64 +9,53 @@ The paper evaluates four Amazon domains using the public PGPR 70/30 split:
 | `clothing` | Clothing | 214,696 | 63,981 | `data/Clothing` | `clothing_paper` |
 | `cd` | CDs & Vinyl | 804,090 | 293,501 | `data/CDs_Vinyl` | `cds_paper` |
 
-The official archive is stored at
-`baselines/source/pgpr_amazon_datasets.download` and has SHA-256:
+Download the public PGPR ZIP archive from the dataset link in the
+[upstream PGPR README](https://github.com/orcax/PGPR). Save it at
+`baselines/source/pgpr_amazon_datasets.download`.
 
-```text
-2269d25338843b355115d0a131c415795e658ef5c0d6abd001198617e401a5b2
+## Source setup
+
+Extract the archive and prepare the data:
+
+```bash
+mkdir -p baselines/source baselines/models/pgpr/data
+python -m zipfile -e baselines/source/pgpr_amazon_datasets.download baselines/source
+for domain in Amazon_Beauty Amazon_Cellphones Amazon_Clothing Amazon_CDs; do
+  ln -s ../../../source/PGPR-datasets/$domain baselines/models/pgpr/data/$domain
+done
+python scripts/prepare_paper_baselines.py
 ```
+
+The links expose the same raw data to the official PGPR code and the Beauty
+converter; review-aware models and ItemKNN read the extracted source directly.
 
 ## Validated preprocessing
 
 Run the non-Beauty conversion with:
 
 ```bash
-.venv-baselines/bin/python scripts/prepare_all_amazon_datasets.py \
+python scripts/prepare_all_amazon_datasets.py \
   --datasets cell clothing cd --threads 4
 ```
 
-The converter:
+The converter preserves the public train/test split, uses training reviews only,
+and generates CAFE graph files and RecBole atomic files.
 
-1. preserves the official train/test pairs exactly;
-2. verifies zero train/test overlap;
-3. uses training reviews only;
-4. applies the original PGPR filter (normalized per-review TF-IDF at least
-   `0.1`, global training-word frequency at most `5000`);
-5. writes explicit inverse relations and removes duplicate triples;
-6. creates both CAFE-compatible compressed graph files and RecBole atomic
-   files.
+## CAFE initialization for the additional domains
 
-On Beauty, the generated graph was compared as a set against the official
-CAFE graph: both contain 7,832,720 triples and the difference is empty.
-
-Per-dataset counts, checksums and filtering statistics are stored in
-`preprocessing_metadata.json` under each CAFE data directory and in
-`metadata.json` under each RecBole data directory.
-
-## Running baselines
-
-The common-protocol models accept any of the four dataset keys:
+The archive contains no pretrained CAFE initialization for the three additional
+domains. After conversion, train PGPR with seed 123 and install its completed
+100-dimensional, epoch-30 TransE checkpoint:
 
 ```bash
-.venv-baselines/bin/python scripts/run_paper_recbole.py \
-  --dataset cell \
-  --models BPR CKE RippleNet KGAT \
-  --seeds 123 124 125 126 127
+python scripts/run_paper_pgpr.py --dataset cell --seeds 123 --gpu 0
+python scripts/install_cafe_kg_embedding.py --dataset cell
+python preprocess.py --dataset cell
 ```
 
-The official PGPR launcher uses the same keys:
+Repeat with `clothing` and `cd`. The PGPR command also trains and evaluates its
+policy. These are regenerated initializations; the original paper checkpoints are
+unavailable.
 
-```bash
-.venv-baselines/bin/python scripts/run_paper_pgpr.py \
-  --dataset cell \
-  --seeds 123 124 125 126 127
-```
-
-## CAFE embedding boundary
-
-The public PGPR archive contains raw entities, reviews and product relations,
-but not the pretrained CAFE/HeteroEmbed checkpoints for Cell Phones,
-Clothing or CDs & Vinyl. The raw CAFE graphs and labels are prepared, but
-CAFE's original `preprocess.py` cannot finish until a compatible 100-dimensional
-TransE checkpoint is trained or obtained. This is intentionally recorded in
-the metadata rather than silently substituting an unrelated embedding.
+Continue with the training and execution commands in the main README,
+substituting the dataset key and a distinct run name.

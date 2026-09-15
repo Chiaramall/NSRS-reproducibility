@@ -1,6 +1,0 @@
-dataset,model,seed,transe_epochs,agent_epochs,add_products,ndcg,recall,hr,precision,invalid_users
-beauty,PGPR,123,30,50,True,5.569,8.422,14.542,1.722,0
-beauty,PGPR,124,30,50,True,5.527,8.374,14.604,1.748,0
-beauty,PGPR,125,30,50,True,4.257,6.251,11.134,1.26,0
-beauty,PGPR,126,30,50,True,5.427,8.276,14.43,1.686,0
-beauty,PGPR,127,30,50,True,4.244,6.11,10.947,1.237,0
