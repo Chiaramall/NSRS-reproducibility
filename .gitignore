@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*.orig
+.venv/
+.env
+.DS_Store
+/model/
+/log/
+/result/
+/tuning/
+/data/
+*.info.json
+*.train_group.csv
+*.vt_group.csv
