@@ -321,6 +321,7 @@ if __name__ == '__main__':
             [epoch, train_e_t - train_s_t, test_e_t - test_s_t, loss, ret['recall'], ret['ndcg'], ret['precision'], ret['hit_ratio']]
         )
         
+        os.makedirs('./results/runs', exist_ok=True)
         f = open('./results/runs/{}_exp_cxks_kg_xr_v2.txt'.format(args.dataset), 'a+')
         f.write(str(best_metric)+ '\n')
         f.write(str(best_epoch)+ '\n')

@@ -1,7 +1,30 @@
 # Data
 
-`editkg-filtered` contains the reconstructed datasets used for the strict EditKG reproduction. Each dataset directory contains `train.txt`, `test.txt`, `kg_final.txt`, identifier lists, and a filtering manifest.
+## Filtered datasets
 
-`editkg-validation` contains deterministic per-user validation views generated from the training set with seed 2024. At least one interaction remains in training for every user. Its `test.txt` file is the validation split expected by the official baseline loaders; `final_test.txt` points to the untouched held-out test set.
+`editkg-filtered/{last-fm,amazon-book,yelp2018}` contains `train.txt`, `test.txt`, `kg_final.txt`, identifier lists, and `filter_manifest.json`.
 
-The tuning code must use `editkg-validation`. Final evaluation must use `editkg-filtered`.
+The prepared artifacts can be used directly. To reconstruct them, first place the original benchmark files (`train.txt`, `test.txt`, `kg_final.txt`, `entity_list.txt`, `user_list.txt`, `item_list.txt`, and `relation_list.txt`) in `data/<dataset>/`, then run from the repository root:
+
+```bash
+python scripts/prepare_editkg_filtered.py
+```
+
+Raw benchmark dumps are not included in those source directories.
+
+## Validation views
+
+`editkg-validation` contains deterministic per-user holdouts from filtered training interactions (default ratio 10%, seed 2024), with at least one interaction retained for training per user:
+
+| File | Meaning |
+| --- | --- |
+| `train.txt` | Reduced training interactions used for optimization and graph construction |
+| `test.txt` | Validation interactions, named for compatibility with native loaders |
+| `final_test.txt` | Original held-out test interactions |
+| `validation_manifest.json` | Split settings and interaction counts |
+
+Regenerate from the repository root:
+
+```bash
+python scripts/prepare_validation_splits.py
+```

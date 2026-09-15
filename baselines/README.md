@@ -1,5 +1,19 @@
 # Baselines
 
-`simple.py` provides the integrated BPR, LightGCN, and SGL runners. `external` contains the source required for GC-MC, CKE, KTUP, KGCN, KGAT, KGIN, KGCL, KGRec, and KRDN.
+| Implementation | Launcher names |
+| --- | --- |
+| `simple.py` | `bpr`, `lightgcn`, `sgl` |
+| `external/recbole` | `gcmc`, `cke`, `ktup`, `kgcn` |
+| Native code under `external/` | `kgat`, `kgin`, `kgcl`, `kgrec`, `krdn` |
 
-All models are launched through `scripts/run_baseline.sh`, which gives them a common dataset root and evaluation interface while preserving model-specific hyperparameters.
+From the repository root, run `bash scripts/run_baseline.sh MODEL DATASET [extra arguments]`. The same launcher also accepts `editkg`.
+
+Pass overrides from [configs/paper_hyperparameters.tsv](../configs/paper_hyperparameters.tsv) explicitly; the launcher does **not** load them automatically. Example for LightGCN:
+
+```bash
+bash scripts/run_baseline.sh lightgcn last-fm \
+  --dim 64 --lr 0.001 --batch_size 1024 --layers 3 --l2 0.0001 \
+  --epochs 300 --output results/runs/paper_hparams
+```
+
+`configs/recbole_lastfm.yaml` is shared by all three datasets.

@@ -1,6 +1,6 @@
 # EditKG Reproducibility Study
 
-This repository contains a reproducible evaluation of EditKG and its recommendation baselines on Last-FM, Amazon-Book, and Yelp2018. It keeps the original model implementation separate from baseline code, dataset artifacts, experiment configuration, and reported metrics.
+Code, dataset artifacts, and experiment configurations for evaluating EditKG and its recommendation baselines on Last-FM, Amazon-Book, and Yelp2018.
 
 ## Repository layout
 
@@ -8,21 +8,16 @@ This repository contains a reproducible evaluation of EditKG and its recommendat
 .
 ├── main.py                 # EditKG training entry point
 ├── modules/                # EditKG model components
-├── utils/                  # EditKG loading and evaluation utilities
-├── baselines/
-│   ├── simple.py           # BPR, LightGCN, and SGL
-│   └── external/           # KG-aware baseline implementations
-├── configs/                # Paper and runtime configurations
-├── data/
-│   ├── editkg-filtered/    # Reconstructed paper-compatible datasets
-│   └── editkg-validation/  # Leakage-free validation views
-├── scripts/                # Data preparation and training commands
-└── results/                # Definitive machine-readable comparison
+├── utils/                  # Data loading, ranking, and metric functions
+├── baselines/              # Integrated runners and vendored implementations
+├── configs/                # Baseline hyperparameters and RecBole configuration
+├── data/                   # Filtered datasets and validation views
+└── scripts/                # Data preparation and model launchers
 ```
 
 ## Environment
 
-The main environment uses Python 3.12 and PyTorch. KGAT requires its legacy Python 3.7 and TensorFlow 1.15 environment and defaults to CPU because that TensorFlow/CUDA combination is not compatible with Ampere GPUs.
+Run the commands below from the repository root. The modern environment uses Python 3.12 and PyTorch; the recorded software versions are in [environment-modern.txt](environment-modern.txt).
 
 ```bash
 python3 -m venv .envs/editkg
@@ -30,43 +25,49 @@ source .envs/editkg/bin/activate
 pip install -r requirements.txt
 ```
 
-For exact versions, see `environment-modern.txt` and `environment-legacy.txt`.
+PyTorch and `torch-scatter` must use compatible builds for the target CUDA installation.
 
-## Running EditKG
+KGAT requires a separate Python 3.7 / TensorFlow 1.15 environment at `.envs/kgat-legacy`, or an interpreter supplied through `KGAT_PYTHON`. See [environment-legacy.txt](environment-legacy.txt). The launcher defaults KGAT to CPU because its TensorFlow/CUDA combination is incompatible with Ampere GPUs.
 
-```bash
-source .envs/editkg/bin/activate
-python main.py \
-  --dataset last-fm \
-  --data_path data/editkg-filtered/ \
-  --epoch 300 \
-  --batch_size 4096 \
-  --gpu_id 0 \
-  --Ks '[20]'
-```
+## Data
 
-## Running a baseline
+The prepared datasets are included in `data/editkg-filtered/`. [data/README.md](data/README.md) documents the reconstruction rules, source-file requirements, and validation file layout.
 
-```bash
-GPU_ID=0 scripts/run_baseline.sh lightgcn last-fm
-GPU_ID=0 scripts/run_baseline.sh kgcn amazon-book
-```
-
-Supported models are BPR, GC-MC, LightGCN, SGL, CKE, KTUP, KGCN, KGAT, KGIN, KGCL, KGRec, KRDN, and EditKG.
-
-## Validation data
-
-Validation interactions are removed from both the optimization data and the collaborative graph. The held-out test set is not used for hyperparameter selection.
+To regenerate validation views from the filtered training data:
 
 ```bash
 python scripts/prepare_validation_splits.py
 ```
 
-## Results
+## Running experiments
 
-The definitive comparison is stored in `results/paper_comparison.csv`. Each row reports the local mean and standard deviation together with the corresponding value published in the EditKG paper.
+Use the common launcher for EditKG and the baselines:
 
-EditKG closely reproduces the paper on all three datasets: Recall@20 differs by +2.53% on Last-FM, +0.37% on Amazon-Book, and -4.47% on Yelp2018. The supplied report does not contain final Yelp2018 values for KGAT or KRDN, so those rows are intentionally absent rather than inferred.
+```bash
+GPU_ID=0 bash scripts/run_baseline.sh editkg last-fm
+GPU_ID=0 bash scripts/run_baseline.sh lightgcn last-fm
+GPU_ID=0 bash scripts/run_baseline.sh kgcn amazon-book
+```
+
+The launcher defaults to `data/editkg-filtered`. Set `EDITKG_PYTHON` to use another modern Python interpreter. Supported baseline names and configuration overrides are documented in [baselines/README.md](baselines/README.md).
+
+For validation with a native runner, point it to the reduced training view:
+
+```bash
+EDITKG_DATA_ROOT="$PWD/data/editkg-validation" \
+  GPU_ID=0 bash scripts/run_baseline.sh editkg last-fm
+```
+
+## Evaluation protocol and metrics
+
+Report **Recall@20** and **NDCG@20**, averaged over users, with full-catalog ranking and training interactions excluded.
+
+- **EditKG and native baselines** evaluate `test.txt` from the selected data root: validation interactions in `editkg-validation`, held-out test interactions in `editkg-filtered`. Early stopping uses this split.
+- **RecBole baselines** divide that same `test.txt` into framework validation and test files; users with one held-out item appear in both. With the default data root, model selection therefore uses held-out test interactions. With `editkg-validation`, neither file is the final test set.
+
+Choose hyperparameters and training duration on validation, then retrain on the full filtered training set and evaluate the untouched test set at the fixed duration. The launcher does not automate this workflow.
+
+EditKG's `best_metric` reports independent maxima, which may come from different epochs. Report Recall and NDCG from the same selected epoch.
 
 ## Citation
 
