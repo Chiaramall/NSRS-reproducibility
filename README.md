@@ -73,6 +73,4 @@ The cleaned repository does not include historical results or claim to reproduce
   pages={1516--1527},
   year={2021}
 }
-```
 
-The original attribution is retained. No new license is assigned to the inherited code or datasets.
