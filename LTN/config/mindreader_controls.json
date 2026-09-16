@@ -1,0 +1,143 @@
+{
+  "mf": {
+    "1.0": {
+      "emb_size": 5,
+      "mf_bias": false,
+      "lr": 0.005,
+      "reg_coeff": 0.001,
+      "batch_size": 128,
+      "alpha": null,
+      "p": null
+    },
+    "0.8": {
+      "emb_size": 10,
+      "mf_bias": false,
+      "lr": 0.005,
+      "reg_coeff": 0.001,
+      "batch_size": 128,
+      "alpha": null,
+      "p": null
+    },
+    "0.6": {
+      "emb_size": 5,
+      "mf_bias": false,
+      "lr": 0.005,
+      "reg_coeff": 0.001,
+      "batch_size": 32,
+      "alpha": null,
+      "p": null
+    },
+    "0.4": {
+      "emb_size": 20,
+      "mf_bias": false,
+      "lr": 0.0005,
+      "reg_coeff": 0.001,
+      "batch_size": 128,
+      "alpha": null,
+      "p": null
+    },
+    "0.2": {
+      "emb_size": 20,
+      "mf_bias": false,
+      "lr": 0.005,
+      "reg_coeff": 0.001,
+      "batch_size": 128,
+      "alpha": null,
+      "p": null
+    }
+  },
+  "ltn": {
+    "1.0": {
+      "emb_size": 5,
+      "mf_bias": true,
+      "lr": 0.0005,
+      "reg_coeff": 0.001,
+      "batch_size": 64,
+      "alpha": 0.05,
+      "p": null
+    },
+    "0.8": {
+      "emb_size": 5,
+      "mf_bias": true,
+      "lr": 0.005,
+      "reg_coeff": 0.001,
+      "batch_size": 128,
+      "alpha": 0.05,
+      "p": null
+    },
+    "0.6": {
+      "emb_size": 5,
+      "mf_bias": true,
+      "lr": 0.005,
+      "reg_coeff": 0.001,
+      "batch_size": 128,
+      "alpha": 0.05,
+      "p": null
+    },
+    "0.4": {
+      "emb_size": 5,
+      "mf_bias": true,
+      "lr": 0.001,
+      "reg_coeff": 0.001,
+      "batch_size": 32,
+      "alpha": 0.05,
+      "p": null
+    },
+    "0.2": {
+      "emb_size": 10,
+      "mf_bias": true,
+      "lr": 0.005,
+      "reg_coeff": 0.001,
+      "batch_size": 64,
+      "alpha": 0.05,
+      "p": null
+    }
+  },
+  "ltn-genres": {
+    "1.0": {
+      "emb_size": 5,
+      "mf_bias": true,
+      "lr": 0.001,
+      "reg_coeff": 0.001,
+      "batch_size": 32,
+      "alpha": 0.05,
+      "p": 2
+    },
+    "0.8": {
+      "emb_size": 5,
+      "mf_bias": true,
+      "lr": 0.001,
+      "reg_coeff": 0.001,
+      "batch_size": 64,
+      "alpha": 0.05,
+      "p": 2
+    },
+    "0.6": {
+      "emb_size": 5,
+      "mf_bias": true,
+      "lr": 0.0005,
+      "reg_coeff": 0.001,
+      "batch_size": 32,
+      "alpha": 0.05,
+      "p": 5
+    },
+    "0.4": {
+      "emb_size": 20,
+      "mf_bias": true,
+      "lr": 0.005,
+      "reg_coeff": 0.001,
+      "batch_size": 128,
+      "alpha": 0.1,
+      "p": 5
+    },
+    "0.2": {
+      "emb_size": 20,
+      "mf_bias": true,
+      "lr": 0.005,
+      "reg_coeff": 0.001,
+      "batch_size": 64,
+      "alpha": 0.05,
+      "p": 5
+    }
+  }
+}

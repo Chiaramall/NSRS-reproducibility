@@ -1,0 +1,5 @@
+numpy==2.0.2
+pandas==2.3.3
+torch==2.8.0
+LTNtorch==1.0.0
+pytest==8.4.2

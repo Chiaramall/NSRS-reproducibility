@@ -1,0 +1,161 @@
+{
+  "data_root": "./data/movielens",
+  "output_root": "./benchmark_outputs/paper_compatible_smoke",
+  "datasets": [
+    "ml-100k"
+  ],
+  "models": [
+    "mf-mse",
+    "bpr-mf",
+    "ease",
+    "lightgcn",
+    "ltn",
+    "ltn-genres"
+  ],
+  "proportions": [
+    1.0,
+    0.2
+  ],
+  "positive_threshold": 4.0,
+  "negative_threshold": 2.0,
+  "min_train_positives": 1,
+  "final_seeds": 1,
+  "require_warm_start_targets": true,
+  "checkpoint_policy": "all",
+  "search": {
+    "strategy": "random",
+    "budget": 2,
+    "validation_seeds": 1,
+    "seed": 2026,
+    "objective": "hit@10"
+  },
+  "training": {
+    "max_epochs": 2,
+    "patience": 1,
+    "negative_samples": 0,
+    "genre_samples_per_user": 5
+  },
+  "ranking": {
+    "protocol": "sampled-100",
+    "negative_candidates": 100,
+    "candidate_seed": 2026,
+    "ks": [
+      10
+    ],
+    "user_batch_size": 128
+  },
+  "spaces": {
+    "mf-mse": {
+      "embedding_dim": [
+        20,
+        64
+      ],
+      "learning_rate": [
+        0.001
+      ],
+      "l2": [
+        0.0001
+      ],
+      "biased": [
+        false,
+        true
+      ],
+      "batch_size": [
+        512
+      ]
+    },
+    "bpr-mf": {
+      "embedding_dim": [
+        20,
+        64
+      ],
+      "learning_rate": [
+        0.001
+      ],
+      "l2": [
+        0.0001
+      ],
+      "biased": [
+        false
+      ],
+      "batch_size": [
+        512
+      ]
+    },
+    "ease": {
+      "regularization": [
+        100.0,
+        500.0
+      ]
+    },
+    "lightgcn": {
+      "embedding_dim": [
+        64
+      ],
+      "num_layers": [
+        1,
+        2
+      ],
+      "learning_rate": [
+        0.001
+      ],
+      "l2": [
+        0.0001
+      ],
+      "batch_size": [
+        1024
+      ]
+    },
+    "ltn": {
+      "embedding_dim": [
+        20,
+        64
+      ],
+      "learning_rate": [
+        0.001
+      ],
+      "l2": [
+        0.0001
+      ],
+      "biased": [
+        true
+      ],
+      "batch_size": [
+        512
+      ],
+      "alpha": [
+        0.05
+      ]
+    },
+    "ltn-genres": {
+      "embedding_dim": [
+        20,
+        64
+      ],
+      "learning_rate": [
+        0.001
+      ],
+      "l2": [
+        0.0001
+      ],
+      "biased": [
+        true
+      ],
+      "batch_size": [
+        512
+      ],
+      "alpha": [
+        0.05
+      ],
+      "p": [
+        2
+      ],
+      "genre_rule_weight": [
+        0.5
+      ],
+      "min_genre_support": [
+        1
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.log
+*.pth
+*.pt
+*.orig
+.DS_Store
+data/
+benchmark_outputs/
+*_outputs/
+saved_models*/
+results/*
+!results/results_mf_genres_extended_30_runs.json
+!results/results_ltn_extended_grid_30_runs.json
+!results/README.md
