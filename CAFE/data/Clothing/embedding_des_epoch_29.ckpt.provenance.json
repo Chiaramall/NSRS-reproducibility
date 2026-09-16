@@ -1,0 +1,10 @@
+{
+  "dataset": "clothing",
+  "installed_at_utc": "2026-08-29T13:06:12.056001+00:00",
+  "source": "baselines/models/pgpr/tmp/Amazon_Clothing/paper_transe_e30_seed_123/transe_model_sd_epoch_30.ckpt",
+  "destination": "data/Clothing/embedding_des_epoch_29.ckpt",
+  "source_seed": 123,
+  "source_epoch": 30,
+  "size_bytes": 174569422,
+  "note": "Clothing retains the epoch-29 filename expected by the released CAFE configuration; its contents are the completed epoch-30 checkpoint."
+}

@@ -1,0 +1,17 @@
+{
+  "dataset": "Amazon Beauty",
+  "dataset_token": "beauty_paper",
+  "split": {
+    "train_pairs": 149844,
+    "test_pairs": 48658,
+    "train_sha256": "e39a362896df353e164bf31500dc8ba7882c896ce6a222f033d2db494af2e68f",
+    "test_sha256": "e6e5a463ddb11a913e58c7a935713382943818e86d4ed532ca03082201be91be"
+  },
+  "train_rows": 149844,
+  "valid_rows": 0,
+  "test_rows": 48658,
+  "items": 12101,
+  "kg_rows_without_users_or_purchase": 4681124,
+  "kg_reverse_r": false,
+  "review_source": "baselines/models/pgpr/data/Amazon_Beauty"
+}

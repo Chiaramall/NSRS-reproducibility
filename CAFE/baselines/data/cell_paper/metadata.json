@@ -1,0 +1,42 @@
+{
+  "dataset": "cell",
+  "dataset_token": "cell_paper",
+  "source_directory": "baselines/models/pgpr/data/Amazon_Cellphones",
+  "source_archive_sha256": "2269d25338843b355115d0a131c415795e658ef5c0d6abd001198617e401a5b2",
+  "split": {
+    "train_pairs": 150048,
+    "test_pairs": 44391,
+    "train_sha256": "9960d4d03e2782d8d7b1b62607473880a2a3211c43ab0d43d25faba3892357ac",
+    "test_sha256": "81ff2dcf5475d4470764426d79886ae55a494d8ba07ac48ab71d83ec32140218"
+  },
+  "entity_counts": {
+    "user": 27879,
+    "product": 10429,
+    "word": 22493,
+    "related_product": 101287,
+    "brand": 955,
+    "category": 206
+  },
+  "train_rows": 150048,
+  "valid_rows": 0,
+  "test_rows": 44391,
+  "items": 10429,
+  "kg_rows_without_users_or_purchase": 3455930,
+  "kg_relation_rows_including_inverse": {
+    "described_by": 2150552,
+    "produced_by": 10836,
+    "belongs_to": 72786,
+    "also_bought": 1179008,
+    "also_viewed": 25860,
+    "bought_together": 16888
+  },
+  "kg_reverse_r": false,
+  "review_scope": "training reviews only",
+  "review_filter": {
+    "tfidf_min": 0.1,
+    "global_word_frequency_max": 5000,
+    "documents": 150048,
+    "retained_reviews": 148936,
+    "retained_word_links_before_dedup": 1370988
+  }
+}

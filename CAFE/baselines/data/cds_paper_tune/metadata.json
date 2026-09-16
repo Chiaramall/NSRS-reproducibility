@@ -1,0 +1,20 @@
+{
+  "dataset": "cd",
+  "dataset_token": "cds_paper_tune",
+  "purpose": "inner validation for hyperparameter selection",
+  "outer_training_token": "cds_paper",
+  "split_seed": 2020,
+  "validation_fraction_requested": 0.1,
+  "train_rows": 698083,
+  "valid_rows": 106007,
+  "test_rows": 106007,
+  "test_alias_of_validation": true,
+  "outer_test_never_used_for_selection": true,
+  "items": 64424,
+  "linked_items": 64424,
+  "inner_link_sha256": "0e1c332df816a17f6d2aa9e16d322e71bdd4b4b4c534f8ed21fd599c63a68269",
+  "inner_train_sha256": "9a2f9006272fe3c7941c91b19464ce1c1ab04c602b1bbd4a1e6482853d19a773",
+  "inner_valid_sha256": "ffd42e5937f507610c7ef9a721e465902b7d2c8611f956416a19f93aacf31d1f",
+  "outer_train_sha256": "fad52f38cbe4d2eb2d258d340dbb1d8a3960e107cb8199aff267f347da04a3b9",
+  "outer_test_sha256_recorded_only": "63c542e632e36e7632dd14b308c9823c7b41ce43632c8f3eb3978042d72f35b5"
+}

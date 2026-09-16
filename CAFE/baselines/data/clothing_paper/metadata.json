@@ -1,0 +1,42 @@
+{
+  "dataset": "clothing",
+  "dataset_token": "clothing_paper",
+  "source_directory": "baselines/models/pgpr/data/Amazon_Clothing",
+  "source_archive_sha256": "2269d25338843b355115d0a131c415795e658ef5c0d6abd001198617e401a5b2",
+  "split": {
+    "train_pairs": 214696,
+    "test_pairs": 63981,
+    "train_sha256": "2dbd7559b34ac5c53fa5b3ad5285acfa70c5afcf90c81ec97b9ef37cf0d0e353",
+    "test_sha256": "dfa7ae1808a713d2889498e0ec06b76d6496daab822f5aa5cc2343ffff81a31a"
+  },
+  "entity_counts": {
+    "user": 39387,
+    "product": 23033,
+    "word": 21366,
+    "related_product": 339367,
+    "brand": 1182,
+    "category": 1193
+  },
+  "train_rows": 214696,
+  "valid_rows": 0,
+  "test_rows": 63981,
+  "items": 23033,
+  "kg_rows_without_users_or_purchase": 6698594,
+  "kg_relation_rows_including_inverse": {
+    "described_by": 3233454,
+    "produced_by": 7928,
+    "belongs_to": 309666,
+    "also_bought": 2826284,
+    "also_viewed": 289588,
+    "bought_together": 31674
+  },
+  "kg_reverse_r": false,
+  "review_scope": "training reviews only",
+  "review_filter": {
+    "tfidf_min": 0.1,
+    "global_word_frequency_max": 5000,
+    "documents": 214696,
+    "retained_reviews": 212920,
+    "retained_word_links_before_dedup": 1915115
+  }
+}

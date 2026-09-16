@@ -1,0 +1,45 @@
+{
+  "dataset": "clothing",
+  "source": "baselines/source/PGPR-datasets/Amazon_Clothing",
+  "source_archive": "baselines/source/pgpr_amazon_datasets.download",
+  "source_archive_sha256": "2269d25338843b355115d0a131c415795e658ef5c0d6abd001198617e401a5b2",
+  "split": "official PGPR 70/30",
+  "train_rows": 214696,
+  "test_rows": 63981,
+  "train_ordered_sha256": "c84eb7a57ba96a8bc1b494fcc09cb7935398a551e52fdcc38e14eff96eb7f46e",
+  "test_ordered_sha256": "dc1e620b2813cf7d083f4e1465495f2725640e071641020a1dde656511100bb7",
+  "train_test_overlap": 0,
+  "entities_by_type": {
+    "user": 39387,
+    "product": 23033,
+    "word": 21366,
+    "brand": 1182,
+    "category": 1193,
+    "related_product": 339367
+  },
+  "entities_total": 425528,
+  "relations": 16,
+  "cafe_triples_after_filter_and_dedup": 10671090,
+  "recbole_item_kg_rows": 6698594,
+  "recbole_kg_reverse_r": false,
+  "review_filter": {
+    "tfidf_min": 0.1,
+    "global_word_frequency_max": 5000,
+    "documents": 214696,
+    "retained_reviews": 212920,
+    "retained_word_links_before_dedup": 1915115,
+    "emitted_triples_before_dedup": 11551440
+  },
+  "paper_table_1": {
+    "users": 39387,
+    "items": 23033,
+    "interactions_reported": "278.86K",
+    "entities": 425534,
+    "triples": 36370000
+  },
+  "atomic_counts_verified": {
+    "train": true,
+    "test": true
+  },
+  "cafe_embedding": "not included in the public PGPR archive; train TransE before running CAFE preprocess.py"
+}
