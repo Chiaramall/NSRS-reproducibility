@@ -1,0 +1,11 @@
+{
+  "dataset": "yelp2018",
+  "seed": 2024,
+  "validation_ratio": 0.1,
+  "strategy": "per-user deterministic holdout; at least one training item retained",
+  "train_interactions": 835176,
+  "validation_interactions": 94856,
+  "validation_users": 45919,
+  "source": "../editkg-filtered/yelp2018",
+  "test_used_during_tuning": false
+}

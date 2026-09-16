@@ -1,0 +1,16 @@
+{
+  "dataset": "amazon-book",
+  "source": "amazon-book/kg_final.txt",
+  "n_users": 70679,
+  "n_items": 24915,
+  "retained_triplets": 686517,
+  "paper_triplets": 686516,
+  "triplet_delta": 1,
+  "entities_used": 29707,
+  "source_max_entity_id_plus_one": 113487,
+  "max_entity_id_plus_one": 29707,
+  "entity_ids_compacted": true,
+  "item_ids_preserved": true,
+  "relations_used": 38,
+  "rule": "head or tail is an item; exclude relation 12 (is_reviewed)"
+}

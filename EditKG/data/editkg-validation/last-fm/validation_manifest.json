@@ -1,0 +1,11 @@
+{
+  "dataset": "last-fm",
+  "seed": 2024,
+  "validation_ratio": 0.1,
+  "strategy": "per-user deterministic holdout; at least one training item retained",
+  "train_interactions": 1159280,
+  "validation_interactions": 129723,
+  "validation_users": 23519,
+  "source": "../editkg-filtered/last-fm",
+  "test_used_during_tuning": false
+}

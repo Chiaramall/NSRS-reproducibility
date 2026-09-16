@@ -1,0 +1,12 @@
+numpy<2.0
+scipy
+scikit-learn
+networkx
+prettytable
+tqdm
+torch
+torch-geometric
+torch-scatter
+recbole==1.2.1
+cppimport
+setproctitle
