@@ -1,4 +1,3 @@
-# NSRS Reproducibility
 # Neuro-Symbolic Recommender Systems: Reproducibility
 
 This repository brings together four reproducibility studies on neuro-symbolic recommender systems. Each directory is an independent project with its own environment, datasets, evaluation protocol, and documentation.
@@ -9,6 +8,10 @@ This repository brings together four reproducibility studies on neuro-symbolic r
 | **LTNrec** — Logic Tensor Networks for recommendation | MindReader, MovieLens 100K and 1M | LTN variants and classical or neural baselines | [Local README](LTN/README.md) · [Standalone repository](https://github.com/Chiaramall/LTN-repro) |
 | **CAFE** — Coarse-to-Fine Neural Symbolic Reasoning | Four Amazon product domains | CAFE reproduction and extended baseline evaluation | [Local README](CAFE/README.md) · [Standalone repository](https://github.com/Chiaramall/CAFE-repro) |
 | **EditKG** — Editing Knowledge Graphs for recommendation | Last-FM, Amazon-Book, Yelp2018 | EditKG and knowledge-aware baselines | [Local README](EditKG/README.md) · [Standalone repository](https://github.com/Chiaramall/EDITKG-repro) |
+
+## Hyperparameter configurations
+
+Search spaces, optimization settings and selected parameters are grouped by model and dataset in one JSON per paper: [NCR](hyperparameters/NCR.json), [LTN](hyperparameters/LTN.json), [CAFE](hyperparameters/CAFE.json), [EditKG](hyperparameters/EditKG.json). Each model uses the same structure: optimization method and search ranges (`optimization`), followed by selected parameters (`best_hyperparameters`) grouped by dataset and, where applicable, training proportion or search procedure.
 
 ## Getting started
 

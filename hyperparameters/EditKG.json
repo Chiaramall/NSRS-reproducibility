@@ -1,0 +1,2509 @@
+{
+  "paper": "EditKG",
+  "models": {
+    "EditKG": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "editkg_only_tpe": {
+            "method": "Optuna TPE",
+            "search_space": {
+              "dim": [
+                64,
+                100,
+                128
+              ],
+              "lr": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001
+              ],
+              "context_hops": [
+                1,
+                2,
+                3
+              ],
+              "node_dropout_rate": [
+                0.3,
+                0.5,
+                0.75,
+                1.0
+              ],
+              "margin": [
+                0.1,
+                0.2,
+                0.5,
+                0.7
+              ],
+              "num_neg_sample": [
+                1,
+                2,
+                4
+              ],
+              "l2": [
+                1e-05,
+                0.0001,
+                0.001
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "dim": [
+            64,
+            100,
+            128
+          ],
+          "lr": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001
+          ],
+          "context_hops": [
+            1,
+            2,
+            3
+          ],
+          "node_dropout_rate": [
+            0.3,
+            0.5,
+            0.75,
+            1.0
+          ],
+          "margin": [
+            0.1,
+            0.2,
+            0.5,
+            0.7
+          ],
+          "num_neg_sample": [
+            1,
+            2,
+            4
+          ],
+          "l2": [
+            1e-05,
+            0.0001,
+            0.001
+          ]
+        },
+        "author_confirmed_values": {
+          "last-fm": {
+            "batch_size": [
+              64
+            ]
+          },
+          "amazon-book": {
+            "lr": [
+              0.005
+            ]
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "lr": 0.0001,
+          "batch_size": 64,
+          "dim": 128,
+          "context_hops": 2,
+          "node_dropout_rate": 0.5,
+          "margin": 0.2,
+          "num_neg_sample": 2,
+          "l2": 0.001
+        },
+        "amazon-book": {
+          "dim": 128,
+          "lr": 0.005,
+          "context_hops": 3,
+          "node_dropout_rate": 0.75,
+          "margin": 0.5,
+          "num_neg_sample": 4,
+          "l2": 0.0001
+        },
+        "yelp2018": {
+          "dim": 128,
+          "lr": 0.0003,
+          "context_hops": 2,
+          "node_dropout_rate": 0.5,
+          "margin": 0.2,
+          "num_neg_sample": 2,
+          "l2": 0.0001
+        }
+      }
+    },
+    "ItemKNN-CBF": {
+      "optimization": {
+        "method": "explicit joint grid",
+        "objective": "validation Recall@20",
+        "search_space": {
+          "columns": [
+            "neighbors",
+            "shrink",
+            "normalize",
+            "interaction_weighting",
+            "content_weighting",
+            "content_weight"
+          ],
+          "configurations": [
+            [
+              50,
+              0.0,
+              true,
+              "none",
+              "none",
+              1.0
+            ],
+            [
+              100,
+              10.0,
+              true,
+              "tfidf",
+              "tfidf",
+              0.5
+            ],
+            [
+              200,
+              100.0,
+              true,
+              "bm25",
+              "bm25",
+              1.0
+            ],
+            [
+              400,
+              500.0,
+              true,
+              "none",
+              "tfidf",
+              2.0
+            ],
+            [
+              800,
+              1000.0,
+              true,
+              "tfidf",
+              "bm25",
+              10.0
+            ],
+            [
+              100,
+              0.0,
+              false,
+              "none",
+              "none",
+              0.1
+            ]
+          ]
+        },
+        "tie_breaker": "validation NDCG@20"
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "itemknn_editkg": {
+            "neighbors": 800,
+            "shrink": 1000.0,
+            "normalize": true,
+            "interaction_weighting": "tfidf",
+            "content_weighting": "bm25",
+            "content_weight": 10.0
+          },
+          "itemknn_strict_v2": {
+            "neighbors": 800,
+            "shrink": 1000.0,
+            "normalize": true,
+            "interaction_weighting": "tfidf",
+            "content_weighting": "bm25",
+            "content_weight": 10.0
+          }
+        },
+        "amazon-book": {
+          "itemknn_editkg": {
+            "neighbors": 800,
+            "shrink": 1000.0,
+            "normalize": true,
+            "interaction_weighting": "tfidf",
+            "content_weighting": "bm25",
+            "content_weight": 10.0
+          }
+        },
+        "yelp2018": {
+          "itemknn_editkg": {
+            "neighbors": 800,
+            "shrink": 1000.0,
+            "normalize": true,
+            "interaction_weighting": "tfidf",
+            "content_weighting": "bm25",
+            "content_weight": 10.0
+          }
+        }
+      }
+    },
+    "ItemKNN-CF": {
+      "optimization": {
+        "method": "explicit joint grid",
+        "objective": "validation Recall@20",
+        "search_space": {
+          "columns": [
+            "neighbors",
+            "shrink",
+            "normalize",
+            "interaction_weighting",
+            "content_weighting",
+            "content_weight"
+          ],
+          "configurations": [
+            [
+              50,
+              0.0,
+              true,
+              "none",
+              "none",
+              1.0
+            ],
+            [
+              100,
+              10.0,
+              true,
+              "tfidf",
+              "tfidf",
+              0.5
+            ],
+            [
+              200,
+              100.0,
+              true,
+              "bm25",
+              "bm25",
+              1.0
+            ],
+            [
+              400,
+              500.0,
+              true,
+              "none",
+              "tfidf",
+              2.0
+            ],
+            [
+              800,
+              1000.0,
+              true,
+              "tfidf",
+              "bm25",
+              10.0
+            ],
+            [
+              100,
+              0.0,
+              false,
+              "none",
+              "none",
+              0.1
+            ]
+          ]
+        },
+        "tie_breaker": "validation NDCG@20"
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "itemknn_editkg": {
+            "neighbors": 200,
+            "shrink": 100.0,
+            "normalize": true,
+            "interaction_weighting": "bm25",
+            "content_weighting": "bm25",
+            "content_weight": 1.0
+          },
+          "itemknn_strict_v2": {
+            "neighbors": 200,
+            "shrink": 100.0,
+            "normalize": true,
+            "interaction_weighting": "bm25",
+            "content_weighting": "bm25",
+            "content_weight": 1.0
+          }
+        },
+        "amazon-book": {
+          "itemknn_editkg": {
+            "neighbors": 800,
+            "shrink": 1000.0,
+            "normalize": true,
+            "interaction_weighting": "tfidf",
+            "content_weighting": "bm25",
+            "content_weight": 10.0
+          }
+        },
+        "yelp2018": {
+          "itemknn_editkg": {
+            "neighbors": 800,
+            "shrink": 1000.0,
+            "normalize": true,
+            "interaction_weighting": "tfidf",
+            "content_weighting": "bm25",
+            "content_weight": 10.0
+          }
+        }
+      }
+    },
+    "ItemKNN-CFCBF": {
+      "optimization": {
+        "method": "explicit joint grid",
+        "objective": "validation Recall@20",
+        "search_space": {
+          "columns": [
+            "neighbors",
+            "shrink",
+            "normalize",
+            "interaction_weighting",
+            "content_weighting",
+            "content_weight"
+          ],
+          "configurations": [
+            [
+              50,
+              0.0,
+              true,
+              "none",
+              "none",
+              1.0
+            ],
+            [
+              100,
+              10.0,
+              true,
+              "tfidf",
+              "tfidf",
+              0.5
+            ],
+            [
+              200,
+              100.0,
+              true,
+              "bm25",
+              "bm25",
+              1.0
+            ],
+            [
+              400,
+              500.0,
+              true,
+              "none",
+              "tfidf",
+              2.0
+            ],
+            [
+              800,
+              1000.0,
+              true,
+              "tfidf",
+              "bm25",
+              10.0
+            ],
+            [
+              100,
+              0.0,
+              false,
+              "none",
+              "none",
+              0.1
+            ]
+          ]
+        },
+        "tie_breaker": "validation NDCG@20"
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "itemknn_editkg": {
+            "neighbors": 200,
+            "shrink": 100.0,
+            "normalize": true,
+            "interaction_weighting": "bm25",
+            "content_weighting": "bm25",
+            "content_weight": 1.0
+          },
+          "itemknn_strict_v2": {
+            "neighbors": 800,
+            "shrink": 1000.0,
+            "normalize": true,
+            "interaction_weighting": "tfidf",
+            "content_weighting": "bm25",
+            "content_weight": 10.0
+          }
+        },
+        "amazon-book": {
+          "itemknn_editkg": {
+            "neighbors": 200,
+            "shrink": 100.0,
+            "normalize": true,
+            "interaction_weighting": "bm25",
+            "content_weighting": "bm25",
+            "content_weight": 1.0
+          }
+        },
+        "yelp2018": {
+          "itemknn_editkg": {
+            "neighbors": 100,
+            "shrink": 0.0,
+            "normalize": false,
+            "interaction_weighting": "none",
+            "content_weighting": "none",
+            "content_weight": 0.1
+          }
+        }
+      }
+    },
+    "bpr": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "paper_hparams_tuning": {
+            "method": "explicit candidate screening",
+            "search_space": {
+              "configurations": [
+                {
+                  "dim": 64,
+                  "lr": 0.01,
+                  "batch_size": 1024,
+                  "l2": 0.0025
+                },
+                {
+                  "dim": 128,
+                  "lr": 0.0005,
+                  "batch_size": 4096,
+                  "l2": 1e-05
+                },
+                {
+                  "dim": 64,
+                  "lr": 0.001,
+                  "batch_size": 2048,
+                  "l2": 0.0001
+                },
+                {
+                  "dim": 128,
+                  "lr": 0.001,
+                  "batch_size": 2048,
+                  "l2": 0.0001
+                },
+                {
+                  "dim": 128,
+                  "lr": 0.0005,
+                  "batch_size": 2048,
+                  "l2": 0.001
+                },
+                {
+                  "dim": 64,
+                  "lr": 0.005,
+                  "batch_size": 2048,
+                  "l2": 0.0005
+                }
+              ]
+            }
+          },
+          "hyperopt_random": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003,
+                0.005,
+                0.01
+              ],
+              "batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "l2": [
+                1e-05,
+                0.0001,
+                0.0005,
+                0.001,
+                0.0025
+              ]
+            }
+          },
+          "strict_tuned": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003,
+                0.005,
+                0.01
+              ],
+              "batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "l2": [
+                1e-05,
+                0.0001,
+                0.0005,
+                0.001,
+                0.0025
+              ]
+            }
+          },
+          "strict_v2": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003,
+                0.005,
+                0.01
+              ],
+              "batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "l2": [
+                1e-05,
+                0.0001,
+                0.0005,
+                0.001,
+                0.0025
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "dim": [
+            64,
+            128
+          ],
+          "lr": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001,
+            0.003,
+            0.005,
+            0.01
+          ],
+          "batch_size": [
+            1024,
+            2048,
+            4096
+          ],
+          "l2": [
+            1e-05,
+            0.0001,
+            0.0005,
+            0.001,
+            0.0025
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "dim": 128,
+          "lr": 0.0005,
+          "batch_size": 2048,
+          "l2": 0.0001
+        },
+        "amazon-book": {
+          "paper_hparams_tuning": {
+            "dim": 128,
+            "lr": 0.001,
+            "batch_size": 2048,
+            "l2": 0.0001
+          }
+        },
+        "yelp2018": {
+          "paper_hparams_tuning": {
+            "dim": 128,
+            "lr": 0.001,
+            "batch_size": 2048,
+            "l2": 0.0001
+          }
+        }
+      }
+    },
+    "cke": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "paper_hparams_tuning": {
+            "method": "explicit candidate screening",
+            "search_space": {
+              "configurations": [
+                {
+                  "embedding_size": 64,
+                  "kg_embedding_size": 64,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "reg_weights": [
+                    0.01,
+                    0.01
+                  ]
+                },
+                {
+                  "embedding_size": 128,
+                  "kg_embedding_size": 128,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 4096,
+                  "reg_weights": [
+                    1e-05,
+                    1e-05
+                  ]
+                },
+                {
+                  "embedding_size": 64,
+                  "kg_embedding_size": 64,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 2048,
+                  "reg_weights": [
+                    0.0001,
+                    0.0001
+                  ]
+                },
+                {
+                  "embedding_size": 128,
+                  "kg_embedding_size": 128,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "reg_weights": [
+                    0.001,
+                    0.001
+                  ]
+                },
+                {
+                  "embedding_size": 64,
+                  "kg_embedding_size": 128,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "reg_weights": [
+                    0.0001,
+                    0.001
+                  ]
+                },
+                {
+                  "embedding_size": 128,
+                  "kg_embedding_size": 64,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 2048,
+                  "reg_weights": [
+                    0.01,
+                    0.01
+                  ]
+                }
+              ]
+            }
+          },
+          "hyperopt_random": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                128
+              ],
+              "kg_embedding_size": [
+                64,
+                128
+              ],
+              "learning_rate": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "reg": [
+                1e-05,
+                0.0001,
+                0.001,
+                0.01
+              ]
+            }
+          },
+          "strict_tuned": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                128
+              ],
+              "kg_embedding_size": [
+                64,
+                128
+              ],
+              "learning_rate": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "reg": [
+                1e-05,
+                0.0001,
+                0.001,
+                0.01
+              ]
+            }
+          },
+          "strict_v2": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                128
+              ],
+              "kg_embedding_size": [
+                64,
+                128
+              ],
+              "learning_rate": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "reg": [
+                1e-05,
+                0.0001,
+                0.001,
+                0.01
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "embedding_size": [
+            64,
+            128
+          ],
+          "kg_embedding_size": [
+            64,
+            128
+          ],
+          "learning_rate": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001,
+            0.003
+          ],
+          "train_batch_size": [
+            1024,
+            2048,
+            4096
+          ],
+          "reg": [
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "embedding_size": 128,
+          "learning_rate": 0.0001,
+          "kg_embedding_size": 64,
+          "train_batch_size": 1024,
+          "reg": 0.001
+        },
+        "amazon-book": {
+          "paper_hparams_tuning": {
+            "embedding_size": 128,
+            "kg_embedding_size": 128,
+            "learning_rate": 0.001,
+            "train_batch_size": 2048,
+            "reg_weights": [
+              0.001,
+              0.001
+            ]
+          }
+        },
+        "yelp2018": {
+          "paper_hparams_tuning": {
+            "embedding_size": 128,
+            "kg_embedding_size": 128,
+            "learning_rate": 0.001,
+            "train_batch_size": 2048,
+            "reg_weights": [
+              0.001,
+              0.001
+            ]
+          }
+        }
+      }
+    },
+    "gcmc": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "paper_hparams_tuning": {
+            "method": "explicit candidate screening",
+            "search_space": {
+              "configurations": [
+                {
+                  "embedding_size": 75,
+                  "gcn_output_dim": 500,
+                  "learning_rate": 0.01,
+                  "train_batch_size": 1024,
+                  "dropout_prob": 0.3
+                },
+                {
+                  "embedding_size": 128,
+                  "gcn_output_dim": 128,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 4096,
+                  "dropout_prob": 0.1
+                },
+                {
+                  "embedding_size": 64,
+                  "gcn_output_dim": 256,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "dropout_prob": 0.3
+                },
+                {
+                  "embedding_size": 128,
+                  "gcn_output_dim": 256,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "dropout_prob": 0.5
+                },
+                {
+                  "embedding_size": 64,
+                  "gcn_output_dim": 500,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "dropout_prob": 0.1
+                },
+                {
+                  "embedding_size": 128,
+                  "gcn_output_dim": 500,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 2048,
+                  "dropout_prob": 0.3
+                }
+              ]
+            }
+          },
+          "hyperopt_random": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                75,
+                128
+              ],
+              "gcn_output_dim": [
+                128,
+                256,
+                500
+              ],
+              "dropout_prob": [
+                0.1,
+                0.3,
+                0.5
+              ],
+              "learning_rate": [
+                0.0003,
+                0.0005,
+                0.001,
+                0.01
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "num_basis_functions": [
+                2,
+                4,
+                8
+              ]
+            }
+          },
+          "strict_tuned": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                75,
+                128
+              ],
+              "gcn_output_dim": [
+                128,
+                256,
+                500
+              ],
+              "dropout_prob": [
+                0.1,
+                0.3,
+                0.5
+              ],
+              "learning_rate": [
+                0.0003,
+                0.0005,
+                0.001,
+                0.01
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "num_basis_functions": [
+                2,
+                4,
+                8
+              ]
+            }
+          },
+          "strict_v2": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                75,
+                128
+              ],
+              "gcn_output_dim": [
+                128,
+                256,
+                500
+              ],
+              "dropout_prob": [
+                0.1,
+                0.3,
+                0.5
+              ],
+              "learning_rate": [
+                0.0003,
+                0.0005,
+                0.001,
+                0.01
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "num_basis_functions": [
+                2,
+                4,
+                8
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "embedding_size": [
+            64,
+            75,
+            128
+          ],
+          "gcn_output_dim": [
+            128,
+            256,
+            500
+          ],
+          "dropout_prob": [
+            0.1,
+            0.3,
+            0.5
+          ],
+          "learning_rate": [
+            0.0003,
+            0.0005,
+            0.001,
+            0.01
+          ],
+          "train_batch_size": [
+            1024,
+            2048,
+            4096
+          ],
+          "num_basis_functions": [
+            2,
+            4,
+            8
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "embedding_size": 64,
+          "learning_rate": 0.0003,
+          "gcn_output_dim": 256,
+          "dropout_prob": 0.3,
+          "train_batch_size": 1024,
+          "num_basis_functions": 4
+        },
+        "amazon-book": {
+          "paper_hparams_tuning": {
+            "embedding_size": 64,
+            "gcn_output_dim": 256,
+            "learning_rate": 0.001,
+            "train_batch_size": 2048,
+            "dropout_prob": 0.3
+          }
+        },
+        "yelp2018": {
+          "paper_hparams_tuning": {
+            "embedding_size": 128,
+            "gcn_output_dim": 256,
+            "learning_rate": 0.001,
+            "train_batch_size": 2048,
+            "dropout_prob": 0.5
+          }
+        }
+      }
+    },
+    "kgat": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "hyperopt_random": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embed_size": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001
+              ],
+              "layer_size": [
+                "[64]",
+                "[64,64]",
+                "[128,128]"
+              ],
+              "dropout": [
+                0.0,
+                0.1,
+                0.2
+              ],
+              "alg_type": [
+                "gcn",
+                "graphsage",
+                "bi"
+              ],
+              "reg": [
+                1e-05,
+                0.0001,
+                0.001
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "embed_size": [
+            64,
+            128
+          ],
+          "lr": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001
+          ],
+          "layer_size": [
+            "[64]",
+            "[64,64]",
+            "[128,128]"
+          ],
+          "dropout": [
+            0.0,
+            0.1,
+            0.2
+          ],
+          "alg_type": [
+            "gcn",
+            "graphsage",
+            "bi"
+          ],
+          "reg": [
+            1e-05,
+            0.0001,
+            0.001
+          ]
+        },
+        "author_confirmed_values": {
+          "amazon-book": {
+            "lr": [
+              0.005
+            ]
+          },
+          "yelp2018": {
+            "lr": [
+              5e-05
+            ],
+            "dropout": [
+              0.3
+            ]
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "embed_size": 128,
+          "lr": 0.0001,
+          "layer_size": "[64,64]",
+          "dropout": 0.1,
+          "alg_type": "gcn",
+          "reg": 0.001
+        },
+        "amazon-book": {
+          "lr": 0.005,
+          "layer_size": "[64,64]",
+          "alg_type": "graphsage",
+          "reg": 0.0001,
+          "embed_size": 128,
+          "dropout": 0.1
+        },
+        "yelp2018": {
+          "embed_size": 128,
+          "lr": 5e-05,
+          "layer_size": "[128,128]",
+          "alg_type": "graphsage",
+          "reg": 0.0001,
+          "dropout": 0.3
+        }
+      }
+    },
+    "kgcl": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "tie_breaker": "validation NDCG@20",
+        "method": "Hyperopt random search",
+        "recorded_search_space": {
+          "dim": [
+            64,
+            128
+          ],
+          "lr": [
+            0.0001,
+            0.0003,
+            0.001
+          ],
+          "mu": [
+            0.3,
+            0.5,
+            0.7,
+            0.9
+          ],
+          "tau": [
+            0.1,
+            0.2,
+            0.5
+          ],
+          "cl_weight": [
+            0.01,
+            0.05,
+            0.1,
+            0.2
+          ]
+        },
+        "author_confirmed_values": {
+          "amazon-book": {
+            "lr": [
+              0.0004
+            ]
+          },
+          "last-fm": {
+            "cl_weight": [
+              0.004
+            ]
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "dim": 128,
+          "lr": 0.0003,
+          "mu": 0.3,
+          "tau": 0.2,
+          "cl_weight": 0.004
+        },
+        "amazon-book": {
+          "dim": 128,
+          "lr": 0.0004,
+          "mu": 0.7,
+          "tau": 0.2,
+          "cl_weight": 0.1
+        },
+        "yelp2018": {
+          "dim": 128,
+          "lr": 0.001,
+          "mu": 0.5,
+          "tau": 0.2,
+          "cl_weight": 0.2
+        }
+      }
+    },
+    "kgcn": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "paper_hparams_tuning": {
+            "method": "explicit candidate screening",
+            "search_space": {
+              "configurations": [
+                {
+                  "embedding_size": 64,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "n_iter": 1,
+                  "neighbor_sample_size": 4,
+                  "aggregator": "sum",
+                  "reg_weight": 1e-07
+                },
+                {
+                  "embedding_size": 128,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 4096,
+                  "n_iter": 1,
+                  "neighbor_sample_size": 4,
+                  "aggregator": "sum",
+                  "reg_weight": 1e-07
+                },
+                {
+                  "embedding_size": 128,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "n_iter": 1,
+                  "neighbor_sample_size": 8,
+                  "aggregator": "sum",
+                  "reg_weight": 1e-07
+                },
+                {
+                  "embedding_size": 64,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 2048,
+                  "n_iter": 2,
+                  "neighbor_sample_size": 4,
+                  "aggregator": "sum",
+                  "reg_weight": 1e-06
+                },
+                {
+                  "embedding_size": 64,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "n_iter": 1,
+                  "neighbor_sample_size": 8,
+                  "aggregator": "concat",
+                  "reg_weight": 1e-07
+                },
+                {
+                  "embedding_size": 128,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 2048,
+                  "n_iter": 2,
+                  "neighbor_sample_size": 4,
+                  "aggregator": "neighbor",
+                  "reg_weight": 1e-06
+                }
+              ]
+            }
+          },
+          "hyperopt_random": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                128
+              ],
+              "learning_rate": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "n_iter": [
+                1,
+                2
+              ],
+              "neighbor_sample_size": [
+                4,
+                8,
+                16
+              ],
+              "aggregator": [
+                "sum",
+                "concat",
+                "neighbor"
+              ],
+              "reg_weight": [
+                1e-07,
+                1e-06,
+                1e-05
+              ]
+            }
+          },
+          "strict_tuned": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                128
+              ],
+              "learning_rate": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "n_iter": [
+                1,
+                2
+              ],
+              "neighbor_sample_size": [
+                4,
+                8,
+                16
+              ],
+              "aggregator": [
+                "sum",
+                "concat",
+                "neighbor"
+              ],
+              "reg_weight": [
+                1e-07,
+                1e-06,
+                1e-05
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "embedding_size": [
+            64,
+            128
+          ],
+          "learning_rate": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001
+          ],
+          "train_batch_size": [
+            1024,
+            2048,
+            4096
+          ],
+          "n_iter": [
+            1,
+            2
+          ],
+          "neighbor_sample_size": [
+            4,
+            8,
+            16
+          ],
+          "aggregator": [
+            "sum",
+            "concat",
+            "neighbor"
+          ],
+          "reg_weight": [
+            1e-07,
+            1e-06,
+            1e-05
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "embedding_size": 128,
+          "learning_rate": 0.0001,
+          "train_batch_size": 1024,
+          "neighbor_sample_size": 4,
+          "aggregator": "sum",
+          "reg_weight": 1e-05,
+          "n_iter": 2
+        },
+        "amazon-book": {
+          "paper_hparams_tuning": {
+            "embedding_size": 128,
+            "learning_rate": 0.001,
+            "train_batch_size": 2048,
+            "n_iter": 1,
+            "neighbor_sample_size": 8,
+            "aggregator": "sum",
+            "reg_weight": 1e-07
+          }
+        },
+        "yelp2018": {
+          "paper_hparams_tuning": {
+            "embedding_size": 128,
+            "learning_rate": 0.001,
+            "train_batch_size": 2048,
+            "n_iter": 1,
+            "neighbor_sample_size": 8,
+            "aggregator": "sum",
+            "reg_weight": 1e-07
+          }
+        }
+      }
+    },
+    "kgin": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "hyperopt_random": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001
+              ],
+              "context_hops": [
+                1,
+                2,
+                3
+              ],
+              "n_factors": [
+                2,
+                4,
+                8
+              ],
+              "sim_regularity": [
+                1e-05,
+                0.0001,
+                0.001
+              ],
+              "mess_dropout_rate": [
+                0.0,
+                0.1,
+                0.2
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "dim": [
+            64,
+            128
+          ],
+          "lr": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001
+          ],
+          "context_hops": [
+            1,
+            2,
+            3
+          ],
+          "n_factors": [
+            2,
+            4,
+            8
+          ],
+          "sim_regularity": [
+            1e-05,
+            0.0001,
+            0.001
+          ],
+          "mess_dropout_rate": [
+            0.0,
+            0.1,
+            0.2
+          ]
+        },
+        "author_confirmed_values": {
+          "amazon-book": {
+            "lr": [
+              0.005
+            ]
+          },
+          "yelp2018": {
+            "lr": [
+              5e-05
+            ]
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "dim": 128,
+          "lr": 0.0001,
+          "context_hops": 2,
+          "n_factors": 4,
+          "sim_regularity": 0.0001,
+          "mess_dropout_rate": 0.1
+        },
+        "amazon-book": {
+          "lr": 0.005,
+          "context_hops": 2,
+          "n_factors": 4,
+          "sim_regularity": 0.0001,
+          "mess_dropout_rate": 0.1,
+          "dim": 128
+        },
+        "yelp2018": {
+          "dim": 128,
+          "lr": 5e-05,
+          "context_hops": 2,
+          "n_factors": 4,
+          "sim_regularity": 0.001,
+          "mess_dropout_rate": 0.1
+        }
+      }
+    },
+    "kgrec": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "dim": [
+            64,
+            128
+          ],
+          "lr": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001
+          ],
+          "mae_coef": [
+            0.05,
+            0.1,
+            0.2
+          ],
+          "mae_msize": [
+            128,
+            256,
+            512
+          ],
+          "cl_coef": [
+            0.005,
+            0.01,
+            0.05
+          ],
+          "cl_tau": [
+            0.2,
+            0.5,
+            1.0
+          ],
+          "cl_drop_ratio": [
+            0.1,
+            0.3,
+            0.5
+          ]
+        },
+        "author_confirmed_values": {
+          "amazon-book": {
+            "lr": [
+              0.005
+            ],
+            "cl_coef": [
+              0.001
+            ]
+          },
+          "yelp2018": {
+            "lr": [
+              5e-05
+            ]
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "dim": 128,
+          "lr": 0.0001,
+          "mae_coef": 0.2,
+          "mae_msize": 128,
+          "cl_coef": 0.01,
+          "cl_tau": 0.5,
+          "cl_drop_ratio": 0.3
+        },
+        "amazon-book": {
+          "lr": 0.005,
+          "mae_coef": 0.1,
+          "mae_msize": 128,
+          "cl_coef": 0.001,
+          "cl_tau": 0.5,
+          "cl_drop_ratio": 0.3,
+          "dim": 128
+        },
+        "yelp2018": {
+          "dim": 128,
+          "lr": 5e-05,
+          "mae_coef": 0.1,
+          "mae_msize": 128,
+          "cl_coef": 0.05,
+          "cl_tau": 0.5,
+          "cl_drop_ratio": 0.3
+        }
+      }
+    },
+    "krdn": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "dim": [
+            64,
+            128
+          ],
+          "lr": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001
+          ],
+          "context_hops": [
+            1,
+            2,
+            3
+          ],
+          "gamma": [
+            0.1,
+            0.3,
+            0.5,
+            0.7
+          ],
+          "margin": [
+            0.2,
+            0.5,
+            0.7,
+            1.0
+          ],
+          "num_neg_sample": [
+            100,
+            200,
+            400
+          ]
+        },
+        "author_confirmed_values": {
+          "amazon-book": {
+            "lr": [
+              0.005
+            ]
+          },
+          "yelp2018": {
+            "lr": [
+              5e-05
+            ]
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "dim": 128,
+          "lr": 0.0001,
+          "context_hops": 2,
+          "gamma": 0.5,
+          "margin": 0.5,
+          "num_neg_sample": 200
+        },
+        "amazon-book": {
+          "lr": 0.005,
+          "context_hops": 2,
+          "gamma": 0.5,
+          "margin": 0.7,
+          "num_neg_sample": 200,
+          "dim": 128
+        },
+        "yelp2018": {
+          "dim": 128,
+          "lr": 5e-05,
+          "context_hops": 2,
+          "gamma": 0.3,
+          "margin": 0.5,
+          "num_neg_sample": 200
+        }
+      }
+    },
+    "ktup": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "paper_hparams_tuning": {
+            "method": "explicit candidate screening",
+            "search_space": {
+              "configurations": [
+                {
+                  "embedding_size": 64,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "margin": 1.0,
+                  "kg_weight": 1.0,
+                  "align_weight": 1.0
+                },
+                {
+                  "embedding_size": 128,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 4096,
+                  "margin": 1.0,
+                  "kg_weight": 1.0,
+                  "align_weight": 1.0
+                },
+                {
+                  "embedding_size": 64,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 2048,
+                  "margin": 0.5,
+                  "kg_weight": 1.0,
+                  "align_weight": 1.0
+                },
+                {
+                  "embedding_size": 128,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "margin": 1.0,
+                  "kg_weight": 0.5,
+                  "align_weight": 0.5
+                },
+                {
+                  "embedding_size": 64,
+                  "learning_rate": 0.001,
+                  "train_batch_size": 2048,
+                  "margin": 2.0,
+                  "kg_weight": 1.0,
+                  "align_weight": 1.0
+                },
+                {
+                  "embedding_size": 128,
+                  "learning_rate": 0.0005,
+                  "train_batch_size": 2048,
+                  "margin": 1.0,
+                  "kg_weight": 0.1,
+                  "align_weight": 0.5
+                }
+              ]
+            }
+          },
+          "hyperopt_random": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                128
+              ],
+              "learning_rate": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "margin": [
+                0.5,
+                1.0,
+                2.0
+              ],
+              "kg_weight": [
+                0.1,
+                0.5,
+                1.0
+              ],
+              "align_weight": [
+                0.1,
+                0.5,
+                1.0
+              ]
+            }
+          },
+          "strict_tuned": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                128
+              ],
+              "learning_rate": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "margin": [
+                0.5,
+                1.0,
+                2.0
+              ],
+              "kg_weight": [
+                0.1,
+                0.5,
+                1.0
+              ],
+              "align_weight": [
+                0.1,
+                0.5,
+                1.0
+              ]
+            }
+          },
+          "strict_v2": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "embedding_size": [
+                64,
+                128
+              ],
+              "learning_rate": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "train_batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "margin": [
+                0.5,
+                1.0,
+                2.0
+              ],
+              "kg_weight": [
+                0.1,
+                0.5,
+                1.0
+              ],
+              "align_weight": [
+                0.1,
+                0.5,
+                1.0
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "embedding_size": [
+            64,
+            128
+          ],
+          "learning_rate": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001,
+            0.003
+          ],
+          "train_batch_size": [
+            1024,
+            2048,
+            4096
+          ],
+          "margin": [
+            0.5,
+            1.0,
+            2.0
+          ],
+          "kg_weight": [
+            0.1,
+            0.5,
+            1.0
+          ],
+          "align_weight": [
+            0.1,
+            0.5,
+            1.0
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "embedding_size": 128,
+          "learning_rate": 0.0001,
+          "train_batch_size": 1024,
+          "margin": 0.5,
+          "kg_weight": 0.5,
+          "align_weight": 0.1
+        },
+        "amazon-book": {
+          "paper_hparams_tuning": {
+            "embedding_size": 128,
+            "learning_rate": 0.001,
+            "train_batch_size": 2048,
+            "margin": 1.0,
+            "kg_weight": 0.5,
+            "align_weight": 0.5
+          }
+        },
+        "yelp2018": {
+          "paper_hparams_tuning": {
+            "embedding_size": 128,
+            "learning_rate": 0.001,
+            "train_batch_size": 2048,
+            "margin": 1.0,
+            "kg_weight": 0.5,
+            "align_weight": 0.5
+          }
+        }
+      }
+    },
+    "lightgcn": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "paper_hparams_tuning": {
+            "method": "explicit candidate screening",
+            "search_space": {
+              "configurations": [
+                {
+                  "dim": 64,
+                  "lr": 0.001,
+                  "batch_size": 1024,
+                  "layers": 3,
+                  "l2": 0.0001
+                },
+                {
+                  "dim": 128,
+                  "lr": 0.0005,
+                  "batch_size": 4096,
+                  "layers": 2,
+                  "l2": 1e-05
+                },
+                {
+                  "dim": 128,
+                  "lr": 0.001,
+                  "batch_size": 2048,
+                  "layers": 3,
+                  "l2": 0.0001
+                },
+                {
+                  "dim": 64,
+                  "lr": 0.0005,
+                  "batch_size": 2048,
+                  "layers": 2,
+                  "l2": 1e-05
+                },
+                {
+                  "dim": 128,
+                  "lr": 0.001,
+                  "batch_size": 2048,
+                  "layers": 1,
+                  "l2": 0.0001
+                },
+                {
+                  "dim": 64,
+                  "lr": 0.0005,
+                  "batch_size": 2048,
+                  "layers": 4,
+                  "l2": 0.0001
+                }
+              ]
+            }
+          },
+          "hyperopt_random": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "l2": [
+                1e-05,
+                0.0001,
+                0.001
+              ]
+            }
+          },
+          "strict_tuned": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "l2": [
+                1e-05,
+                0.0001,
+                0.001
+              ]
+            }
+          },
+          "strict_v2": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0001,
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "layers": [
+                1,
+                2,
+                3,
+                4
+              ],
+              "l2": [
+                1e-05,
+                0.0001,
+                0.001
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "dim": [
+            64,
+            128
+          ],
+          "lr": [
+            0.0001,
+            0.0003,
+            0.0005,
+            0.001,
+            0.003
+          ],
+          "batch_size": [
+            1024,
+            2048,
+            4096
+          ],
+          "layers": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "l2": [
+            1e-05,
+            0.0001,
+            0.001
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "dim": 128,
+          "lr": 0.0001,
+          "batch_size": 2048,
+          "layers": 3,
+          "l2": 0.001
+        },
+        "amazon-book": {
+          "paper_hparams_tuning": {
+            "dim": 128,
+            "lr": 0.001,
+            "batch_size": 2048,
+            "layers": 1,
+            "l2": 0.0001
+          }
+        },
+        "yelp2018": {
+          "paper_hparams_tuning": {
+            "dim": 128,
+            "lr": 0.001,
+            "batch_size": 2048,
+            "layers": 1,
+            "l2": 0.0001
+          }
+        }
+      }
+    },
+    "sgl": {
+      "optimization": {
+        "objective": "validation Recall@20",
+        "searches": {
+          "paper_hparams_tuning": {
+            "method": "explicit candidate screening",
+            "search_space": {
+              "configurations": [
+                {
+                  "dim": 64,
+                  "lr": 0.001,
+                  "batch_size": 2048,
+                  "layers": 3,
+                  "l2": 0.0001,
+                  "dropout": 0.1,
+                  "temperature": 0.2,
+                  "ssl_weight": 0.1
+                },
+                {
+                  "dim": 128,
+                  "lr": 0.0005,
+                  "batch_size": 4096,
+                  "layers": 2,
+                  "l2": 1e-05,
+                  "dropout": 0.1,
+                  "temperature": 0.2,
+                  "ssl_weight": 0.1
+                },
+                {
+                  "dim": 64,
+                  "lr": 0.001,
+                  "batch_size": 2048,
+                  "layers": 3,
+                  "l2": 0.0001,
+                  "dropout": 0.2,
+                  "temperature": 0.2,
+                  "ssl_weight": 0.2
+                },
+                {
+                  "dim": 128,
+                  "lr": 0.001,
+                  "batch_size": 2048,
+                  "layers": 2,
+                  "l2": 0.0001,
+                  "dropout": 0.05,
+                  "temperature": 0.1,
+                  "ssl_weight": 0.1
+                },
+                {
+                  "dim": 64,
+                  "lr": 0.001,
+                  "batch_size": 2048,
+                  "layers": 3,
+                  "l2": 0.0001,
+                  "dropout": 0.1,
+                  "temperature": 0.5,
+                  "ssl_weight": 0.1
+                },
+                {
+                  "dim": 128,
+                  "lr": 0.0005,
+                  "batch_size": 2048,
+                  "layers": 2,
+                  "l2": 0.0001,
+                  "dropout": 0.1,
+                  "temperature": 0.2,
+                  "ssl_weight": 0.05
+                }
+              ]
+            }
+          },
+          "hyperopt_random": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "layers": [
+                2,
+                3
+              ],
+              "l2": [
+                1e-05,
+                0.0001
+              ],
+              "dropout": [
+                0.05,
+                0.1,
+                0.2
+              ],
+              "temperature": [
+                0.1,
+                0.2,
+                0.5
+              ],
+              "ssl_weight": [
+                0.05,
+                0.1,
+                0.2
+              ]
+            }
+          },
+          "strict_tuned": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "layers": [
+                2,
+                3
+              ],
+              "l2": [
+                1e-05,
+                0.0001
+              ],
+              "dropout": [
+                0.05,
+                0.1,
+                0.2
+              ],
+              "temperature": [
+                0.1,
+                0.2,
+                0.5
+              ],
+              "ssl_weight": [
+                0.05,
+                0.1,
+                0.2
+              ]
+            }
+          },
+          "strict_v2": {
+            "method": "Hyperopt random search with seed configurations",
+            "search_space": {
+              "dim": [
+                64,
+                128
+              ],
+              "lr": [
+                0.0003,
+                0.0005,
+                0.001,
+                0.003
+              ],
+              "batch_size": [
+                1024,
+                2048,
+                4096
+              ],
+              "layers": [
+                2,
+                3
+              ],
+              "l2": [
+                1e-05,
+                0.0001
+              ],
+              "dropout": [
+                0.05,
+                0.1,
+                0.2
+              ],
+              "temperature": [
+                0.1,
+                0.2,
+                0.5
+              ],
+              "ssl_weight": [
+                0.05,
+                0.1,
+                0.2
+              ]
+            }
+          }
+        },
+        "tie_breaker": "validation NDCG@20",
+        "recorded_search_space": {
+          "dim": [
+            64,
+            128
+          ],
+          "lr": [
+            0.0003,
+            0.0005,
+            0.001,
+            0.003
+          ],
+          "batch_size": [
+            1024,
+            2048,
+            4096
+          ],
+          "layers": [
+            2,
+            3
+          ],
+          "l2": [
+            1e-05,
+            0.0001
+          ],
+          "dropout": [
+            0.05,
+            0.1,
+            0.2
+          ],
+          "temperature": [
+            0.1,
+            0.2,
+            0.5
+          ],
+          "ssl_weight": [
+            0.05,
+            0.1,
+            0.2
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "last-fm": {
+          "dim": 128,
+          "lr": 0.001,
+          "batch_size": 2048,
+          "layers": 3,
+          "l2": 0.0001,
+          "dropout": 0.2,
+          "temperature": 0.2,
+          "ssl_weight": 0.1
+        },
+        "amazon-book": {
+          "paper_hparams_tuning": {
+            "dim": 128,
+            "lr": 0.0005,
+            "batch_size": 2048,
+            "layers": 2,
+            "l2": 0.0001,
+            "dropout": 0.1,
+            "temperature": 0.2,
+            "ssl_weight": 0.05
+          }
+        },
+        "yelp2018": {
+          "paper_hparams_tuning": {
+            "dim": 128,
+            "lr": 0.0005,
+            "batch_size": 2048,
+            "layers": 2,
+            "l2": 0.0001,
+            "dropout": 0.1,
+            "temperature": 0.2,
+            "ssl_weight": 0.05
+          }
+        }
+      }
+    }
+  }
+}

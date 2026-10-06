@@ -1,0 +1,1261 @@
+{
+  "paper": "NCR",
+  "models": {
+    "BERT4Rec": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@5",
+        "search_space": {
+          "lr": [
+            0.0001,
+            0.0005,
+            0.001,
+            0.005
+          ],
+          "l2": [
+            1e-06,
+            1e-05,
+            0.0001,
+            0.001
+          ],
+          "dropout": [
+            0.0,
+            0.1,
+            0.2,
+            0.3,
+            0.5
+          ],
+          "batch_size": [
+            64,
+            128,
+            256,
+            512
+          ],
+          "hidden_size": [
+            32,
+            64,
+            128,
+            256
+          ],
+          "num_blocks": [
+            1,
+            2,
+            3
+          ],
+          "num_heads": [
+            1,
+            2,
+            4
+          ],
+          "intermediate_size": [
+            64,
+            128,
+            256,
+            512
+          ],
+          "pooling": [
+            "last",
+            "mean"
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "batch_size": 256,
+          "dropout": 0.1,
+          "hidden_size": 32,
+          "intermediate_size": 512,
+          "l2": 1e-05,
+          "lr": 0.001,
+          "num_blocks": 2,
+          "num_heads": 1,
+          "pooling": "mean"
+        },
+        "5MoviesTV01-1-5": {
+          "lr": 0.0001,
+          "l2": 0.0001,
+          "dropout": 0.5,
+          "batch_size": 128,
+          "num_blocks": 2,
+          "num_heads": 2,
+          "intermediate_size": 128,
+          "pooling": "mean",
+          "hidden_size": 128
+        },
+        "Electronics01-1-5": {
+          "lr": 0.001,
+          "l2": 0.0001,
+          "dropout": 0.2,
+          "batch_size": 256,
+          "hidden_size": 128,
+          "num_blocks": 2,
+          "num_heads": 2,
+          "intermediate_size": 256,
+          "pooling": "mean"
+        }
+      }
+    },
+    "BPR-MF": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@5",
+        "search_space": {
+          "lr": [
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "l2": [
+            1e-08,
+            1e-07,
+            1e-06,
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "batch_size": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024
+          ],
+          "embedding_size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            512
+          ]
+        },
+        "datasets": {
+          "5MoviesTV01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          },
+          "Electronics01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "batch_size": 128,
+          "embedding_size": 32,
+          "l2": 0.0001,
+          "lr": 0.001
+        },
+        "5MoviesTV01-1-5": {
+          "l2": 1e-06
+        },
+        "Electronics01-1-5": {
+          "l2": 1e-05
+        }
+      }
+    },
+    "DMF": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@5",
+        "search_space": {
+          "lr": [
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "l2": [
+            1e-08,
+            1e-07,
+            1e-06,
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "batch_size": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024
+          ],
+          "dropout": [
+            0.0,
+            0.1,
+            0.2,
+            0.3,
+            0.5,
+            0.6
+          ],
+          "projection_size": [
+            32,
+            64,
+            128,
+            256,
+            512
+          ],
+          "tower_layers": [
+            "[32]",
+            "[64]",
+            "[128]",
+            "[256]",
+            "[512]",
+            "[256,128]",
+            "[512,256]",
+            "[256,128,64]"
+          ]
+        },
+        "datasets": {
+          "5MoviesTV01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          },
+          "Electronics01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "batch_size": 128,
+          "dropout": 0.2,
+          "l2": 1e-06,
+          "lr": 0.001,
+          "projection_size": 32,
+          "tower_layers": "[64]"
+        },
+        "5MoviesTV01-1-5": {
+          "l2": 1e-05
+        },
+        "Electronics01-1-5": {
+          "l2": 0.0001
+        }
+      }
+    },
+    "GRU4Rec": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@5",
+        "search_space": {
+          "lr": [
+            0.0001,
+            0.0005,
+            0.001,
+            0.005
+          ],
+          "l2": [
+            1e-06,
+            1e-05,
+            0.0001,
+            0.001
+          ],
+          "dropout": [
+            0.0,
+            0.1,
+            0.2,
+            0.3,
+            0.5
+          ],
+          "batch_size": [
+            64,
+            128,
+            256,
+            512
+          ],
+          "hidden_size": [
+            32,
+            64,
+            128,
+            256
+          ],
+          "num_layers": [
+            1,
+            2
+          ],
+          "output_size": [
+            32,
+            64,
+            128,
+            256
+          ],
+          "negative_mode": [
+            "separate_embedding",
+            "sign_inversion",
+            "mlp"
+          ]
+        },
+        "datasets": {
+          "5MoviesTV01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          },
+          "Electronics01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "batch_size": 128,
+          "dropout": 0.0,
+          "hidden_size": 256,
+          "l2": 0.0001,
+          "lr": 0.001,
+          "neg_emb": 0,
+          "neg_layer": "[128]",
+          "negative_mode": "mlp",
+          "num_layers": 2,
+          "output_size": 128,
+          "p_layers": "[128]"
+        },
+        "5MoviesTV01-1-5": {
+          "l2": 0.0001
+        },
+        "Electronics01-1-5": {
+          "l2": 0.0001
+        }
+      }
+    },
+    "GRU4RecHidasi": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@5",
+        "search_space": {
+          "lr": [
+            0.005,
+            0.01,
+            0.025,
+            0.05,
+            0.1
+          ],
+          "batch_size": [
+            64,
+            128,
+            256,
+            512
+          ],
+          "layers": [
+            "[64]",
+            "[100]",
+            "[128]",
+            "[64,64]"
+          ],
+          "loss": [
+            "bpr-max",
+            "cross-entropy"
+          ],
+          "dropout_embed": [
+            0.0,
+            0.1,
+            0.2,
+            0.3,
+            0.5
+          ],
+          "dropout_hidden": [
+            0.0,
+            0.1,
+            0.2,
+            0.3,
+            0.5
+          ],
+          "momentum": [
+            0.0,
+            0.1,
+            0.2
+          ],
+          "bpreg": [
+            0.1,
+            0.5,
+            1.0,
+            2.0,
+            10.0
+          ],
+          "elu_param": [
+            0.5,
+            1.0
+          ],
+          "adagrad_eps": [
+            1e-08,
+            1e-06,
+            0.0001
+          ],
+          "constrained_embedding": [
+            1,
+            0
+          ],
+          "embedding_size": [
+            32,
+            64,
+            100,
+            128
+          ]
+        },
+        "parameter_mapping": {
+          "embedding_size": "0 when constrained_embedding=1; otherwise the searched embedding_size"
+        },
+        "author_confirmed_values": {
+          "5MoviesTV01-1-5": {
+            "num_layers": [
+              2
+            ]
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "adagrad_eps": 0.0001,
+          "batch_size": 256,
+          "bpreg": 1.0,
+          "constrained_embedding": 1,
+          "dropout_embed": 0.2,
+          "dropout_hidden": 0.5,
+          "elu_param": 0.5,
+          "embedding_size": 0,
+          "layers": "[128]",
+          "loss": "bpr-max",
+          "lr": 0.025,
+          "momentum": 0.0
+        },
+        "5MoviesTV01-1-5": {
+          "lr": 0.005,
+          "batch_size": 256,
+          "embedding_size": 128,
+          "momentum": 0.2,
+          "bpreg": 2,
+          "elu_param": 0.5,
+          "adagrad_eps": 1e-06,
+          "constrained_embedding": 1,
+          "num_layers": 2,
+          "dropout_embed": 0.3,
+          "dropout_hidden": 0.3,
+          "loss": "cross-entropy"
+        },
+        "Electronics01-1-5": {
+          "lr": 0.05,
+          "batch_size": 256,
+          "layers": "[128]",
+          "embedding_size": 100,
+          "dropout_embed": 0.3,
+          "dropout_hidden": 0.3,
+          "loss": "cross-entropy",
+          "momentum": 0.1,
+          "bpreg": 0.5,
+          "elu_param": 1.0,
+          "adagrad_eps": 0.0001,
+          "constrained_embedding": 1
+        }
+      }
+    },
+    "NCR-E-WoLR": {
+      "optimization": {
+        "datasets": {
+          "ml100k01-1-5": {
+            "method": "recorded configurations",
+            "search_space": {
+              "configurations": [
+                {
+                  "optimizer": "Adam",
+                  "lr": 0.001,
+                  "l2": 0.0001,
+                  "batch_size": 128,
+                  "dropout": 0.2,
+                  "u_vector_size": 64,
+                  "i_vector_size": 64,
+                  "r_weight": 0.0,
+                  "ppl_weight": 0,
+                  "pos_weight": 0,
+                  "max_his": 5
+                }
+              ]
+            }
+          },
+          "Electronics01-1-5": {
+            "method": "recorded configurations",
+            "search_space": {
+              "configurations": [
+                {
+                  "optimizer": "Adam",
+                  "lr": 0.001,
+                  "l2": 1e-05,
+                  "batch_size": 128,
+                  "dropout": 0.2,
+                  "u_vector_size": 64,
+                  "i_vector_size": 64,
+                  "r_weight": 0.0,
+                  "ppl_weight": 0,
+                  "pos_weight": 0,
+                  "max_his": 5
+                }
+              ]
+            }
+          },
+          "5MoviesTV01-1-5": {
+            "author_confirmed_values": {
+              "optimizer": [
+                "Adam"
+              ],
+              "lr": [
+                0.001
+              ],
+              "l2": [
+                0.0001
+              ],
+              "u_vector_size": [
+                64
+              ],
+              "i_vector_size": [
+                64
+              ],
+              "r_weight": [
+                0
+              ],
+              "max_his": [
+                5
+              ],
+              "batch_size": [
+                128
+              ],
+              "dropout": [
+                0.3
+              ]
+            }
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "optimizer": "Adam",
+          "lr": 0.001,
+          "l2": 0.0001,
+          "batch_size": 128,
+          "dropout": 0.2,
+          "u_vector_size": 64,
+          "i_vector_size": 64,
+          "r_weight": 0.0,
+          "ppl_weight": 0,
+          "pos_weight": 0,
+          "max_his": 5
+        },
+        "Electronics01-1-5": {
+          "optimizer": "Adam",
+          "lr": 0.001,
+          "l2": 1e-05,
+          "batch_size": 128,
+          "dropout": 0.2,
+          "u_vector_size": 64,
+          "i_vector_size": 64,
+          "r_weight": 0.0,
+          "ppl_weight": 0,
+          "pos_weight": 0,
+          "max_his": 5
+        },
+        "5MoviesTV01-1-5": {
+          "optimizer": "Adam",
+          "lr": 0.001,
+          "l2": 0.0001,
+          "u_vector_size": 64,
+          "i_vector_size": 64,
+          "r_weight": 0,
+          "max_his": 5,
+          "batch_size": 128,
+          "dropout": 0.3
+        }
+      }
+    },
+    "NCR-E": {
+      "optimization": {
+        "datasets": {
+          "ml100k01-1-5": {
+            "method": "recorded grid search",
+            "objective": "validation NDCG@5",
+            "author_confirmed_values": {
+              "lr": [
+                0.1
+              ],
+              "l2": [
+                0.001
+              ]
+            },
+            "recorded_search_space": {
+              "optimizer": [
+                "Adam"
+              ],
+              "lr": [
+                0.0001,
+                0.0005,
+                0.001
+              ],
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ],
+              "batch_size": [
+                128
+              ],
+              "dropout": [
+                0.2
+              ],
+              "u_vector_size": [
+                64
+              ],
+              "i_vector_size": [
+                64
+              ],
+              "r_weight": [
+                0.1
+              ],
+              "ppl_weight": [
+                0
+              ],
+              "pos_weight": [
+                0
+              ],
+              "max_his": [
+                5
+              ]
+            }
+          },
+          "Electronics01-1-5": {
+            "method": "recorded configurations",
+            "search_space": {
+              "configurations": [
+                {
+                  "optimizer": "Adam",
+                  "lr": 0.001,
+                  "l2": 1e-05,
+                  "batch_size": 128,
+                  "dropout": 0.2,
+                  "u_vector_size": 64,
+                  "i_vector_size": 64,
+                  "r_weight": 0.1,
+                  "ppl_weight": 0,
+                  "pos_weight": 0,
+                  "max_his": 5
+                }
+              ]
+            }
+          },
+          "5MoviesTV01-1-5": {
+            "method": "recorded configurations",
+            "search_space": {
+              "configurations": [
+                {
+                  "optimizer": "Adam",
+                  "lr": 0.001,
+                  "l2": 1e-05,
+                  "batch_size": 128,
+                  "dropout": 0.2,
+                  "u_vector_size": 64,
+                  "i_vector_size": 64,
+                  "r_weight": 0.1,
+                  "ppl_weight": 0,
+                  "pos_weight": 0,
+                  "max_his": 5
+                }
+              ]
+            }
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "Electronics01-1-5": {
+          "optimizer": "Adam",
+          "lr": 0.001,
+          "l2": 1e-05,
+          "batch_size": 128,
+          "dropout": 0.2,
+          "u_vector_size": 64,
+          "i_vector_size": 64,
+          "r_weight": 0.1,
+          "ppl_weight": 0,
+          "pos_weight": 0,
+          "max_his": 5
+        },
+        "5MoviesTV01-1-5": {
+          "optimizer": "Adam",
+          "lr": 0.001,
+          "l2": 1e-05,
+          "batch_size": 128,
+          "dropout": 0.2,
+          "u_vector_size": 64,
+          "i_vector_size": 64,
+          "r_weight": 0.1,
+          "ppl_weight": 0,
+          "pos_weight": 0,
+          "max_his": 5
+        },
+        "ml100k01-1-5": {
+          "lr": 0.1,
+          "batch_size": 128,
+          "l2": 0.001
+        }
+      }
+    },
+    "NCR": {
+      "optimization": {
+        "datasets": {
+          "5MoviesTV01-1-5": {
+            "method": "recorded configurations",
+            "author_confirmed_values": {
+              "l2": [
+                0.01
+              ],
+              "batch_size": [
+                128
+              ]
+            },
+            "recorded_search_space": {
+              "configurations": [
+                {
+                  "optimizer": "Adam",
+                  "lr": 0.001,
+                  "l2": 0.0001,
+                  "batch_size": 64,
+                  "dropout": 0.2,
+                  "u_vector_size": 64,
+                  "i_vector_size": 64,
+                  "r_weight": 0.1,
+                  "ppl_weight": 0,
+                  "pos_weight": 0,
+                  "max_his": 5
+                },
+                {
+                  "optimizer": "Adam",
+                  "lr": 0.001,
+                  "l2": 1e-05,
+                  "batch_size": 128,
+                  "dropout": 0.2,
+                  "u_vector_size": 64,
+                  "i_vector_size": 64,
+                  "r_weight": 0.1,
+                  "ppl_weight": 0,
+                  "pos_weight": 0,
+                  "max_his": 5
+                },
+                {
+                  "optimizer": "Adam",
+                  "lr": 0.001,
+                  "l2": 0.0001,
+                  "batch_size": 128,
+                  "dropout": 0.2,
+                  "u_vector_size": 64,
+                  "i_vector_size": 64,
+                  "r_weight": 0.1,
+                  "ppl_weight": 0,
+                  "pos_weight": 0,
+                  "max_his": 5
+                }
+              ]
+            }
+          },
+          "ml100k01-1-5": {
+            "method": "recorded configurations",
+            "search_space": {
+              "configurations": [
+                {
+                  "optimizer": "Adam",
+                  "lr": 0.001,
+                  "l2": 0.0001,
+                  "batch_size": 128,
+                  "dropout": 0.2,
+                  "u_vector_size": 64,
+                  "i_vector_size": 64,
+                  "r_weight": 0.1,
+                  "ppl_weight": 0,
+                  "pos_weight": 0,
+                  "max_his": 5
+                }
+              ]
+            }
+          },
+          "Electronics01-1-5": {
+            "author_confirmed_values": {
+              "optimizer": [
+                "Adam"
+              ],
+              "lr": [
+                0.001
+              ],
+              "l2": [
+                0.0001
+              ],
+              "u_vector_size": [
+                64
+              ],
+              "i_vector_size": [
+                64
+              ],
+              "r_weight": [
+                0.1
+              ],
+              "max_his": [
+                5
+              ],
+              "batch_size": [
+                256
+              ],
+              "dropout": [
+                0.1
+              ]
+            }
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "optimizer": "Adam",
+          "lr": 0.001,
+          "l2": 0.0001,
+          "batch_size": 128,
+          "dropout": 0.2,
+          "u_vector_size": 64,
+          "i_vector_size": 64,
+          "r_weight": 0.1,
+          "ppl_weight": 0,
+          "pos_weight": 0,
+          "max_his": 5
+        },
+        "5MoviesTV01-1-5": {
+          "optimizer": "Adam",
+          "lr": 0.001,
+          "dropout": 0.2,
+          "u_vector_size": 64,
+          "i_vector_size": 64,
+          "r_weight": 0.1,
+          "ppl_weight": 0,
+          "pos_weight": 0,
+          "max_his": 5,
+          "l2": 0.01,
+          "batch_size": 128
+        },
+        "Electronics01-1-5": {
+          "optimizer": "Adam",
+          "lr": 0.001,
+          "l2": 0.0001,
+          "u_vector_size": 64,
+          "i_vector_size": 64,
+          "r_weight": 0.1,
+          "max_his": 5,
+          "batch_size": 256,
+          "dropout": 0.1
+        }
+      }
+    },
+    "NeuMF": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@5",
+        "search_space": {
+          "lr": [
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "l2": [
+            1e-08,
+            1e-07,
+            1e-06,
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "batch_size": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024
+          ],
+          "dropout": [
+            0.0,
+            0.1,
+            0.2,
+            0.3,
+            0.5,
+            0.6
+          ],
+          "mf_embedding_size": [
+            8,
+            16,
+            32,
+            64,
+            128,
+            256
+          ],
+          "mlp_embedding_size": [
+            4,
+            8,
+            16,
+            32,
+            64,
+            128
+          ],
+          "mlp_layers": [
+            "[16,8,4]",
+            "[32,16,8]",
+            "[64,32,16]",
+            "[128,64,32]",
+            "[256,128,64]",
+            "[128,64,32,16]"
+          ]
+        },
+        "datasets": {
+          "5MoviesTV01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          },
+          "Electronics01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "batch_size": 32,
+          "dropout": 0.3,
+          "l2": 1e-05,
+          "lr": 0.001,
+          "mf_embedding_size": 16,
+          "mlp_embedding_size": 128,
+          "mlp_layers": "[16,8,4]"
+        },
+        "5MoviesTV01-1-5": {
+          "l2": 1e-05
+        },
+        "Electronics01-1-5": {
+          "l2": 1e-05
+        }
+      }
+    },
+    "SASRec": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@5",
+        "search_space": {
+          "lr": [
+            0.0001,
+            0.0005,
+            0.001,
+            0.005
+          ],
+          "l2": [
+            1e-06,
+            1e-05,
+            0.0001,
+            0.001
+          ],
+          "dropout": [
+            0.0,
+            0.1,
+            0.2,
+            0.3,
+            0.5
+          ],
+          "batch_size": [
+            64,
+            128,
+            256,
+            512
+          ],
+          "hidden_size": [
+            32,
+            64,
+            128,
+            256
+          ],
+          "num_blocks": [
+            1,
+            2,
+            3
+          ],
+          "num_heads": [
+            1,
+            2,
+            4
+          ],
+          "norm_first": [
+            0,
+            1
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "batch_size": 64,
+          "dropout": 0.5,
+          "hidden_size": 64,
+          "l2": 1e-05,
+          "lr": 0.001,
+          "norm_first": 1,
+          "num_blocks": 1,
+          "num_heads": 4
+        },
+        "5MoviesTV01-1-5": {
+          "lr": 0.0001,
+          "l2": 0.0001,
+          "dropout": 0.5,
+          "batch_size": 128,
+          "num_blocks": 2,
+          "num_heads": 2,
+          "norm_first": 1,
+          "hidden_size": 128
+        },
+        "Electronics01-1-5": {
+          "lr": 0.001,
+          "l2": 0.0001,
+          "dropout": 0.2,
+          "batch_size": 256,
+          "hidden_size": 128,
+          "num_blocks": 2,
+          "num_heads": 2,
+          "norm_first": 1
+        }
+      }
+    },
+    "STAMP": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@5",
+        "search_space": {
+          "lr": [
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "l2": [
+            1e-08,
+            1e-07,
+            1e-06,
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "batch_size": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024
+          ],
+          "embedding_size": [
+            16,
+            32,
+            64,
+            128,
+            256
+          ],
+          "attention_size": [
+            16,
+            32,
+            64,
+            128,
+            256,
+            512
+          ],
+          "max_his": [
+            3,
+            5,
+            10,
+            20,
+            50
+          ],
+          "negative_mode": [
+            "separate_embedding",
+            "sign_inversion",
+            "mlp"
+          ]
+        },
+        "datasets": {
+          "5MoviesTV01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          },
+          "Electronics01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "attention_size": 128,
+          "batch_size": 512,
+          "embedding_size": 256,
+          "l2": 0.001,
+          "lr": 0.001,
+          "max_his": 5,
+          "negative_mode": "mlp"
+        },
+        "5MoviesTV01-1-5": {
+          "l2": 0.0001
+        },
+        "Electronics01-1-5": {
+          "l2": 0.0001
+        }
+      }
+    },
+    "SVD++": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@5",
+        "search_space": {
+          "lr": [
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "l2": [
+            1e-08,
+            1e-07,
+            1e-06,
+            1e-05,
+            0.0001,
+            0.001,
+            0.01
+          ],
+          "batch_size": [
+            32,
+            64,
+            128,
+            256,
+            512,
+            1024
+          ],
+          "embedding_size": [
+            16,
+            32,
+            64,
+            128,
+            256
+          ]
+        },
+        "datasets": {
+          "5MoviesTV01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          },
+          "Electronics01-1-5": {
+            "method": "grid",
+            "objective": "validation NDCG@5",
+            "search_space": {
+              "l2": [
+                1e-06,
+                1e-05,
+                0.0001
+              ]
+            }
+          }
+        }
+      },
+      "best_hyperparameters": {
+        "ml100k01-1-5": {
+          "batch_size": 128,
+          "embedding_size": 64,
+          "l2": 0.001,
+          "lr": 0.001
+        },
+        "5MoviesTV01-1-5": {
+          "l2": 0.0001
+        },
+        "Electronics01-1-5": {
+          "l2": 0.0001
+        }
+      }
+    }
+  }
+}

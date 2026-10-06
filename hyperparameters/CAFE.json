@@ -1,0 +1,765 @@
+{
+  "paper": "CAFE",
+  "models": {
+    "BPR-HFT": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "learning_rate": [
+            0.0001,
+            0.0003,
+            0.001,
+            0.003
+          ],
+          "embedding_size": [
+            64,
+            100
+          ],
+          "review_weight": [
+            0.01,
+            0.1,
+            1.0
+          ],
+          "weight_decay": [
+            0.0,
+            1e-06,
+            1e-05,
+            0.0001
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "embedding_size": 100,
+          "learning_rate": 0.003,
+          "review_weight": 0.01,
+          "weight_decay": 1e-05
+        },
+        "cell": {
+          "embedding_size": 100,
+          "learning_rate": 0.001,
+          "review_weight": 1.0,
+          "weight_decay": 0.0
+        },
+        "clothing": {
+          "embedding_size": 100,
+          "learning_rate": 0.001,
+          "review_weight": 0.1,
+          "weight_decay": 0.0
+        },
+        "cd": {
+          "embedding_size": 64,
+          "learning_rate": 0.003,
+          "review_weight": 0.1,
+          "weight_decay": 0.0
+        }
+      }
+    },
+    "BPR": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "learning_rate": [
+            0.0001,
+            0.0003,
+            0.001,
+            0.003
+          ],
+          "embedding_size": [
+            64,
+            100
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "embedding_size": 100,
+          "learning_rate": 0.001
+        },
+        "cell": {
+          "embedding_size": 100,
+          "learning_rate": 0.001
+        },
+        "clothing": {
+          "embedding_size": 100,
+          "learning_rate": 0.001
+        },
+        "cd": {
+          "embedding_size": 100,
+          "learning_rate": 0.003
+        }
+      }
+    },
+    "CAFE": {
+      "optimization": {
+        "method": "grid_search",
+        "search_space": {
+          "learning_rate": [
+            0.05,
+            0.1,
+            0.2
+          ],
+          "rank_weight": [
+            5,
+            10,
+            20
+          ]
+        },
+        "optimizer": "SGD"
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "learning_rate": 0.05,
+          "rank_weight": 10
+        },
+        "cell": {
+          "learning_rate": 0.05,
+          "rank_weight": 10
+        },
+        "clothing": {
+          "learning_rate": 0.05,
+          "rank_weight": 10
+        },
+        "cd": {
+          "learning_rate": 0.05,
+          "rank_weight": 10
+        }
+      }
+    },
+    "CKE": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "learning_rate": [
+            0.0001,
+            0.0003,
+            0.001,
+            0.003
+          ],
+          "embedding_size": [
+            64,
+            100
+          ],
+          "regularization": [
+            0.0001,
+            0.001,
+            0.01
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "embedding_size": 100,
+          "learning_rate": 0.001,
+          "model_config": {
+            "kg_embedding_size": 100,
+            "reg_weights": [
+              0.001,
+              0.001
+            ]
+          }
+        },
+        "cell": {
+          "embedding_size": 100,
+          "learning_rate": 0.001,
+          "model_config": {
+            "kg_embedding_size": 100,
+            "reg_weights": [
+              0.01,
+              0.01
+            ]
+          }
+        },
+        "clothing": {
+          "embedding_size": 100,
+          "learning_rate": 0.001,
+          "model_config": {
+            "kg_embedding_size": 100,
+            "reg_weights": [
+              0.01,
+              0.01
+            ]
+          }
+        },
+        "cd": {
+          "embedding_size": 100,
+          "learning_rate": 0.001,
+          "model_config": {
+            "kg_embedding_size": 100,
+            "reg_weights": [
+              0.001,
+              0.001
+            ]
+          }
+        }
+      }
+    },
+    "DeepCoNN": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "learning_rate": [
+            0.0001,
+            0.0003,
+            0.001,
+            0.003
+          ],
+          "word_embedding_size": [
+            64,
+            100
+          ],
+          "cnn_filters": [
+            32,
+            64,
+            100
+          ],
+          "cnn_kernel_size": [
+            3,
+            5
+          ],
+          "weight_decay": [
+            0.0,
+            1e-06,
+            1e-05,
+            0.0001
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "cnn_filters": 100,
+          "cnn_kernel_size": 3,
+          "learning_rate": 0.003,
+          "weight_decay": 1e-06,
+          "word_embedding_size": 64
+        },
+        "cell": {
+          "cnn_filters": 100,
+          "cnn_kernel_size": 3,
+          "learning_rate": 0.003,
+          "weight_decay": 1e-06,
+          "word_embedding_size": 100
+        },
+        "clothing": {
+          "cnn_filters": 100,
+          "cnn_kernel_size": 3,
+          "learning_rate": 0.003,
+          "weight_decay": 1e-06,
+          "word_embedding_size": 100
+        },
+        "cd": {
+          "cnn_filters": 100,
+          "cnn_kernel_size": 5,
+          "learning_rate": 0.001,
+          "weight_decay": 1e-05,
+          "word_embedding_size": 100
+        }
+      }
+    },
+    "HeteroEmbed": {
+      "optimization": {
+        "method": "full-budget embedding dimension enumeration",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "embedding_size": [
+            10,
+            50,
+            100,
+            200
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "embedding_size": 100
+        },
+        "cell": {
+          "embedding_size": 100
+        },
+        "clothing": {
+          "embedding_size": 200
+        },
+        "cd": {
+          "embedding_size": 100
+        }
+      }
+    },
+    "ItemKNN-CBF": {
+      "optimization": {
+        "method": "enumeration_of_six_joint_configurations",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "columns": [
+            "neighbors",
+            "shrink",
+            "normalize",
+            "interaction_weighting",
+            "content_weighting",
+            "content_weight"
+          ],
+          "configurations": [
+            [
+              50,
+              0,
+              true,
+              "none",
+              "none",
+              1.0
+            ],
+            [
+              100,
+              10,
+              true,
+              "tfidf",
+              "tfidf",
+              0.5
+            ],
+            [
+              200,
+              100,
+              true,
+              "bm25",
+              "bm25",
+              1.0
+            ],
+            [
+              400,
+              500,
+              true,
+              "none",
+              "tfidf",
+              2.0
+            ],
+            [
+              800,
+              1000,
+              true,
+              "tfidf",
+              "bm25",
+              10.0
+            ],
+            [
+              100,
+              0,
+              false,
+              "none",
+              "none",
+              0.1
+            ]
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "neighbors": 800,
+          "shrink": 1000,
+          "normalize": true,
+          "interaction_weighting": "tfidf",
+          "content_weighting": "bm25",
+          "content_weight": 10.0
+        },
+        "cell": {
+          "neighbors": 400,
+          "shrink": 500,
+          "normalize": true,
+          "interaction_weighting": "none",
+          "content_weighting": "tfidf",
+          "content_weight": 2.0
+        },
+        "clothing": {
+          "neighbors": 400,
+          "shrink": 500,
+          "normalize": true,
+          "interaction_weighting": "none",
+          "content_weighting": "tfidf",
+          "content_weight": 2.0
+        },
+        "cd": {
+          "neighbors": 800,
+          "shrink": 1000,
+          "normalize": true,
+          "interaction_weighting": "tfidf",
+          "content_weighting": "bm25",
+          "content_weight": 10.0
+        }
+      }
+    },
+    "ItemKNN-CF": {
+      "optimization": {
+        "method": "enumeration_of_six_joint_configurations",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "columns": [
+            "neighbors",
+            "shrink",
+            "normalize",
+            "interaction_weighting",
+            "content_weighting",
+            "content_weight"
+          ],
+          "configurations": [
+            [
+              50,
+              0,
+              true,
+              "none",
+              "none",
+              1.0
+            ],
+            [
+              100,
+              10,
+              true,
+              "tfidf",
+              "tfidf",
+              0.5
+            ],
+            [
+              200,
+              100,
+              true,
+              "bm25",
+              "bm25",
+              1.0
+            ],
+            [
+              400,
+              500,
+              true,
+              "none",
+              "tfidf",
+              2.0
+            ],
+            [
+              800,
+              1000,
+              true,
+              "tfidf",
+              "bm25",
+              10.0
+            ],
+            [
+              100,
+              0,
+              false,
+              "none",
+              "none",
+              0.1
+            ]
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "neighbors": 400,
+          "shrink": 500,
+          "normalize": true,
+          "interaction_weighting": "none",
+          "content_weighting": "tfidf",
+          "content_weight": 2.0
+        },
+        "cell": {
+          "neighbors": 400,
+          "shrink": 500,
+          "normalize": true,
+          "interaction_weighting": "none",
+          "content_weighting": "tfidf",
+          "content_weight": 2.0
+        },
+        "clothing": {
+          "neighbors": 400,
+          "shrink": 500,
+          "normalize": true,
+          "interaction_weighting": "none",
+          "content_weighting": "tfidf",
+          "content_weight": 2.0
+        },
+        "cd": {
+          "neighbors": 800,
+          "shrink": 1000,
+          "normalize": true,
+          "interaction_weighting": "tfidf",
+          "content_weighting": "bm25",
+          "content_weight": 10.0
+        }
+      }
+    },
+    "ItemKNN-CFCBF": {
+      "optimization": {
+        "method": "enumeration_of_six_joint_configurations",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "columns": [
+            "neighbors",
+            "shrink",
+            "normalize",
+            "interaction_weighting",
+            "content_weighting",
+            "content_weight"
+          ],
+          "configurations": [
+            [
+              50,
+              0,
+              true,
+              "none",
+              "none",
+              1.0
+            ],
+            [
+              100,
+              10,
+              true,
+              "tfidf",
+              "tfidf",
+              0.5
+            ],
+            [
+              200,
+              100,
+              true,
+              "bm25",
+              "bm25",
+              1.0
+            ],
+            [
+              400,
+              500,
+              true,
+              "none",
+              "tfidf",
+              2.0
+            ],
+            [
+              800,
+              1000,
+              true,
+              "tfidf",
+              "bm25",
+              10.0
+            ],
+            [
+              100,
+              0,
+              false,
+              "none",
+              "none",
+              0.1
+            ]
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "neighbors": 200,
+          "shrink": 100,
+          "normalize": true,
+          "interaction_weighting": "bm25",
+          "content_weighting": "bm25",
+          "content_weight": 1.0
+        },
+        "cell": {
+          "neighbors": 100,
+          "shrink": 0,
+          "normalize": false,
+          "interaction_weighting": "none",
+          "content_weighting": "none",
+          "content_weight": 0.1
+        },
+        "clothing": {
+          "neighbors": 200,
+          "shrink": 100,
+          "normalize": true,
+          "interaction_weighting": "bm25",
+          "content_weighting": "bm25",
+          "content_weight": 1.0
+        },
+        "cd": {
+          "neighbors": 100,
+          "shrink": 10,
+          "normalize": true,
+          "interaction_weighting": "tfidf",
+          "content_weighting": "tfidf",
+          "content_weight": 0.5
+        }
+      }
+    },
+    "KGAT": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "learning_rate": [
+            0.0001,
+            0.0003,
+            0.001,
+            0.003
+          ],
+          "embedding_size": [
+            64,
+            100
+          ],
+          "mess_dropout": [
+            0.0,
+            0.1,
+            0.2
+          ],
+          "reg_weight": [
+            1e-06,
+            1e-05,
+            0.0001
+          ],
+          "aggregator_type": [
+            "gcn",
+            "graphsage",
+            "bi"
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "embedding_size": 64,
+          "learning_rate": 0.003,
+          "model_config": {
+            "mess_dropout": 0.1,
+            "reg_weight": 1e-06,
+            "aggregator_type": "bi",
+            "kg_embedding_size": 64,
+            "layers": [
+              64
+            ]
+          }
+        },
+        "cell": {
+          "embedding_size": 64,
+          "learning_rate": 0.003,
+          "model_config": {
+            "mess_dropout": 0.2,
+            "reg_weight": 1e-05,
+            "aggregator_type": "bi",
+            "kg_embedding_size": 64,
+            "layers": [
+              64
+            ]
+          }
+        },
+        "clothing": {
+          "embedding_size": 64,
+          "learning_rate": 0.003,
+          "model_config": {
+            "mess_dropout": 0.1,
+            "reg_weight": 1e-06,
+            "aggregator_type": "bi",
+            "kg_embedding_size": 64,
+            "layers": [
+              64
+            ]
+          }
+        },
+        "cd": {
+          "embedding_size": 100,
+          "learning_rate": 0.001,
+          "model_config": {
+            "mess_dropout": 0.0,
+            "reg_weight": 0.0001,
+            "aggregator_type": "gcn",
+            "kg_embedding_size": 100,
+            "layers": [
+              100
+            ]
+          }
+        }
+      }
+    },
+    "PGPR": {
+      "optimization": {
+        "method": "fixed_settings"
+      },
+      "best_hyperparameters": {}
+    },
+    "RippleNet": {
+      "optimization": {
+        "method": "Hyperopt TPE",
+        "objective": "validation NDCG@10",
+        "search_space": {
+          "learning_rate": [
+            0.0001,
+            0.0003,
+            0.001,
+            0.003
+          ],
+          "embedding_size": [
+            64,
+            100
+          ],
+          "n_hop": [
+            1,
+            2,
+            3
+          ],
+          "n_memory": [
+            8,
+            16,
+            32
+          ],
+          "kg_weight": [
+            0.001,
+            0.01,
+            0.1
+          ],
+          "reg_weight": [
+            1e-08,
+            1e-07,
+            1e-06
+          ]
+        }
+      },
+      "best_hyperparameters": {
+        "beauty": {
+          "embedding_size": 64,
+          "learning_rate": 0.003,
+          "model_config": {
+            "n_hop": 3,
+            "n_memory": 16,
+            "kg_weight": 0.1,
+            "reg_weight": 1e-08
+          }
+        },
+        "cell": {
+          "embedding_size": 64,
+          "learning_rate": 0.0003,
+          "model_config": {
+            "n_hop": 2,
+            "n_memory": 32,
+            "kg_weight": 0.001,
+            "reg_weight": 1e-07
+          }
+        },
+        "clothing": {
+          "embedding_size": 100,
+          "learning_rate": 0.0003,
+          "model_config": {
+            "n_hop": 2,
+            "n_memory": 16,
+            "kg_weight": 0.01,
+            "reg_weight": 1e-06
+          }
+        },
+        "cd": {
+          "embedding_size": 64,
+          "learning_rate": 0.003,
+          "model_config": {
+            "n_hop": 3,
+            "n_memory": 16,
+            "kg_weight": 0.001,
+            "reg_weight": 1e-08
+          }
+        }
+      }
+    }
+  }
+}
