@@ -61,8 +61,6 @@ python scripts/evaluate.py --models all --dataset ml100k01-1-5 \
 
 Both the training epoch and the hyperparameter configuration are selected by validation NDCG@5. Metrics are stored in the order NDCG@5, NDCG@10, HR@5, HR@10; test scores do not determine the selected configuration. Evaluation reports the mean and sample standard deviation across seeds.
 
-The cleaned repository does not include historical results or claim to reproduce the paper's tables. The model implementations and dataset splits are preserved; full experiments must be run to obtain results.
-
 ## Reference
 
 ```bibtex
