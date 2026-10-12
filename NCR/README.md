@@ -1,12 +1,14 @@
-# ncr-repro
+# NCR
 
 Research code for experiments with Neural Collaborative Reasoning (NCR), explicit-feedback variants and recommendation baselines. Based on the NCR implementation by Hanxiong Chen, Shaoyun Shi, Yunqi Li and Yongfeng Zhang (WWW 2021).
 
 ## Setup
 
-The code was checked with Python 3.7.12 and the versions in `requirements.txt`.
+The code was checked with Python 3.7.12 and the versions in `requirements.txt`. Run the setup commands from `NCR/`.
 
 ```bash
+python3.7 -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
@@ -47,7 +49,7 @@ Model identifiers include `NCR`, `NCR-E`, `NCR-E-WoLR`, `BPR-MF`, `SVD++`, `DMF`
 
 ## Baseline experiments
 
-From the repository root:
+From `NCR/`:
 
 ```bash
 python scripts/tune.py --models all --dataset ml100k01-1-5 \
@@ -71,4 +73,5 @@ Both the training epoch and the hyperparameter configuration are selected by val
   pages={1516--1527},
   year={2021}
 }
+```
 

@@ -1,8 +1,7 @@
 # Baseline model implementations
 
-All model implementations evaluated in the CAFE study are centralized in this
-directory. Files under `scripts/` are launchers, preprocessing tools, tuners or
-evaluators; they do not contain a second implementation.
+This directory contains the baseline models. Launchers, preprocessing,
+tuning and evaluation scripts are under `CAFE/scripts/`.
 
 | Baseline | Implementation |
 |---|---|
@@ -19,5 +18,4 @@ evaluators; they do not contain a second implementation.
 | ItemKNN-CFCBF | `itemknn_hybrids.py` |
 
 The supporting RecBole 1.2.1 engine is stored separately in
-`baselines/recbole_core/`. Its model-resolution shims import BPR, CKE,
-RippleNet and KGAT from this directory, so these are the files used at runtime.
+`baselines/recbole_core/`.

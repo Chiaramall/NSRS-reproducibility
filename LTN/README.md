@@ -1,12 +1,12 @@
 # LTNrec
 
 Experiments on Logic Tensor Networks for top-N recommendation with MindReader
-and MovieLens. This repository builds on the original LTNrec implementation by
+and MovieLens. The code builds on the original LTNrec implementation by
 Tommaso Carraro (`tommasocarraro/LTNrec`).
 
 ## Setup
 
-Use Python 3.10 or later on Linux. Run commands from the repository root.
+Use Python 3.10 or later on Linux. Run commands from `LTN/`.
 
 ```bash
 python -m venv .venv
@@ -70,8 +70,7 @@ Use `--stage status --details` to inspect progress and `--stage report` to
 regenerate reports. Repeating the same command resumes compatible saved state.
 Outputs are written under `benchmark_outputs/` and excluded from Git.
 
-Only the sampled-100 MovieLens implementation is included. Historical
-full-catalog results use a different evaluation protocol.
+MovieLens evaluation uses 100 sampled negatives per positive item.
 
 ## Layout
 

@@ -1,6 +1,6 @@
 # EditKG Reproducibility Study
 
-Code, dataset artifacts, and experiment configurations for evaluating EditKG and its recommendation baselines on Last-FM, Amazon-Book, and Yelp2018.
+Code, datasets and configurations for evaluating EditKG and recommendation baselines on Last-FM, Amazon-Book and Yelp2018.
 
 ## Repository layout
 
@@ -17,7 +17,7 @@ Code, dataset artifacts, and experiment configurations for evaluating EditKG and
 
 ## Environment
 
-Run the commands below from the repository root. The modern environment uses Python 3.12 and PyTorch; the recorded software versions are in [environment-modern.txt](environment-modern.txt).
+Run the commands below from `EditKG/`. The PyTorch environment uses Python 3.12; the recorded software versions are in [environment-modern.txt](environment-modern.txt).
 
 ```bash
 python3 -m venv .envs/editkg
@@ -49,7 +49,7 @@ GPU_ID=0 bash scripts/run_baseline.sh lightgcn last-fm
 GPU_ID=0 bash scripts/run_baseline.sh kgcn amazon-book
 ```
 
-The launcher defaults to `data/editkg-filtered`. Set `EDITKG_PYTHON` to use another modern Python interpreter. Supported baseline names and configuration overrides are documented in [baselines/README.md](baselines/README.md).
+These commands use `data/editkg-filtered` and evaluate on the test split. Set `EDITKG_PYTHON` to use another Python interpreter. Supported baseline names and configuration overrides are documented in [baselines/README.md](baselines/README.md).
 
 For validation with a native runner, point it to the reduced training view:
 

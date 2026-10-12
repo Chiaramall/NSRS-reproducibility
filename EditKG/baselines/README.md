@@ -6,7 +6,9 @@
 | `external/recbole` | `gcmc`, `cke`, `ktup`, `kgcn` |
 | Native code under `external/` | `kgat`, `kgin`, `kgcl`, `kgrec`, `krdn` |
 
-From the repository root, run `bash scripts/run_baseline.sh MODEL DATASET [extra arguments]`. The same launcher also accepts `editkg`.
+From `EditKG/`, run `bash scripts/run_baseline.sh MODEL DATASET [extra arguments]`. The same launcher also accepts `editkg`.
+
+The READMEs under `external/` describe the original projects and their environments. For this study, use the launcher and environment described in the [EditKG README](../README.md).
 
 Pass overrides from [configs/paper_hyperparameters.tsv](../configs/paper_hyperparameters.tsv) explicitly; the launcher does **not** load them automatically. Example for LightGCN:
 

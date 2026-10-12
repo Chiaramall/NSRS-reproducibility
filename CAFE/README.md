@@ -1,40 +1,38 @@
 # CAFE Reproducibility and Extended Evaluation
 
-This repository provides a cleaned, reproducible research snapshot of
-**CAFE: Coarse-to-Fine Neural Symbolic Reasoning for Explainable
-Recommendation** (CIKM 2020), together with the local reproducibility study
-and extended baseline evaluation on the four Amazon domains used in the
-paper.
+Code for reproducing **CAFE: Coarse-to-Fine Neural Symbolic Reasoning for
+Explainable Recommendation** (CIKM 2020) and comparing it with recommendation
+baselines on Beauty, Cell Phones, Clothing and CDs.
 
 ## Included models
 
 - Original CAFE neural-symbolic recommender.
-- BPR, CKE, RippleNet and KGAT through the declared RecBole protocol.
-- BPR-HFT and DeepCoNN common-protocol review-aware implementations.
+- BPR, CKE, RippleNet and KGAT using RecBole.
+- BPR-HFT and DeepCoNN using review text.
 - HeteroEmbed, implemented as a PyTorch port of the authors' released
   CFKG/KBE4ER objective.
 - Official PGPR launcher.
 - ItemKNN-CF, ItemKNN-CBF and ItemKNN-CFCBF.
 
-BPR-HFT and DeepCoNN are reported as common-protocol reimplementations
-because the CAFE paper did not release their exact top-N code and hyperparameters.
+BPR-HFT and DeepCoNN are reimplementations evaluated with the same protocol
+as the other local baselines. The CAFE paper did not release their exact
+top-N code and hyperparameters.
 
 ## Repository layout
 
 - `data/Beauty/`: original public CAFE Beauty data and KG initialization.
-- `data/<domain>/preprocessing_metadata.json`: validated metadata for the
-  additional domains. Their generated raw files are intentionally excluded.
+- `data/<domain>/preprocessing_metadata.json`: preprocessing metadata for the
+  additional domains. Generate their data files with the conversion scripts.
 - `scripts/`: preprocessing, evaluation and hyperparameter-selection tools.
 - `baselines/`: protocol documentation, dependencies and every baseline
   implementation under `baselines/models/`; RecBole support code is under
   `baselines/recbole_core/`.
-- `results/`: generated locally by the runners and ignored by Git. Numerical
-  results and comparison tables are maintained separately.
+- `results/`: experiment outputs, generated locally and ignored by Git.
 - `tests/`: regression tests for the added baseline implementations.
 
 ## Environment
 
-Create a clean environment and install the declared dependencies:
+Run commands from `CAFE/`. Create an environment and install the dependencies:
 
 ```bash
 python -m venv .venv
@@ -75,13 +73,12 @@ python scripts/reproducibility.py all --dataset beauty --python python
 
 See [Baseline protocol and commands](baselines/README.md) for all model
 launchers, fixed-parameter runs, validation-based selection and output formats.
-The [implementation index](baselines/models/README.md) maps each model to its
-single implementation.
+The [implementation index](baselines/models/README.md) lists the source files.
 
 Precomputed scores are not distributed. Runners create `results/` as needed,
 including per-run metrics, selected configurations and protocol records.
 Regenerate selections with the tuning commands before evaluating a selected
-configuration; numerical tables are maintained separately.
+configuration.
 
 ## References
 

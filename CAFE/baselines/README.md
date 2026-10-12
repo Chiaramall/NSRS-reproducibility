@@ -5,8 +5,8 @@ HeteroEmbed and PGPR. ItemKNN variants extend this comparison.
 
 ## Evaluation protocol
 
-First follow [Data preparation](DATASETS.md). All commands below run from the
-repository root with the environment in the main README activated.
+First follow [Data preparation](DATASETS.md). Run commands from `CAFE/`
+with the environment in the main README activated.
 
 Fixed-parameter baseline runners use the public training interactions and
 evaluate on the outer test split. The generated outer `valid` file is empty;
@@ -14,14 +14,13 @@ these runs do not perform validation-based hyperparameter selection.
 
 The tuning commands instead create an inner validation split from the public
 training set, select hyperparameters there, and refit on the full training
-set before final outer-test evaluation. Never select configurations by their
-outer-test scores.
+set before final outer-test evaluation.
 
 Local baseline evaluation ranks unseen candidate items and reports NDCG@10,
 Recall@10, HR@10 and Precision@10 as percentages. PGPR obtains candidates from
 paths and optionally fills missing positions, as described below.
 
-## Runnable common-protocol models
+## RecBole and HeteroEmbed
 
 See [Model implementations](models/README.md) for the source files. Install the
 RecBole runtime dependencies, then run:
@@ -43,12 +42,11 @@ python scripts/run_paper_heteroembed.py \
   --negative-samples 5
 ```
 
-## Review-aware common-protocol models
+## Review-based models and PGPR
 
 The CAFE paper does not publish the code, hyperparameters, or top-N
-adaptations used for BPR-HFT and DeepCoNN. This repository therefore provides
-explicit common-protocol reimplementations rather than claiming exact
-reproduction of those two paper rows:
+adaptations used for BPR-HFT and DeepCoNN. The reimplementations use training
+reviews and the shared full-ranking evaluator:
 
 ```bash
 python scripts/run_review_baselines.py \
@@ -56,8 +54,6 @@ python scripts/run_review_baselines.py \
   --models BPR-HFT DeepCoNN \
   --seeds 123 124 125 126 127
 ```
-
-Both models use training reviews and the shared full-ranking evaluator.
 
 Run PGPR with:
 

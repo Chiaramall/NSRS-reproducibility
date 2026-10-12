@@ -1,6 +1,6 @@
-# The Promise of Neuro-Symbolic Recommender Systems:  Reproducibility and the Challenge of Demonstrating Progress
+# The Promise of Neuro-Symbolic Recommender Systems: Reproducibility and the Challenge of Demonstrating Progress
 
-This repository brings together four reproducibility studies on neuro-symbolic recommender systems. Each directory is an independent project with its own environment, datasets, evaluation protocol, and documentation.
+Code and configurations for four reproducibility studies on neuro-symbolic recommender systems. Each project has its own dependencies, datasets and evaluation protocol.
 
 | Project | Datasets | Scope | Documentation |
 | --- | --- | --- | --- |
@@ -11,7 +11,7 @@ This repository brings together four reproducibility studies on neuro-symbolic r
 
 ## Hyperparameter configurations
 
-Search spaces, optimization settings and selected parameters are grouped by model and dataset in one JSON per paper: [NCR](hyperparameters/NCR.json), [LTN](hyperparameters/LTN.json), [CAFE](hyperparameters/CAFE.json), [EditKG](hyperparameters/EditKG.json). Each model uses the same structure: optimization method and search ranges (`optimization`), followed by selected parameters (`best_hyperparameters`) grouped by dataset and, where applicable, training proportion or search procedure.
+Search spaces and selected hyperparameters are recorded in one JSON file per study: [NCR](hyperparameters/NCR.json), [LTN](hyperparameters/LTN.json), [CAFE](hyperparameters/CAFE.json), [EditKG](hyperparameters/EditKG.json).
 
 ## Getting started
 
@@ -20,7 +20,7 @@ git clone https://github.com/Chiaramall/NSRS-reproducibility.git
 cd NSRS-reproducibility
 ```
 
-Do not install all requirements into a single environment. Enter the project you want to reproduce and follow its README.
+Use a separate environment for each project. The examples below start from the top-level `NSRS-reproducibility/` directory; follow the linked READMEs for the full experiments.
 
 ### NCR
 
@@ -28,6 +28,8 @@ NCR uses a legacy environment tested with Python 3.7.12. Processed splits for al
 
 ```bash
 cd NCR
+python3.7 -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt
 cd src
 python main.py --rank 1 --model_name NCR --optimizer Adam --lr 0.001 \
@@ -70,23 +72,22 @@ Follow the [CAFE data guide](CAFE/baselines/DATASETS.md) before running the four
 
 ### EditKG
 
-The modern EditKG environment uses Python 3.12. Prepared filtered datasets and validation views are included for all three domains.
+The PyTorch environment for EditKG uses Python 3.12. Prepared filtered datasets and validation views are included for all three domains.
 
 ```bash
 cd EditKG
 python3 -m venv .envs/editkg
 source .envs/editkg/bin/activate
 python -m pip install -r requirements.txt
-GPU_ID=0 bash scripts/run_baseline.sh editkg last-fm
+EDITKG_DATA_ROOT="$PWD/data/editkg-validation" \
+  GPU_ID=0 bash scripts/run_baseline.sh editkg last-fm
 ```
 
-PyTorch and `torch-scatter` must use compatible builds. KGAT requires the separate Python 3.7 / TensorFlow 1.15 environment described in the [EditKG instructions](EditKG/README.md).
+This command uses the validation split. The launcher defaults to the test split when `EDITKG_DATA_ROOT` is omitted; follow the [EditKG evaluation protocol](EditKG/README.md#evaluation-protocol-and-metrics) for final evaluation. PyTorch and `torch-scatter` must use compatible builds. KGAT requires a separate Python 3.7 / TensorFlow 1.15 environment.
 
 ## Reproducibility notes
 
 - Run commands from the relevant project directory.
-- Generated checkpoints, logs, downloaded data, and most result files are ignored by Git.
-- Full studies may require multiple seeds, large searches, and several days of computation. Use the smoke or single-run configurations first when provided.
 - Validation and test protocols differ across projects. Follow the selection procedure documented for each study to avoid test-set leakage.
 
 ## References
@@ -95,5 +96,3 @@ PyTorch and `torch-scatter` must use compatible builds. KGAT requires the separa
 - Tommaso Carraro. *Logic Tensor Networks for Top-N Recommendation*.
 - Yikun Xian et al. *CAFE: Coarse-to-Fine Neural Symbolic Reasoning for Explainable Recommendation*. CIKM, 2020.
 - Gu Tang et al. *EditKG: Editing Knowledge Graph for Recommendation*. SIGIR, 2024.
-
-BibTeX entries and upstream-code attribution are provided in the individual project READMEs.
