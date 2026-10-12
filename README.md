@@ -1,4 +1,4 @@
-# Neuro-Symbolic Recommender Systems: Reproducibility
+# The Promise of Neuro-Symbolic Recommender Systems:  Reproducibility and the Challenge of Demonstrating Progress
 
 This repository brings together four reproducibility studies on neuro-symbolic recommender systems. Each directory is an independent project with its own environment, datasets, evaluation protocol, and documentation.
 
