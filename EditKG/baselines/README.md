@@ -22,7 +22,7 @@ bash scripts/run_baseline.sh lightgcn last-fm \
 
 ## Validation search and final refit
 
-Use the [complete benchmark](../README.md#complete-search-and-final-evaluation)
+Use the [complete benchmark](../BENCHMARK.md#complete-search-and-final-evaluation)
 for automated search, same-epoch validation selection, and final multi-seed
 refitting. It also includes the three ItemKNN variants. From the repository root:
 
