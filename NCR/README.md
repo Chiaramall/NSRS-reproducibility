@@ -66,32 +66,22 @@ Both the training epoch and the hyperparameter configuration are selected by val
 ## All datasets and models
 
 From the repository root, after activating `nsrs-ncr-3-7` and installing
-`NCR/requirements-hyperopt.txt`:
+`NCR/requirements-hyperopt.txt`, run:
 
 ```bash
-bash NCR/reproduce.sh tune
-bash NCR/reproduce.sh evaluate
-bash NCR/reproduce.sh variants
-# Or perform all three stages:
 bash NCR/reproduce.sh all
 ```
 
-Append dataset keys to restrict the run. `GPU_ID=-1` selects CPU;
-`DRY_RUN=1` previews commands. The first two stages use the nine baseline
-runners above. The `variants` stage trains and evaluates NCR, NCR-E and
-NCR-E-WoLR over five seeds using `hyperparameters/NCR.json`, filling omitted
-fields with the explicit common settings in `scripts/run_variants.py`.
-It writes per-seed metrics and mean/sample-standard-deviation summaries under
-`tuning/variants/<dataset>/<model>/`. Hyperparameters are fixed to the recorded
-values; epochs are selected on validation. To inspect individual variant
-commands without training, run from `NCR/`:
+This runs baseline hyperparameter search and evaluation, followed by NCR,
+NCR-E and NCR-E-WoLR evaluation over five seeds, on all three datasets.
+The NCR variants use the recorded hyperparameters in `hyperparameters/NCR.json`
+and select the training epoch on validation.
+
+To run only one dataset, append its key:
 
 ```bash
-python scripts/run_variants.py --dataset ml100k01-1-5 --dry-run
+bash NCR/reproduce.sh all ml100k01-1-5
 ```
-
-`main.py --model_name all` is not supported. Use the wrapper to cover the
-baseline and NCR model families together.
 
 ## Reference
 
