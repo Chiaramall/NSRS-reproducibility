@@ -17,123 +17,72 @@ Search spaces and recorded selected hyperparameters are available for [NCR](hype
 
 ## Getting started
 
-Download and extract the supplied repository archive, then open a terminal in its top-level directory (the directory containing this README). The commands below assume Bash on Linux and an installed Conda distribution.
+Download and extract the repository archive. Use Bash on Linux and a separate
+Conda environment for each study: NCR uses Python 3.7; LTNrec, CAFE and EditKG
+use Python 3.12, with different dependencies.
 
-Create one environment per project, even when they use the same Python version: the NumPy and PyTorch requirements differ.
-
-```bash
-conda create -y -n nsrs-ncr-3-7 python=3.7 pip
-conda create -y -n nsrs-ltn-3-12 python=3.12 pip
-conda create -y -n nsrs-cafe-3-12 python=3.12 pip
-conda create -y -n nsrs-editkg-3-12 python=3.12 pip
-```
-
-Each section starts from the repository root. The scripts can also be invoked by absolute path from any directory. Set `DRY_RUN=1` to print their commands without starting experiments. Full searches can take several days. Training and evaluation are combined in the existing runners where noted.
+Complete the linked installation and data preparation steps before running a
+study. All commands below start from the repository root and run the complete
+workflow for the models and datasets listed above. Full experiments can take
+several days.
 
 ### NCR
 
-Python 3.7 is required for the pinned legacy dependencies. Processed splits for all three datasets are included.
+Follow the [NCR setup](NCR/README.md#setup), including
+`requirements-hyperopt.txt`. The processed datasets are included.
 
 ```bash
 conda activate nsrs-ncr-3-7
-python -m pip install -r NCR/requirements-hyperopt.txt
-# Nine baselines: validation hyperparameter search on all three datasets.
-GPU_ID=0 bash NCR/reproduce.sh tune
-# Retrain selected baseline configurations over five seeds and evaluate.
-GPU_ID=0 bash NCR/reproduce.sh evaluate
-# NCR, NCR-E and NCR-E-WoLR: recorded configurations, five seeds, train + evaluate.
-GPU_ID=0 bash NCR/reproduce.sh variants
+bash NCR/reproduce.sh all
 ```
 
-Alternatively, `bash NCR/reproduce.sh all` performs all three steps. Dataset keys are `ml100k01-1-5`, `5MoviesTV01-1-5`, and `Electronics01-1-5`; append one or more keys to restrict a run:
-
-```bash
-GPU_ID=-1 bash NCR/reproduce.sh all ml100k01-1-5
-```
-
-`GPU_ID=-1` selects CPU. `MAX_EVALS` defaults to 30 and `SEEDS` to `2019,2020,2021,2022,2023`. Baseline outputs go to `NCR/tuning/<dataset>` and `<dataset>_seeds`; variant metrics and summaries go to `NCR/tuning/variants/`. The variants load `hyperparameters/NCR.json`; this is a rerun of the recorded configurations, not a new variant search. Epoch selection uses validation NDCG@5.
-
-`main.py --model_name all` is **not** supported. The `--models all` option belongs to the baseline tuning/evaluation scripts and excludes the three NCR variants. See [individual NCR commands](NCR/README.md).
+This runs baseline hyperparameter search and evaluation, plus the three NCR
+variants with their recorded configurations. See the [NCR README](NCR/README.md)
+for individual runs, evaluation details and outputs.
 
 ### LTNrec
 
-Use the separate Python 3.12 environment. The MindReader snapshot is included; MovieLens is downloaded by the pipeline.
+Follow the [LTNrec setup](LTN/README.md#setup). The MindReader snapshot is
+included; the pipeline downloads MovieLens 100K and 1M.
 
 ```bash
 conda activate nsrs-ltn-3-12
-python -m pip install -r LTN/requirements.txt
-# Search, training and evaluation for every included MindReader model,
-# including the large-embedding study.
-bash LTN/reproduce.sh mindreader
-# Download MovieLens 100K/1M; run full search, training and evaluation.
-bash LTN/reproduce.sh movielens
+bash LTN/reproduce.sh all
 ```
 
-`bash LTN/reproduce.sh all` runs both studies. Set `DEVICE=cpu` for the MovieLens CPU pipeline. The full MovieLens profile specifies 5,580 validation fits and 1,800 final fits. Outputs are under `LTN/results/` and `LTN/benchmark_outputs/`. For separate stages, smoke runs and resumption details, see [LTNrec instructions](LTN/README.md).
+This runs the MindReader and MovieLens studies, including model selection,
+training and evaluation. See the [LTNrec README](LTN/README.md) for individual
+runs, evaluation details and outputs.
 
 ### CAFE
 
-Dataset keys are `beauty`, `cell`, `clothing`, and `cd`. Beauty's graph and initialization are included. **Before running the experiments**, download/extract the public PGPR archive and create the data links in the [data guide](CAFE/baselines/DATASETS.md); the four-domain baseline comparison needs this archive, including for Beauty.
+Follow the [CAFE setup](CAFE/README.md#environment) and
+[data preparation guide](CAFE/baselines/DATASETS.md). The complete comparison
+requires the public PGPR archive and a GPU compatible with the CUDA 12.4 stack.
 
 ```bash
 conda activate nsrs-cafe-3-12
-python -m pip install --upgrade pip
-# Compatible Linux / CUDA 12.4 graph stack, including KGAT's DGL dependency.
-python -m pip install 'torch==2.4.0+cu124' 'torchdata==0.8.0' \
-  --extra-index-url https://download.pytorch.org/whl/cu124
-python -m pip install 'dgl==2.4.0+cu124' \
-  -f https://data.dgl.ai/wheels/torch-2.4/cu124/repo.html
-python -m pip install -r CAFE/requirements.txt
-python -m pip check
-# Prepare all four domains and missing CAFE initializations.
-GPU_ID=0 bash CAFE/reproduce.sh prepare
-# CAFE paper parameters: five-seed training, inference and evaluation.
-GPU_ID=0 bash CAFE/reproduce.sh cafe
-# Baselines: validation search, final retraining/evaluation; PGPR uses fixed settings.
-GPU_ID=0 bash CAFE/reproduce.sh baselines
+bash CAFE/reproduce.sh all
 ```
 
-`bash CAFE/reproduce.sh all` performs those three stages. Append dataset keys to restrict any stage, e.g. `bash CAFE/reproduce.sh all beauty`. This setup requires a GPU/driver compatible with CUDA 12.4. Results are written under `CAFE/results/`.
-
-The original `scripts/reproducibility.py all` runs the **CAFE-only SGD reproduction and grid**, not every model. The Adam counterpart is `cafe_paper_reproducibility.py`. Their grids use test-scored executions and are historical sensitivity analyses, not validation-selected final results. They remain available through `bash CAFE/reproduce.sh legacy-grid`; they are excluded from the default `all` workflow. The [baseline instructions](CAFE/baselines/README.md) describe the validation-based baseline searches and metrics.
+This prepares all four domains, evaluates CAFE and runs the baseline searches
+and evaluations. See the [CAFE README](CAFE/README.md) for individual runs,
+evaluation details and outputs.
 
 ### EditKG
 
-Activate the Python 3.12 environment and install the dependencies:
+Follow the [EditKG setup](EditKG/README.md#environment), including the separate
+Python 3.7 / TensorFlow environment for KGAT. Prepared datasets and validation
+splits are included; the full workflow uses an NVIDIA GPU.
 
 ```bash
 conda activate nsrs-editkg-3-12
-bash EditKG/scripts/install_environment.sh cu126
+bash EditKG/reproduce.sh all
 ```
 
-KGAT requires a separate Python 3.7 / TensorFlow environment and runs on CPU.
-Create it once, keeping the modern environment active:
-
-```bash
-conda create -y --prefix "$PWD/EditKG/.envs/kgat-legacy" python=3.7 pip
-conda run --prefix "$PWD/EditKG/.envs/kgat-legacy" python -m pip install \
-  'tensorflow==1.15.0' 'numpy==1.18.5' 'scipy==1.4.1' \
-  'scikit-learn==0.22.1' 'protobuf==3.20.3'
-```
-
-Run validation search, final training and test evaluation for all 16 models
-on all three datasets:
-
-```bash
-GPU_ID=0 bash EditKG/reproduce.sh all
-```
-
-Append `last-fm`, `amazon-book` or `yelp2018` to run a single dataset.
-Results are saved under `EditKG/results/benchmark/`. See the
-[EditKG README](EditKG/README.md) for setup and results, and the
-[detailed guide](EditKG/BENCHMARK.md) for protocol details and advanced options.
-
-## Reproducibility notes
-
-- `DRY_RUN=1 bash NCR/reproduce.sh all` (and the corresponding scripts for the other studies) previews commands without training or downloading datasets.
-- Activate the project's environment before running its script; `PYTHON` can override the interpreter.
-- Use fresh output directories when changing settings; some original runners resume by filename.
-- Follow each study's validation/test protocol. Historical test-scored grids are not validation hyperparameter searches.
+This runs validation-based hyperparameter search, final retraining and test
+evaluation for all 16 models. See the [EditKG README](EditKG/README.md) for
+individual runs, evaluation details and outputs.
 
 ## References
 
