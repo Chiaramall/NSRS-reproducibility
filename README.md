@@ -99,47 +99,34 @@ The original `scripts/reproducibility.py all` runs the **CAFE-only SGD reproduct
 
 ### EditKG
 
-Use Python 3.12 for the modern stack. Install PyTorch first and then a matching prebuilt `torch-scatter` wheel; installing everything together from an unpinned requirements file can fail with `ModuleNotFoundError: No module named 'torch'` during isolated compilation.
+Activate the Python 3.12 environment and install the dependencies:
 
 ```bash
 conda activate nsrs-editkg-3-12
-# Installs Torch 2.7.0 / CUDA 12.6, matching scatter, and the remaining dependencies.
 bash EditKG/scripts/install_environment.sh cu126
-# One-model validation run using the activated Conda environment.
-EDITKG_PYTHON="$(command -v python)" \
-  EDITKG_DATA_ROOT="$PWD/EditKG/data/editkg-validation" \
-  GPU_ID=0 bash EditKG/scripts/run_baseline.sh editkg last-fm
 ```
 
-The installer also accepts `cpu` for CPU installation/import checks; this does not make all native GPU runners CPU-compatible. See [installation details](EditKG/README.md#environment).
-
-KGAT needs its **own** Python 3.7 / TensorFlow environment. Create it before running the all-model script (KGAT defaults to CPU):
+KGAT requires a separate Python 3.7 / TensorFlow environment and runs on CPU.
+Create it once, keeping the modern environment active:
 
 ```bash
 conda create -y --prefix "$PWD/EditKG/.envs/kgat-legacy" python=3.7 pip
 conda run --prefix "$PWD/EditKG/.envs/kgat-legacy" python -m pip install \
   'tensorflow==1.15.0' 'numpy==1.18.5' 'scipy==1.4.1' \
   'scikit-learn==0.22.1' 'protobuf==3.20.3'
-# All 16 models, all three datasets: validation search, final refit and evaluation.
+```
+
+Run validation search, final training and test evaluation for all 16 models
+on all three datasets:
+
+```bash
 GPU_ID=0 bash EditKG/reproduce.sh all
 ```
 
-Dataset keys are `last-fm`, `amazon-book`, and `yelp2018`; append keys to restrict a run. The complete driver uses the recorded search spaces in `hyperparameters/EditKG.json`, selects parameters and a one-based epoch count on **validation Recall@20** (ties: NDCG@20), retrains from scratch on the full training split for exactly that duration, and evaluates the full held-out test split **once**, at the end. Recall and NDCG always come from the same epoch.
-
-Run stages separately or preview the workload:
-
-```bash
-bash EditKG/reproduce.sh plan
-bash EditKG/reproduce.sh search
-bash EditKG/reproduce.sh final
-bash EditKG/reproduce.sh report
-```
-
-Defaults: up to 30 candidate configurations per model/dataset, 300 training epochs per candidate, training seed 2024, and final seeds 2020–2024. ItemKNN uses its six recorded joint configurations and one deterministic final fit. The driver tries the recorded explicit baseline candidates first, then uses reproducible categorical random search; it starts a new search rather than recreating unavailable historical TPE trial states. Set `TRIALS`, `EPOCHS`, `FINAL_SEEDS` (space separated), and `OUTPUT_DIR` to change these defaults; keep settings identical across separate stages. See [the driver guide](EditKG/BENCHMARK.md#complete-search-and-final-evaluation) for model subsets and direct CLI options.
-
-Per-trial commands, logs, selections, per-seed results, mean/sample-standard-deviation summaries and CSV reports are saved under `EditKG/results/benchmark/`. Compatible completed runs are resumed; changes to data, code or protocol require a fresh output directory. Concurrent runs cannot share an output directory.
-
-The previous fixed-parameter runs remain available as `validation` and `historical-test`. They apply `configs/paper_hyperparameters.tsv` to the twelve original baselines and launcher defaults to EditKG. `historical-test` preserves the original test-scored stopping behavior for comparison; use the new `all` / `search` / `final` pipeline for validation-selected results.
+Append `last-fm`, `amazon-book` or `yelp2018` to run a single dataset.
+Results are saved under `EditKG/results/benchmark/`. See the
+[EditKG README](EditKG/README.md) for setup and results, and the
+[detailed guide](EditKG/BENCHMARK.md) for protocol details and advanced options.
 
 ## Reproducibility notes
 
