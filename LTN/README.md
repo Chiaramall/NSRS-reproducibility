@@ -101,3 +101,7 @@ print the commands without running them. `DEVICE=cpu` selects CPU for MovieLens.
 ```bash
 python -m pytest -q
 ```
+
+## References
+
+- Tommaso Carraro et al. [*Logic Tensor Networks for Top-N Recommendation*](https://ceur-ws.org/Vol-3212/paper1.pdf). International Workshop on Neural-Symbolic Learning and Reasoning (NeSy), 2022.

@@ -111,6 +111,4 @@ The historical SGD/Adam grids are available separately with `legacy-grid`.
 
 ## References
 
-1. Yikun Xian et al. *CAFE: Coarse-to-Fine Neural Symbolic Reasoning for
-   Explainable Recommendation*. CIKM 2020.
-
+- Yikun Xian et al. [*CAFE: Coarse-to-Fine Neural Symbolic Reasoning for Explainable Recommendation*](https://arxiv.org/abs/2010.15620). ACM International Conference on Information and Knowledge Management (CIKM), 2020.

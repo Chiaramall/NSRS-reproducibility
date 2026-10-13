@@ -83,15 +83,6 @@ To run only one dataset, append its key:
 bash NCR/reproduce.sh all ml100k01-1-5
 ```
 
-## Reference
+## References
 
-```bibtex
-@inproceedings{chen2021neural,
-  title={Neural Collaborative Reasoning},
-  author={Chen, Hanxiong and Shi, Shaoyun and Li, Yunqi and Zhang, Yongfeng},
-  booktitle={Proceedings of the Web Conference 2021},
-  pages={1516--1527},
-  year={2021}
-}
-```
-
+- Hanxiong Chen et al. [*Neural Collaborative Reasoning*](https://doi.org/10.1145/3442381.3449973). The Web Conference (WWW), 2021.

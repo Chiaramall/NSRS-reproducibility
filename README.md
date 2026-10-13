@@ -150,7 +150,7 @@ The previous fixed-parameter runs remain available as `validation` and `historic
 
 ## References
 
-- Hanxiong Chen, Shaoyun Shi, Yunqi Li, and Yongfeng Zhang. *Neural Collaborative Reasoning*. The Web Conference, 2021.
-- Tommaso Carraro. *Logic Tensor Networks for Top-N Recommendation*.
-- Yikun Xian et al. *CAFE: Coarse-to-Fine Neural Symbolic Reasoning for Explainable Recommendation*. CIKM, 2020.
-- Gu Tang et al. *EditKG: Editing Knowledge Graph for Recommendation*. SIGIR, 2024.
+- Hanxiong Chen et al. [*Neural Collaborative Reasoning*](https://doi.org/10.1145/3442381.3449973). The Web Conference (WWW), 2021.
+- Tommaso Carraro et al. [*Logic Tensor Networks for Top-N Recommendation*](https://ceur-ws.org/Vol-3212/paper1.pdf). International Workshop on Neural-Symbolic Learning and Reasoning (NeSy), 2022.
+- Yikun Xian et al. [*CAFE: Coarse-to-Fine Neural Symbolic Reasoning for Explainable Recommendation*](https://arxiv.org/abs/2010.15620). ACM International Conference on Information and Knowledge Management (CIKM), 2020.
+- Gu Tang et al. [*EditKG: Editing Knowledge Graph for Recommendation*](https://doi.org/10.1145/3626772.3657723). International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR), 2024.

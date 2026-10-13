@@ -62,14 +62,6 @@ original scores. See the [detailed guide](BENCHMARK.md) for protocol details,
 individual models, smaller runs and installation alternatives, and the
 [data documentation](data/README.md) for dataset preparation.
 
-## Citation
+## References
 
-```bibtex
-@inproceedings{tang2024editkg,
-  title={EditKG: Editing Knowledge Graph for Recommendation},
-  author={Tang, Gu and Gan, Xiaoying and Wang, Jinghe and Lu, Bin and Wu, Lyuwen and Fu, Luoyi and Zhou, Chenghu},
-  booktitle={Proceedings of the 47th ACM SIGIR Conference on Research and Development in Information Retrieval},
-  pages={112--122},
-  year={2024}
-}
-```
+- Gu Tang et al. [*EditKG: Editing Knowledge Graph for Recommendation*](https://doi.org/10.1145/3626772.3657723). International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR), 2024.
