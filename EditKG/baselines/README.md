@@ -19,3 +19,17 @@ bash scripts/run_baseline.sh lightgcn last-fm \
 ```
 
 `configs/recbole_lastfm.yaml` is shared by all three datasets.
+
+## Validation search and final refit
+
+Use the [complete benchmark](../README.md#complete-search-and-final-evaluation)
+for automated search, same-epoch validation selection, and final multi-seed
+refitting. It also includes the three ItemKNN variants. From the repository root:
+
+```bash
+bash scripts/reproduce_editkg.sh all
+```
+
+The commands above document the legacy fixed-reference launcher; the benchmark
+uses controlled runners with isolated outputs and does not select on final test
+metrics.

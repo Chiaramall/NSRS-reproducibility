@@ -17,8 +17,6 @@ import torch.distributed as dist
 from collections.abc import MutableMapping
 from logging import getLogger
 
-from ray import tune
-
 from recbole.config import Config
 from recbole.data import (
     create_dataset,
@@ -201,6 +199,9 @@ def objective_function(config_dict=None, config_file_list=None, saved=True):
         config_file_list (list, optional): Config files used to modify experiment parameters. Defaults to ``None``.
         saved (bool, optional): Whether to save the model. Defaults to ``True``.
     """
+
+    # Only the optional Ray tuning entry point needs Ray.
+    from ray import tune
 
     config = Config(config_dict=config_dict, config_file_list=config_file_list)
     init_seed(config["seed"], config["reproducibility"])

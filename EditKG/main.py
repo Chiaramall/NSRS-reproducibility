@@ -5,6 +5,10 @@ Created on Tue May 16 23:45:11 2023
 @author: comp
 """
 import os
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[0]))
+from nsrs_protocol import protocol
 
 import sys
 import math
@@ -196,6 +200,7 @@ if __name__ == '__main__':
     """read args"""
     global args, device, train_user_set,kg_dict, item_lists_dict, ent_lists_dict
     args = parse_args()
+    args.seed = int(os.environ.get('NSRS_SEED', args.seed))
     random.seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
@@ -303,13 +308,14 @@ if __name__ == '__main__':
         item_embs = item_embs.detach().cpu().numpy()
         KG_mask = KG_mask.detach().cpu().numpy()
         # if epoch > 4 :
-        if epoch % eval_step != 0 and epoch + 1 != args.epoch:
+        if not protocol.should_evaluate(epoch + 1, args.epoch, epoch % eval_step == 0 or epoch + 1 == args.epoch):
             continue
         """testing"""
         model.eval()
         test_s_t = time()
         with torch.no_grad():
             ret = test(model, user_dict, n_params)
+            protocol.observe(epoch + 1, ret)
         test_e_t = time()
         for k in best_metric.keys():
             if ret[k][0] > best_metric[k]:
@@ -334,7 +340,7 @@ if __name__ == '__main__':
                                                                     stopping_step, expected_order='acc',
                                                                     flag_step=patience)
         
-        if should_stop:
+        if should_stop and not protocol.controlled:
             break
         """save model"""
         if ret['recall'][0] == cur_best and args.save:

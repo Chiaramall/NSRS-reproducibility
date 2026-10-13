@@ -6,11 +6,11 @@ Tommaso Carraro (`tommasocarraro/LTNrec`).
 
 ## Setup
 
-Use Python 3.10 or later on Linux. Run commands from `LTN/`.
+Use Python 3.12 on Linux for the setup below. Run commands from `LTN/`.
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+conda create -y -n nsrs-ltn-3-12 python=3.12 pip
+conda activate nsrs-ltn-3-12
 python -m pip install -r requirements.txt
 ```
 
@@ -71,6 +71,21 @@ regenerate reports. Repeating the same command resumes compatible saved state.
 Outputs are written under `benchmark_outputs/` and excluded from Git.
 
 MovieLens evaluation uses 100 sampled negatives per positive item.
+
+## Complete command sequence
+
+From the repository root with `nsrs-ltn-3-12` activated:
+
+```bash
+bash LTN/reproduce.sh mindreader
+bash LTN/reproduce.sh movielens
+# Equivalent combined run:
+bash LTN/reproduce.sh all
+```
+
+The MindReader stage includes all four scripts listed above. MovieLens includes
+both downloads and the full search/train/evaluate pipeline. Set `DRY_RUN=1` to
+print the commands without running them. `DEVICE=cpu` selects CPU for MovieLens.
 
 ## Layout
 

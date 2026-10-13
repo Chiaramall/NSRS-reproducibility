@@ -1,6 +1,16 @@
 import argparse
 
 
+def str2bool(value):
+    if isinstance(value, bool):
+        return value
+    if value.lower() in ('true', '1', 'yes'):
+        return True
+    if value.lower() in ('false', '0', 'no'):
+        return False
+    raise argparse.ArgumentTypeError('expected true or false')
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="KGIN")
 
@@ -18,14 +28,14 @@ def parse_args():
     parser.add_argument('--l2', type=float, default=1e-5, help='l2 regularization weight')
     parser.add_argument('--lr', type=float, default=1e-4, help='learning rate')
     parser.add_argument('--sim_regularity', type=float, default=1e-4, help='regularization weight for latent factor')
-    parser.add_argument("--inverse_r", type=bool, default=True, help="consider inverse relation or not")
-    parser.add_argument("--node_dropout", type=bool, default=True, help="consider node dropout or not")
+    parser.add_argument("--inverse_r", type=str2bool, default=True, help="consider inverse relation or not")
+    parser.add_argument("--node_dropout", type=str2bool, default=True, help="consider node dropout or not")
     parser.add_argument("--node_dropout_rate", type=float, default=0.5, help="ratio of node dropout")
-    parser.add_argument("--mess_dropout", type=bool, default=True, help="consider message dropout or not")
+    parser.add_argument("--mess_dropout", type=str2bool, default=True, help="consider message dropout or not")
     parser.add_argument("--mess_dropout_rate", type=float, default=0.1, help="ratio of node dropout")
-    parser.add_argument("--batch_test_flag", type=bool, default=True, help="use gpu or not")
+    parser.add_argument("--batch_test_flag", type=str2bool, default=True, help="use gpu or not")
     parser.add_argument("--channel", type=int, default=64, help="hidden channels for model")
-    parser.add_argument("--cuda", type=bool, default=True, help="use gpu or not")
+    parser.add_argument("--cuda", type=str2bool, default=True, help="use gpu or not")
     parser.add_argument("--gpu_id", type=int, default=0, help="gpu id")
     parser.add_argument('--Ks', nargs='?', default='[20, 40, 60, 80, 100]', help='Output sizes of every layer')
     parser.add_argument('--test_flag', nargs='?', default='part',
@@ -37,7 +47,7 @@ def parse_args():
     parser.add_argument('--context_hops', type=int, default=3, help='number of context hops')
 
     # ===== save model ===== #
-    parser.add_argument("--save", type=bool, default=False, help="save model or not")
+    parser.add_argument("--save", type=str2bool, default=False, help="save model or not")
     parser.add_argument("--out_dir", type=str, default="./weights/", help="output directory for model")
 
     return parser.parse_args()

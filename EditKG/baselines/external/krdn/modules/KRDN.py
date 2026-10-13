@@ -219,7 +219,7 @@ class Recommender(nn.Module):
         # binary drop matrix init
         self.KG_DropEdge_para = np.random.uniform(0.5, 1, size=(self.context_hops, self.edge_type.shape[0]))
         self.KG_DropEdge_para = np.log((self.KG_DropEdge_para + 1e-7) / (1 - self.KG_DropEdge_para + 1e-7))
-        self.KG_DropEdge_para = torch.tensor(self.KG_DropEdge_para, requires_grad=False, device='cuda',
+        self.KG_DropEdge_para = torch.tensor(self.KG_DropEdge_para, requires_grad=False, device=self.device,
                                              dtype=torch.float)
 
         self.optimizer_stru = torch.optim.Adam([self.KG_DropEdge_para], lr=0.0001)

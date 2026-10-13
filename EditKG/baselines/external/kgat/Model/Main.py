@@ -18,6 +18,10 @@ from KGAT import KGAT
 
 import os
 import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[4]))
+from nsrs_protocol import protocol
+import sys
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 
 def load_pretrained_data(args):
@@ -35,8 +39,10 @@ def load_pretrained_data(args):
 
 if __name__ == '__main__':
     # get argument settings.
-    tf.set_random_seed(2019)
-    np.random.seed(2019)
+    tf.set_random_seed(int(os.environ.get('NSRS_SEED', '2019')))
+    np.random.seed(int(os.environ.get('NSRS_SEED', '2019')))
+    import random
+    random.seed(int(os.environ.get('NSRS_SEED', '2019')))
     args = parse_args()
 
     os.environ["CUDA_VISIBLE_DEVICES"] = str(args.gpu_id)
@@ -284,7 +290,7 @@ if __name__ == '__main__':
             sys.exit()
 
         show_step = 10
-        if (epoch + 1) % show_step != 0:
+        if not protocol.should_evaluate(epoch + 1, args.epoch, (epoch + 1) % show_step == 0):
             if args.verbose > 0 and epoch % args.verbose == 0:
                 perf_str = 'Epoch %d [%.1fs]: train==[%.5f=%.5f + %.5f + %.5f]' % (
                     epoch, time() - t1, loss, base_loss, kge_loss, reg_loss)
@@ -299,6 +305,7 @@ if __name__ == '__main__':
         users_to_test = list(data_generator.test_user_dict.keys())
 
         ret = test(sess, model, users_to_test, drop_flag=False, batch_test_flag=batch_test_flag)
+        protocol.observe(epoch + 1, ret)
 
         """
         *********************************************************
@@ -325,7 +332,7 @@ if __name__ == '__main__':
 
         # *********************************************************
         # early stopping when cur_best_pre_0 is decreasing for ten successive steps.
-        if should_stop == True:
+        if should_stop == True and not protocol.controlled:
             break
 
         # *********************************************************

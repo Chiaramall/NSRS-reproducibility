@@ -5,6 +5,10 @@ from tqdm import tqdm
 import torch
 import numpy as np
 import os
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[3]))
+from nsrs_protocol import protocol
 from time import time
 from prettytable import PrettyTable
 import datetime
@@ -17,7 +21,7 @@ from logging import getLogger
 from utils.sampler import UniformSampler
 from collections import defaultdict
 
-seed = 2020
+seed = int(os.environ.get('NSRS_SEED', '2020'))
 n_users = 0
 n_items = 0
 n_entities = 0
@@ -118,7 +122,7 @@ if __name__ == '__main__':
             add_loss_dict, s = defaultdict(float), 0
             train_s_t = time()
             with tqdm(total=len(train_cf)//args.batch_size) as pbar:
-                while s + args.batch_size <= len(train_cf):
+                while s < len(train_cf):
                     batch = get_feed_dict(train_cf_with_neg,
                                         s, s + args.batch_size)
                     batch_loss, batch_loss_dict = model(batch)
@@ -134,12 +138,13 @@ if __name__ == '__main__':
 
             train_e_t = time()
 
-            if epoch % test_interval == 0 and epoch >= 1:
+            if protocol.should_evaluate(epoch + 1, args.epoch, epoch % test_interval == 0 and epoch >= 1):
                 """testing"""
                 test_s_t = time()
                 model.eval()
                 with torch.no_grad():
                     ret = test(model, user_dict, n_params)
+                    protocol.observe(epoch + 1, ret)
                     if ret['recall'][0] >= cur_best_pre_0:
                         best_ndcg_0 = float(ret['ndcg'][0])
                 test_e_t = time()
@@ -156,7 +161,7 @@ if __name__ == '__main__':
                 cur_best_pre_0, cur_stopping_step, should_stop = early_stopping(ret['recall'][0], cur_best_pre_0,cur_stopping_step, expected_order='acc', flag_step=early_stop_step)
                 if cur_stopping_step == 0:
                     logger.info("###find better!")
-                elif should_stop:
+                elif should_stop and not protocol.controlled:
                     break
 
                 """save weight"""
@@ -173,4 +178,5 @@ if __name__ == '__main__':
         logger.info('VALIDATION_RESULT={\"recall@20\": %.10f, \"ndcg@20\": %.10f}', cur_best_pre_0, best_ndcg_0)
 
     except Exception as e:
-        logger.exception(e)
+        getLogger().exception(e)
+        raise

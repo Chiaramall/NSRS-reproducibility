@@ -1,5 +1,9 @@
 import math
 import os
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[3]))
+from nsrs_protocol import protocol
 import random
 import torch
 import numpy as np
@@ -52,7 +56,7 @@ def get_feed_data(train_entity_pairs, train_user_set):
 
 if __name__ == '__main__':
     """fix the random seed"""
-    seed = 2020
+    seed = int(os.environ.get('NSRS_SEED', '2020'))
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -126,12 +130,13 @@ if __name__ == '__main__':
             loss += batch_loss.item()
         train_e_t = time()
 
-        if epoch % eval_step == 0 or epoch == 1:
+        if protocol.should_evaluate(epoch + 1, args.epoch, epoch % eval_step == 0 or epoch == 1):
             """testing"""
             model.eval()
             test_s_t = time()
             with torch.no_grad():
                 ret = test(model, user_dict, n_params)
+                protocol.observe(epoch + 1, ret)
             if ret['recall'][0] >= cur_best:
                 best_ndcg_0 = float(ret['ndcg'][0])
             test_e_t = time()
@@ -150,7 +155,7 @@ if __name__ == '__main__':
             cur_best, stopping_step, should_stop = early_stopping(ret['recall'][0], cur_best,
                                                                         stopping_step, expected_order='acc',
                                                                         flag_step=patience)
-            if should_stop:
+            if should_stop and not protocol.controlled:
                 break
 
             """save model"""

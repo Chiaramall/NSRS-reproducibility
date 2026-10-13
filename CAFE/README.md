@@ -35,15 +35,20 @@ top-N code and hyperparameters.
 Run commands from `CAFE/`. Create an environment and install the dependencies:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
+conda create -y -n nsrs-cafe-3-12 python=3.12 pip
+conda activate nsrs-cafe-3-12
 python -m pip install --upgrade pip
+python -m pip install 'torch==2.4.0+cu124' 'torchdata==0.8.0' \
+  --extra-index-url https://download.pytorch.org/whl/cu124
+python -m pip install 'dgl==2.4.0+cu124' \
+  -f https://data.dgl.ai/wheels/torch-2.4/cu124/repo.html
 python -m pip install -r requirements.txt
+python -m pip check
 ```
 
-Install a PyTorch build appropriate for the local CUDA version. KGAT also
-requires a compatible DGL build; the tested versions are documented in
-`requirements.txt`.
+These commands install the Python 3.12 graph stack for a GPU/driver compatible
+with CUDA 12.4, including the DGL dependency used by KGAT. Keep this environment
+separate from LTN and EditKG.
 
 ## Data preparation
 
@@ -63,11 +68,16 @@ python execute_neural_symbol.py \
   --dataset beauty --name cafe_beauty --do_execute true
 ```
 
-For five-seed reproducibility and compact grid evaluation:
+For five-seed evaluation at the fixed paper Adam settings:
 
 ```bash
-python scripts/reproducibility.py all --dataset beauty --python python
+python scripts/cafe_paper_reproducibility.py baseline --dataset beauty --python python
 ```
+
+`reproducibility.py all` runs the CAFE-only SGD reproduction and grid;
+`cafe_paper_reproducibility.py all` runs its Adam counterpart. Neither runs the
+recommendation baselines. Both grids select using test-scored executions and
+are historical sensitivity analyses, not validation-based model selection.
 
 ## Baselines and tuning
 
@@ -79,6 +89,25 @@ Precomputed scores are not distributed. Runners create `results/` as needed,
 including per-run metrics, selected configurations and protocol records.
 Regenerate selections with the tuning commands before evaluating a selected
 configuration.
+
+## All models and datasets
+
+After the data preparation prerequisites, run from the repository root with
+`nsrs-cafe-3-12` activated:
+
+```bash
+bash CAFE/reproduce.sh prepare
+bash CAFE/reproduce.sh cafe
+bash CAFE/reproduce.sh baselines
+# Or perform all three stages:
+bash CAFE/reproduce.sh all
+```
+
+The defaults cover `beauty cell clothing cd`; append keys to restrict a stage.
+`GPU_ID` selects the physical GPU and `DRY_RUN=1` previews commands. The baseline
+stage runs the three validation-based tuners (including their final refits and
+evaluations) plus fixed-parameter PGPR. The CAFE stage uses fixed paper settings.
+The historical SGD/Adam grids are available separately with `legacy-grid`.
 
 ## References
 

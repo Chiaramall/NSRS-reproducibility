@@ -26,7 +26,7 @@ class Data(object):
 
         self.train_data, self.train_user_dict = self._load_ratings(train_file)
         self.test_data, self.test_user_dict = self._load_ratings(test_file)
-        self.exist_users = self.train_user_dict.keys()
+        self.exist_users = list(self.train_user_dict.keys())
 
         self._statistic_ratings()
 
@@ -35,7 +35,7 @@ class Data(object):
         self.kg_data, self.kg_dict, self.relation_dict = self._load_kg(kg_file)
 
         # ----------print the basic info about the dataset-------------.
-        self.batch_size_kg = self.n_triples // (self.n_train // self.batch_size)
+        self.batch_size_kg = max(1, self.n_triples // max(1, self.n_train // self.batch_size))
         self._print_data_info()
 
     # reading train & test interaction data.

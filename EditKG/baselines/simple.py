@@ -4,7 +4,10 @@ import argparse
 import copy
 import json
 import random
+import sys
 from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1]))
+from nsrs_protocol import protocol
 
 import numpy as np
 import torch
@@ -58,6 +61,9 @@ def load_dataset(root):
         cut = max(1, len(items) // 2)
         valid_users[user] = items[:cut]
         heldout_test[user] = items[cut:] or items[-1:]
+    if protocol.controlled:
+        valid_users = test_users if protocol.phase == "validation" else {}
+        heldout_test = test_users
     test_users = heldout_test
     n_users = int(max(train_pairs[:, 0].max(), test_pairs[:, 0].max()) + 1)
     n_items = int(max(train_pairs[:, 1].max(), test_pairs[:, 1].max()) + 1)
@@ -135,6 +141,7 @@ def evaluate(model, train_users, test_users, topk, batch_size):
     model.eval()
     user_emb, item_emb = model.embeddings()
     users, recall_sum, ndcg_sum = sorted(test_users), 0.0, 0.0
+    topk = min(topk, item_emb.shape[0])
     discounts = np.log2(np.arange(2, topk + 2))
     for start in range(0, len(users), batch_size):
         batch_users = users[start:start + batch_size]
@@ -190,7 +197,11 @@ def main():
             loss.backward()
             optimizer.step()
             epoch_loss += loss.item() * len(batch)
-        metrics = evaluate(model, train_users, valid_users, args.topk, args.eval_batch_size)
+        if not protocol.should_evaluate(epoch, args.epochs):
+            continue
+        targets = test_users if protocol.phase == "final" else valid_users
+        metrics = evaluate(model, train_users, targets, args.topk, args.eval_batch_size)
+        protocol.observe(epoch, metrics)
         print(f"epoch={epoch:03d} loss={epoch_loss / len(pairs):.6f} "
               f"recall@{args.topk}={metrics['recall']:.6f} ndcg@{args.topk}={metrics['ndcg']:.6f}", flush=True)
         if metrics["recall"] > best_valid["recall"]:
@@ -199,9 +210,11 @@ def main():
             stale = 0
         else:
             stale += 1
-            if stale >= args.patience:
+            if stale >= args.patience and not protocol.controlled:
                 break
 
+    if protocol.controlled:
+        return
     output = Path(args.output)
     output.mkdir(parents=True, exist_ok=True)
     if args.validation_only:

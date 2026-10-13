@@ -5,6 +5,10 @@ Created on July 1, 2020
 __author__ = "huangtinglin"
 
 import os
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[3]))
+from nsrs_protocol import protocol
 import random
 
 import torch
@@ -50,7 +54,7 @@ def get_feed_dict(train_entity_pairs, start, end, train_user_set):
 
 if __name__ == '__main__':
     """fix the random seed"""
-    seed = 2020
+    seed = int(os.environ.get('NSRS_SEED', '2020'))
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -101,7 +105,7 @@ if __name__ == '__main__':
         """training"""
         loss, s, cor_loss = 0, 0, 0
         train_s_t = time()
-        while s + args.batch_size <= len(train_cf):
+        while s < len(train_cf):
             batch = get_feed_dict(train_cf_pairs,
                                   s, s + args.batch_size,
                                   user_dict['train_user_set'])
@@ -118,10 +122,11 @@ if __name__ == '__main__':
 
         train_e_t = time()
 
-        if (epoch + 1) % eval_step == 0 or epoch == 1:
+        if protocol.should_evaluate(epoch + 1, args.epoch, (epoch + 1) % eval_step == 0 or epoch == 1):
             """testing"""
             test_s_t = time()
             ret = test(model, user_dict, n_params)
+            protocol.observe(epoch + 1, ret)
             if ret['recall'][0] >= cur_best_pre_0:
                 best_ndcg_0 = float(ret['ndcg'][0])
             test_e_t = time()
@@ -138,7 +143,7 @@ if __name__ == '__main__':
             cur_best_pre_0, stopping_step, should_stop = early_stopping(ret['recall'][0], cur_best_pre_0,
                                                                         stopping_step, expected_order='acc',
                                                                         flag_step=patience)
-            if should_stop:
+            if should_stop and not protocol.controlled:
                 break
 
             """save weight"""

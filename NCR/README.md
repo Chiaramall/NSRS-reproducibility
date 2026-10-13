@@ -7,8 +7,8 @@ Research code for experiments with Neural Collaborative Reasoning (NCR), explici
 The code was checked with Python 3.7.12 and the versions in `requirements.txt`. Run the setup commands from `NCR/`.
 
 ```bash
-python3.7 -m venv .venv
-source .venv/bin/activate
+conda create -y -n nsrs-ncr-3-7 python=3.7 pip
+conda activate nsrs-ncr-3-7
 python -m pip install -r requirements.txt
 ```
 
@@ -62,6 +62,36 @@ python scripts/evaluate.py --models all --dataset ml100k01-1-5 \
 `all` includes the nine baselines, excluding the NCR variants. Use a separate output directory for each dataset and protocol. Evaluation resumes completed runs from their saved metrics; use a new directory when changing settings.
 
 Both the training epoch and the hyperparameter configuration are selected by validation NDCG@5. Metrics are stored in the order NDCG@5, NDCG@10, HR@5, HR@10; test scores do not determine the selected configuration. Evaluation reports the mean and sample standard deviation across seeds.
+
+## All datasets and models
+
+From the repository root, after activating `nsrs-ncr-3-7` and installing
+`NCR/requirements-hyperopt.txt`:
+
+```bash
+bash NCR/reproduce.sh tune
+bash NCR/reproduce.sh evaluate
+bash NCR/reproduce.sh variants
+# Or perform all three stages:
+bash NCR/reproduce.sh all
+```
+
+Append dataset keys to restrict the run. `GPU_ID=-1` selects CPU;
+`DRY_RUN=1` previews commands. The first two stages use the nine baseline
+runners above. The `variants` stage trains and evaluates NCR, NCR-E and
+NCR-E-WoLR over five seeds using `hyperparameters/NCR.json`, filling omitted
+fields with the explicit common settings in `scripts/run_variants.py`.
+It writes per-seed metrics and mean/sample-standard-deviation summaries under
+`tuning/variants/<dataset>/<model>/`. Hyperparameters are fixed to the recorded
+values; epochs are selected on validation. To inspect individual variant
+commands without training, run from `NCR/`:
+
+```bash
+python scripts/run_variants.py --dataset ml100k01-1-5 --dry-run
+```
+
+`main.py --model_name all` is not supported. Use the wrapper to cover the
+baseline and NCR model families together.
 
 ## Reference
 

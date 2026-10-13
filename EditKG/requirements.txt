@@ -1,12 +1,24 @@
-numpy<2.0
-scipy
+# Install with scripts/install_environment.sh (Torch first, then a matching scatter wheel).
+# torch-scatter is installed separately to avoid an isolated source build.
+numpy==1.26.4
+scipy==1.12.0
 scikit-learn
 networkx
 prettytable
 tqdm
-torch
-torch-geometric
-torch-scatter
-recbole==1.2.1
+torch==2.7.0
+torch-geometric==2.6.1
+# Runtime for vendored RecBole; PyPI RecBole pulls Ray <=2.6.3 (no Python 3.12 wheel).
+pandas==2.2.3
+PyYAML
+colorlog
+colorama
+tensorboard
+thop
+tabulate
+plotly
+texttable
+psutil
+setuptools<81
 cppimport
 setproctitle

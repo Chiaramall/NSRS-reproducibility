@@ -184,7 +184,7 @@ class KGAT_loader(Data):
         return new_h_list, new_r_list, new_t_list, new_v_list
 
     def _generate_train_A_batch(self):
-        exist_heads = self.all_kg_dict.keys()
+        exist_heads = list(self.all_kg_dict.keys())
 
         if self.batch_size_kg <= len(exist_heads):
             heads = rd.sample(exist_heads, self.batch_size_kg)
