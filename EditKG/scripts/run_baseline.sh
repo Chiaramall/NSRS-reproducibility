@@ -10,7 +10,8 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 GPU_ID="${GPU_ID:-0}"
 DATA_ROOT="${EDITKG_DATA_ROOT:-$ROOT/data/editkg-filtered}"
 export CUDA_VISIBLE_DEVICES="$GPU_ID"
-PYTHON="${EDITKG_PYTHON:-$ROOT/.envs/editkg/bin/python}"
+if [[ -x "$ROOT/.envs/editkg/bin/python" ]]; then DEFAULT_PYTHON="$ROOT/.envs/editkg/bin/python"; else DEFAULT_PYTHON="$(command -v python)"; fi
+PYTHON="${EDITKG_PYTHON:-$DEFAULT_PYTHON}"
 LEGACY_PYTHON="${KGAT_PYTHON:-$ROOT/.envs/kgat-legacy/bin/python}"
 if [[ "${NSRS_PHASE:-legacy}" == legacy ]]; then
   mkdir -p "$ROOT/results/runs/baselines/$DATASET"
